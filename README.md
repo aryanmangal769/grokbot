@@ -9,6 +9,7 @@ One repo, one `.env`:
 | **X search extractor** | `x_search/` | `python -m x_search.extract` · `./x_search/ask.sh` |
 | **User scraper** | `user_based_scraper/` | `python -m user_based_scraper.user` · `./user_based_scraper/ask.sh` |
 | **Interest classifier** | `user_interest_classifier/` | `python -m user_interest_classifier.classify` · `./user_interest_classifier/ask.sh` |
+| **Insights DB + API** | `insights/` | `python -m insights.seed_personas` · `python -m insights.seed_events` · `uvicorn insights.api:app --port 8000` |
 
 ```
 grokbot/
@@ -73,3 +74,19 @@ Scrapes the public timeline, then asks Grok (xAI API) to label interests. Saves 
 python -m user_interest_classifier.classify elonmusk --max-pages 2
 ./user_interest_classifier/ask.sh elonmusk
 ```
+
+## Insights DB + API
+
+Local-first backend for the X prediction-markets tab (see
+[`docs/system-design.md`](docs/system-design.md)). SQLite stand-in for Supabase +
+a FastAPI read layer that the browser feed and Expo phone app both consume.
+
+```bash
+python -m insights.seed_personas          # 4 demo personas
+python -m insights.seed_events            # top ~18 Polymarket events (live Gamma fetch)
+uvicorn insights.api:app --port 8000      # GET /personas · /events?persona= · /events/{id}
+```
+
+Sentiment rows from `seed_events` are flagged `source='seed-placeholder'` — a
+deterministic stand-in until the Grok Sentiment Agent (build step 5) overwrites
+them with real X + Reddit analysis. `app.db` is gitignored; re-seed to rebuild.

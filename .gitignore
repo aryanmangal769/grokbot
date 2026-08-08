@@ -1,6 +1,9 @@
 # Secrets
 .env
 
+# Local DB (SQLite stand-in for Supabase)
+*.db
+
 # Python
 __pycache__/
 *.py[cod]
