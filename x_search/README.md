@@ -1,17 +1,18 @@
 # X Search — topic → dataset
 
-`api_usage_demo/grok/xsearch.py` turns xAI's `x_search` tool into a data
-extractor: give it a topic and a recent window, get back every X post it can
-find on that topic — text, images, and video.
+`x_search/extract.py` turns xAI's `x_search` tool into a data extractor: give
+it a topic and a recent window, get back every X post it can find on that
+topic — text, images, and video.
 
 Works at any granularity. Broad (`"world cup"`, `"brazil presidential
 elections"`) or a single moment (`"xyz getting a red card in the abc match"`) —
 the planner decides how wide to fan out.
 
 ```bash
-python -m api_usage_demo.grok.xsearch "brazil presidential elections" --outdir data/brazil-elections
-python -m api_usage_demo.grok.xsearch "world cup" --window 24 --slices 6 --facets 8
-python -m api_usage_demo.grok.xsearch "xyz red card" --no-media    # narrow topic, text only
+python -m x_search.extract "brazil presidential elections" --outdir data/brazil-elections
+python -m x_search.extract "world cup" --window 24 --slices 6 --facets 8
+python -m x_search.extract "xyz red card" --no-media    # narrow topic, text only
+./x_search/ask.sh "world cup" --window 24
 ```
 
 ## Why it looks like this

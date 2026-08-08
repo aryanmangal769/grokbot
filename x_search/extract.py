@@ -14,9 +14,9 @@ Pipeline:
   6. emit     posts.jsonl + manifest.json
 
 Usage (from repo root):
-  python -m api_usage_demo.grok.xsearch "world cup"
-  python -m api_usage_demo.grok.xsearch "Vinicius red card" --window 24 --slices 8
-  python -m api_usage_demo.grok.xsearch "grokathon" --no-hydrate --outdir data/grokathon
+  python -m x_search.extract "world cup"
+  python -m x_search.extract "Vinicius red card" --window 24 --slices 8
+  python -m x_search.extract "grokathon" --no-hydrate --outdir data/grokathon
 """
 
 from __future__ import annotations
