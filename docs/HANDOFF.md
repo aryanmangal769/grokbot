@@ -71,22 +71,12 @@ python3 -m http.server 8747 --directory web   # open http://localhost:8747/x-moc
 
 ## 🚧 What the next agent must do (to reach true end-to-end)
 
-### 1. STEP 5 — Real Grok Sentiment Agent (the critical gap)
-Right now `sentiment` is a deterministic placeholder. Build a pipeline module
-(e.g. `insights/build_sentiment.py`) that, **per event in the DB**:
-1. Harvest posts — call `x_search` (X) and `reddit_intel` (Reddit) on the event's
-   question/keywords. Both already exist in the repo.
-2. Analyze with **Grok** (use `api_usage_demo.grok.client.respond`, structured
-   JSON) → produce:
-   - `x_implied_pct` (0–100), `direction` (up/down/flat), `momentum_score`,
-     `confidence` (0–1), `post_count`, `summary`
-3. **Write** into `sentiment` (set `source='grok'`) and insert the harvested
-   posts into `top_posts` (platform, author, handle, text, likes, reposts, url,
-   stance yes/no/neutral).
-
-The API + frontend already render whatever is in `sentiment`/`top_posts`, so once
-this writes real rows the dual number and detail view become real automatically.
-**All agents = Grok** (project constraint).
+### 1. STEP 5 — Real Grok Sentiment Agent ✅ DONE
+`insights/build_sentiment.py`, **per event**: harvests X (`x_search.sweep_once`)
++ Reddit (PullPush keyless), reasons with Grok (structured JSON), writes real
+`sentiment` (`source='grok'`) + grounded stance-tagged `top_posts`. Run:
+`python -m insights.build_sentiment --limit 6` (or `--all`). ~2 min/event
+(x_search sweep dominates). Degrades gracefully if x_search is empty (Reddit-only).
 
 ### 2. STEP 4 — Detail view on click
 `web/x-mockup.html`: clicking a market row (they carry `data-id`) opens a panel/

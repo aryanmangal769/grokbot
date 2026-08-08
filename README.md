@@ -9,7 +9,7 @@ One repo, one `.env`:
 | **X search extractor** | `x_search/` | `python -m x_search.extract` · `./x_search/ask.sh` |
 | **User scraper** | `user_based_scraper/` | `python -m user_based_scraper.user` · `./user_based_scraper/ask.sh` |
 | **Interest classifier** | `user_interest_classifier/` | `python -m user_interest_classifier.classify` · `./user_interest_classifier/ask.sh` |
-| **Insights DB + API** | `insights/` | `python -m insights.seed_events` · `uvicorn insights.api:app --port 8000` |
+| **Insights DB + API** | `insights/` | `python -m insights.seed_events` · `python -m insights.build_sentiment` · `uvicorn insights.api:app --port 8000` |
 
 ```
 grokbot/
@@ -95,10 +95,15 @@ python -m user_interest_classifier.classify business       --max-pages 2
 # 2. seed the bet DB (live Gamma fetch -> top ~18 events)
 python -m insights.seed_events
 
-# 3. serve
+# 3. real Grok sentiment: X (x_search) + Reddit (PullPush) -> analysis
+python -m insights.build_sentiment --limit 6      # or --all
+
+# 4. serve
 uvicorn insights.api:app --port 8000   # GET /users · /events?user= · /events/{id}
 ```
 
-Sentiment rows from `seed_events` are flagged `source='seed-placeholder'` — a
-deterministic stand-in until the Grok Sentiment Agent (build step 5) overwrites
-them with real X + Reddit analysis. `app.db` is gitignored; re-seed to rebuild.
+`seed_events` writes placeholder sentiment (`source='seed-placeholder'`);
+`build_sentiment` overwrites it with **real** analysis (`source='grok'`) by
+harvesting X (x_search) + Reddit (PullPush) and reasoning with Grok, and fills
+`top_posts` with grounded, stance-tagged posts. `app.db` is gitignored; re-run
+seed + build to rebuild.
