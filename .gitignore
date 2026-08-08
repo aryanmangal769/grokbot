@@ -1,28 +1,15 @@
-# Secrets
-.env
+# v0 sandbox internal files
+__v0_runtime_loader.js
+__v0_devtools.tsx
+__v0_jsx-dev-runtime.ts
+.snowflake/
+.v0-trash/
+.vercel/
 
-# Python
-__pycache__/
-*.py[cod]
-*.egg-info/
-.venv/
-venv/
-dist/
-build/
+# Environment variables
+.env*.local
 
-# Generated media
-*.mp3
-*.wav
-*.png
-*.jpg
-*.jpeg
-*.webp
-*.mp4
-*.webm
-outputs/
-
-# OS / editor
+# Common ignores
+node_modules
+.next/
 .DS_Store
-.idea/
-.vscode/
-*.swp
