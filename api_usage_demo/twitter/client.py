@@ -114,6 +114,48 @@ def search_recent(query: str, *, max_results: int = 10) -> dict[str, Any]:
     )
 
 
+def get_tweets_by_ids(ids: list[str]) -> dict[str, Any]:
+    """Hydrate post ids into full records (Bearer), batching at the API's 100 limit.
+
+    Used to turn fuzzy x_search citations into ground truth: exact text,
+    timestamps, engagement metrics, author, and attached media.
+    """
+    merged: dict[str, Any] = {"data": [], "errors": [], "includes": {"users": [], "media": []}}
+    seen_users: set[str] = set()
+    seen_media: set[str] = set()
+
+    for start in range(0, len(ids), 100):
+        batch = ids[start : start + 100]
+        if not batch:
+            continue
+        page = bearer_get(
+            "/tweets",
+            params={
+                "ids": ",".join(batch),
+                "tweet.fields": (
+                    "created_at,lang,public_metrics,author_id,attachments,"
+                    "referenced_tweets,conversation_id,possibly_sensitive,entities"
+                ),
+                "expansions": "author_id,attachments.media_keys,referenced_tweets.id",
+                "user.fields": "id,name,username,verified,public_metrics,created_at",
+                "media.fields": "media_key,type,url,preview_image_url,alt_text,duration_ms,variants",
+            },
+        )
+        merged["data"].extend(page.get("data") or [])
+        merged["errors"].extend(page.get("errors") or [])
+        includes = page.get("includes") or {}
+        for user in includes.get("users") or []:
+            if user.get("id") not in seen_users:
+                seen_users.add(user.get("id"))
+                merged["includes"]["users"].append(user)
+        for item in includes.get("media") or []:
+            if item.get("media_key") not in seen_media:
+                seen_media.add(item.get("media_key"))
+                merged["includes"]["media"].append(item)
+
+    return merged
+
+
 def post_tweet(text: str) -> dict[str, Any]:
     """Create a post (OAuth 1.0a user context)."""
     return oauth1_request("POST", "/tweets", json_body={"text": text})
@@ -136,6 +178,9 @@ def _build_parser() -> argparse.ArgumentParser:
     search_p.add_argument("query", nargs="+")
     search_p.add_argument("--max", type=int, default=10, dest="max_results")
 
+    tweets_p = sub.add_parser("tweets", help="Hydrate post ids into full records (Bearer)")
+    tweets_p.add_argument("ids", nargs="+", help="Post ids or x.com status URLs")
+
     post_p = sub.add_parser("post", help="Create a post (OAuth 1.0a)")
     post_p.add_argument("text", nargs="+")
 
@@ -156,6 +201,11 @@ def main(argv: list[str] | None = None) -> None:
     if args.command == "search":
         query = " ".join(args.query)
         _print_json(search_recent(query, max_results=args.max_results))
+        return
+
+    if args.command == "tweets":
+        ids = [raw.rstrip("/").split("/")[-1].split("?")[0] for raw in args.ids]
+        _print_json(get_tweets_by_ids(ids))
         return
 
     if args.command == "post":

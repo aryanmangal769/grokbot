@@ -166,7 +166,6 @@ def _build_parser() -> argparse.ArgumentParser:
     tts_p.add_argument("--language", default=DEFAULT_TTS_LANGUAGE)
     tts_p.add_argument("-o", "--output", default="hello.mp3", type=Path)
 
-    parser.add_argument("prompt", nargs="*", help=argparse.SUPPRESS)
     return parser
 
 
