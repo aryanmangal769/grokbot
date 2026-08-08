@@ -1,0 +1,29 @@
+# Secrets
+.env
+api_key.txt
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+dist/
+build/
+
+# Generated media
+*.mp3
+*.wav
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.mp4
+*.webm
+outputs/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
