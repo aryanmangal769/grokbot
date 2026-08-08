@@ -3,10 +3,10 @@
 Reads credentials from the shared repo-root `.env`.
 
 Usage (from repo root):
-  python -m x.client user elonmusk
-  python -m x.client me
-  python -m x.client search "from:xai" --max 10
-  python -m x.client post "Hello from grokbot"
+  python -m twitter.client user elonmusk
+  python -m twitter.client me
+  python -m twitter.client search "from:xai" --max 10
+  python -m twitter.client post "Hello from grokbot"
 """
 
 from __future__ import annotations

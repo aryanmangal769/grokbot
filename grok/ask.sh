@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # xAI curl helpers. Keys come from the repo-root `.env`.
 #
-#   ./xai/ask.sh text  "Your prompt"
-#   ./xai/ask.sh image "A collage of London landmarks..."
-#   ./xai/ask.sh video "A glowing crystal-powered rocket..."
-#   ./xai/ask.sh tts   "Hello!" [-o hello.mp3] [--voice eve]
+#   ./grok/ask.sh text  "Your prompt"
+#   ./grok/ask.sh image "A collage of London landmarks..."
+#   ./grok/ask.sh video "A glowing crystal-powered rocket..."
+#   ./grok/ask.sh tts   "Hello!" [-o hello.mp3] [--voice eve]
 
 set -euo pipefail
 
@@ -155,11 +155,11 @@ cmd_tts() {
 usage() {
   cat <<'EOF'
 Usage:
-  ./xai/ask.sh text  [prompt]
-  ./xai/ask.sh image [prompt]
-  ./xai/ask.sh video [prompt]
-  ./xai/ask.sh tts   [text] [--voice eve] [--language en] [-o hello.mp3]
-  ./xai/ask.sh [prompt]          # shorthand for text
+  ./grok/ask.sh text  [prompt]
+  ./grok/ask.sh image [prompt]
+  ./grok/ask.sh video [prompt]
+  ./grok/ask.sh tts   [text] [--voice eve] [--language en] [-o hello.mp3]
+  ./grok/ask.sh [prompt]          # shorthand for text
 EOF
 }
 

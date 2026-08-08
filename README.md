@@ -1,77 +1,57 @@
 # grokbot
 
-One repo, one `.env`, two API surfaces:
+One repo, one `.env`, three tools:
 
-| API | Console | Client | Shell |
-|-----|---------|--------|-------|
-| **xAI** | https://console.x.ai/ | `python -m xai.client` | `./xai/ask.sh` |
-| **X** | https://console.x.com/accounts/2085957761431465984 | `python -m x.client` | `./x/ask.sh` |
+| Tool | Folder | Client | Shell |
+|------|--------|--------|-------|
+| **Grok / xAI** | `grok/` | `python -m grok.client` | `./grok/ask.sh` |
+| **X / Twitter API** | `twitter/` | `python -m twitter.client` | `./twitter/ask.sh` |
+| **User scraper** | `scraper/` | `python -m scraper.user` | `./scraper/ask.sh` |
 
 ```
 grokbot/
 ├── .env                 # both keys (gitignored)
-├── .env.example
-├── common/env.py        # shared env loader
-├── xai/
-│   ├── client.py
-│   └── ask.sh
-└── x/
-    ├── client.py
-    └── ask.sh
+├── common/env.py
+├── grok/                # xAI: text, image, video, TTS
+├── twitter/             # X API helpers
+└── scraper/             # public user timeline export
 ```
 
 ## Setup
 
-1. Copy keys into `.env` (see `.env.example`):
-
 ```bash
 cp .env.example .env
-# edit .env:
-#   XAI_API_KEY=...
-#   X_BEARER_TOKEN=...
-#   X_API_KEY / X_API_SECRET / X_ACCESS_TOKEN / X_ACCESS_TOKEN_SECRET=...
-```
+# fill XAI_API_KEY + X_* credentials
 
-2. Install Python deps:
-
-```bash
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+chmod +x grok/ask.sh twitter/ask.sh scraper/ask.sh
 ```
 
-3. Make shell helpers executable:
+## Grok (xAI)
 
 ```bash
-chmod +x xai/ask.sh x/ask.sh
+python -m grok.client text "What is the capital of France?"
+python -m grok.client image "A collage of London landmarks..."
+./grok/ask.sh tts "Hello!" -o hello.mp3
 ```
 
-## xAI
+## Twitter (X API)
 
 ```bash
-python -m xai.client text "What is the capital of France?"
-python -m xai.client image "A collage of London landmarks in a stenciled street-art style"
-python -m xai.client video "A glowing crystal-powered rocket launching from Mars"
-python -m xai.client tts "Hello!" -o hello.mp3
-
-./xai/ask.sh text "Explain quantum entanglement"
-./xai/ask.sh image "..."
-./xai/ask.sh video "..."
-./xai/ask.sh tts "Hello!" -o hello.mp3
+python -m twitter.client user elonmusk
+python -m twitter.client me
+python -m twitter.client search "from:xai" --max 10
+./twitter/ask.sh post "Hello from grokbot"
 ```
 
-## X (Twitter)
+## Scraper (public user activity)
 
-Bearer token covers read helpers. OAuth 1.0a keys cover `me` and `post`.
+Collects posts / reposts / quotes (and optionally replies).  
+**Other users' likes are private on X** and cannot be scraped via the official API.
 
 ```bash
-python -m x.client user elonmusk
-python -m x.client me
-python -m x.client search "from:xai" --max 10
-python -m x.client post "Hello from grokbot"
-
-./x/ask.sh user elonmusk
-./x/ask.sh me
-./x/ask.sh search "from:xai"
-./x/ask.sh post "Hello from grokbot"
+python -m scraper.user elonmusk --max-pages 3 -o outputs/elon.json
+./scraper/ask.sh elonmusk --include-replies -o outputs/elon.json
 ```

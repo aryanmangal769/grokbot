@@ -10,7 +10,7 @@ venv/
 dist/
 build/
 
-# Generated media
+# Generated media / scraper output
 *.mp3
 *.wav
 *.png
