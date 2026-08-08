@@ -4,9 +4,9 @@ Likes of *other* users are private on X and are not returned by the API.
 This tool only collects what is publicly available on a user's timeline.
 
 Usage (from repo root):
-  python -m scraper.user elonmusk
-  python -m scraper.user elonmusk --max-pages 5 -o outputs/elon.json
-  python -m scraper.user elonmusk --include-replies
+  python -m user_based_scraper.user elonmusk
+  python -m user_based_scraper.user elonmusk --max-pages 5 -o outputs/elon.json
+  python -m user_based_scraper.user elonmusk --include-replies
 """
 
 from __future__ import annotations
@@ -19,7 +19,7 @@ from pathlib import Path
 from typing import Any
 
 from common.env import REPO_ROOT
-from twitter.client import bearer_get, get_user_by_username
+from api_usage_demo.twitter.client import bearer_get, get_user_by_username
 
 TWEET_FIELDS = (
     "created_at,lang,public_metrics,conversation_id,"

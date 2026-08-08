@@ -1,20 +1,21 @@
 # grokbot
 
-One repo, one `.env`, three tools:
+One repo, one `.env`:
 
-| Tool | Folder | Client | Shell |
-|------|--------|--------|-------|
-| **Grok / xAI** | `grok/` | `python -m grok.client` | `./grok/ask.sh` |
-| **X / Twitter API** | `twitter/` | `python -m twitter.client` | `./twitter/ask.sh` |
-| **User scraper** | `scraper/` | `python -m scraper.user` | `./scraper/ask.sh` |
+| Tool | Path | Run |
+|------|------|-----|
+| **Grok / xAI demos** | `api_usage_demo/grok/` | `python -m api_usage_demo.grok.client` · `./api_usage_demo/grok/ask.sh` |
+| **X / Twitter demos** | `api_usage_demo/twitter/` | `python -m api_usage_demo.twitter.client` · `./api_usage_demo/twitter/ask.sh` |
+| **User scraper** | `user_based_scraper/` | `python -m user_based_scraper.user` · `./user_based_scraper/ask.sh` |
 
 ```
 grokbot/
-├── .env                 # both keys (gitignored)
-├── common/env.py
-├── grok/                # xAI: text, image, video, TTS
-├── twitter/             # X API helpers
-└── scraper/             # public user timeline export
+├── .env
+├── common/
+├── api_usage_demo/
+│   ├── grok/                 # xAI: text, image, video, TTS
+│   └── twitter/              # X API helpers
+└── user_based_scraper/       # public user timeline export
 ```
 
 ## Setup
@@ -26,32 +27,24 @@ cp .env.example .env
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-chmod +x grok/ask.sh twitter/ask.sh scraper/ask.sh
+chmod +x api_usage_demo/grok/ask.sh api_usage_demo/twitter/ask.sh user_based_scraper/ask.sh
 ```
 
-## Grok (xAI)
+## API usage demos
 
 ```bash
-python -m grok.client text "What is the capital of France?"
-python -m grok.client image "A collage of London landmarks..."
-./grok/ask.sh tts "Hello!" -o hello.mp3
+python -m api_usage_demo.grok.client text "What is the capital of France?"
+./api_usage_demo/grok/ask.sh image "A collage of London landmarks..."
+
+python -m api_usage_demo.twitter.client user elonmusk
+./api_usage_demo/twitter/ask.sh me
 ```
 
-## Twitter (X API)
+## User-based scraper
+
+Public posts / reposts / quotes (optional replies). Other users' likes are private on X.
 
 ```bash
-python -m twitter.client user elonmusk
-python -m twitter.client me
-python -m twitter.client search "from:xai" --max 10
-./twitter/ask.sh post "Hello from grokbot"
-```
-
-## Scraper (public user activity)
-
-Collects posts / reposts / quotes (and optionally replies).  
-**Other users' likes are private on X** and cannot be scraped via the official API.
-
-```bash
-python -m scraper.user elonmusk --max-pages 3 -o outputs/elon.json
-./scraper/ask.sh elonmusk --include-replies -o outputs/elon.json
+python -m user_based_scraper.user elonmusk --max-pages 3 -o outputs/elon.json
+./user_based_scraper/ask.sh elonmusk --include-replies -o outputs/elon.json
 ```

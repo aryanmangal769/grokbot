@@ -1,10 +1,10 @@
 """xAI API client: text, image, video, and TTS.
 
 Usage (from repo root):
-  python -m grok.client text "Your prompt"
-  python -m grok.client image "A collage of London landmarks..."
-  python -m grok.client video "A glowing crystal-powered rocket..."
-  python -m grok.client tts "Hello!" --voice eve -o hello.mp3
+  python -m api_usage_demo.grok.client text "Your prompt"
+  python -m api_usage_demo.grok.client image "A collage of London landmarks..."
+  python -m api_usage_demo.grok.client video "A glowing crystal-powered rocket..."
+  python -m api_usage_demo.grok.client tts "Hello!" --voice eve -o hello.mp3
 """
 
 from __future__ import annotations

@@ -2,15 +2,15 @@
 # X API v2 curl helpers. Keys come from the repo-root `.env`.
 # Account: https://console.x.com/accounts/2085957761431465984
 #
-#   ./twitter/ask.sh user elonmusk
-#   ./twitter/ask.sh me
-#   ./twitter/ask.sh search "from:xai"
-#   ./twitter/ask.sh post "Hello from grokbot"
+#   ./api_usage_demo/twitter/ask.sh user elonmusk
+#   ./api_usage_demo/twitter/ask.sh me
+#   ./api_usage_demo/twitter/ask.sh search "from:xai"
+#   ./api_usage_demo/twitter/ask.sh post "Hello from grokbot"
 
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 cd "$REPO_ROOT"
 
 load_env() {
@@ -48,7 +48,7 @@ cmd_user() {
 
 cmd_me() {
   # User-context endpoints need OAuth 1.0a signing — use the Python client.
-  python3 -m twitter.client me
+  python3 -m api_usage_demo.twitter.client me
 }
 
 cmd_search() {
@@ -66,16 +66,16 @@ cmd_search() {
 cmd_post() {
   # POST /2/tweets requires OAuth 1.0a — use the Python client.
   local text="${*:-Hello from grokbot}"
-  python3 -m twitter.client post "$text"
+  python3 -m api_usage_demo.twitter.client post "$text"
 }
 
 usage() {
   cat <<'EOF'
 Usage:
-  ./twitter/ask.sh user <username>     # Bearer read
-  ./twitter/ask.sh me                  # OAuth 1.0a (Python)
-  ./twitter/ask.sh search <query>      # Bearer read
-  ./twitter/ask.sh post <text>         # OAuth 1.0a (Python)
+  ./api_usage_demo/twitter/ask.sh user <username>     # Bearer read
+  ./api_usage_demo/twitter/ask.sh me                  # OAuth 1.0a (Python)
+  ./api_usage_demo/twitter/ask.sh search <query>      # Bearer read
+  ./api_usage_demo/twitter/ask.sh post <text>         # OAuth 1.0a (Python)
 
 Credentials live in the repo-root .env (X_BEARER_TOKEN + OAuth 1.0a keys).
 Console: https://console.x.com/accounts/2085957761431465984

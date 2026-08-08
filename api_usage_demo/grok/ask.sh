@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 # xAI curl helpers. Keys come from the repo-root `.env`.
 #
-#   ./grok/ask.sh text  "Your prompt"
-#   ./grok/ask.sh image "A collage of London landmarks..."
-#   ./grok/ask.sh video "A glowing crystal-powered rocket..."
-#   ./grok/ask.sh tts   "Hello!" [-o hello.mp3] [--voice eve]
+#   ./api_usage_demo/grok/ask.sh text  "Your prompt"
+#   ./api_usage_demo/grok/ask.sh image "A collage of London landmarks..."
+#   ./api_usage_demo/grok/ask.sh video "A glowing crystal-powered rocket..."
+#   ./api_usage_demo/grok/ask.sh tts   "Hello!" [-o hello.mp3] [--voice eve]
 
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 cd "$REPO_ROOT"
 
 json_escape() {
@@ -155,11 +155,11 @@ cmd_tts() {
 usage() {
   cat <<'EOF'
 Usage:
-  ./grok/ask.sh text  [prompt]
-  ./grok/ask.sh image [prompt]
-  ./grok/ask.sh video [prompt]
-  ./grok/ask.sh tts   [text] [--voice eve] [--language en] [-o hello.mp3]
-  ./grok/ask.sh [prompt]          # shorthand for text
+  ./api_usage_demo/grok/ask.sh text  [prompt]
+  ./api_usage_demo/grok/ask.sh image [prompt]
+  ./api_usage_demo/grok/ask.sh video [prompt]
+  ./api_usage_demo/grok/ask.sh tts   [text] [--voice eve] [--language en] [-o hello.mp3]
+  ./api_usage_demo/grok/ask.sh [prompt]          # shorthand for text
 EOF
 }
 
