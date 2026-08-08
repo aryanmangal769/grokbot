@@ -17,8 +17,6 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
-from openai import OpenAI
-
 from common.env import REPO_ROOT, require_env
 
 API_BASE = "https://api.x.ai/v1"
@@ -42,8 +40,18 @@ def load_api_key() -> str:
     return require_env("XAI_API_KEY", placeholder_prefix="xai-your-key")
 
 
-def get_client() -> OpenAI:
-    return OpenAI(api_key=load_api_key(), base_url=API_BASE)
+def _output_text(response: dict) -> str:
+    """Extract text from an xAI /responses result."""
+    if isinstance(response.get("output_text"), str):
+        return response["output_text"]
+    chunks: list[str] = []
+    for item in response.get("output") or []:
+        if not isinstance(item, dict):
+            continue
+        for part in item.get("content") or []:
+            if isinstance(part, dict) and part.get("type") == "output_text":
+                chunks.append(part.get("text") or "")
+    return "\n".join(c for c in chunks if c)
 
 
 def _request(
@@ -77,8 +85,35 @@ def _request(
 
 
 def respond(prompt: str, *, model: str = DEFAULT_TEXT_MODEL) -> str:
-    response = get_client().responses.create(model=model, input=prompt)
-    return response.output_text
+    """Plain text completion via the xAI Responses API (Grok)."""
+    resp = _request("POST", "/responses", payload={"model": model, "input": prompt})
+    assert isinstance(resp, dict)
+    return _output_text(resp)
+
+
+def respond_structured(
+    messages: list[dict],
+    schema: dict,
+    *,
+    name: str = "result",
+    model: str = DEFAULT_TEXT_MODEL,
+) -> dict:
+    """Structured (JSON-schema) completion via the xAI Responses API (Grok)."""
+    resp = _request("POST", "/responses", payload={
+        "model": model,
+        "input": messages,
+        "text": {"format": {"type": "json_schema", "name": name,
+                            "schema": schema, "strict": True}},
+    })
+    assert isinstance(resp, dict)
+    text = _output_text(resp).strip()
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        start, end = text.find("{"), text.rfind("}")
+        if start != -1 and end > start:
+            return json.loads(text[start:end + 1])
+        raise
 
 
 def generate_image(

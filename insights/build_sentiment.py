@@ -25,7 +25,7 @@ from datetime import datetime, timedelta, timezone
 
 import requests
 
-from api_usage_demo.grok.client import DEFAULT_TEXT_MODEL, get_client
+from api_usage_demo.grok.client import DEFAULT_TEXT_MODEL, respond_structured
 from insights.db import connect, init_db
 from x_search.extract import sweep_once
 
@@ -156,14 +156,10 @@ def analyze(question: str, market_pct: float, x_posts: list[dict],
         "reddit_posts": reddit_posts[:40],
     }, ensure_ascii=False)[:120000]
     try:
-        resp = get_client().responses.create(
-            model=DEFAULT_TEXT_MODEL,
-            input=[{"role": "system", "content": SYSTEM},
-                   {"role": "user", "content": user}],
-            text={"format": {"type": "json_schema", "name": "sentiment",
-                             "schema": SENT_SCHEMA, "strict": True}},
-        )
-        return json.loads(resp.output_text)
+        return respond_structured(
+            [{"role": "system", "content": SYSTEM},
+             {"role": "user", "content": user}],
+            SENT_SCHEMA, name="sentiment", model=DEFAULT_TEXT_MODEL)
     except Exception as exc:
         print(f"    grok analyze failed: {exc}", file=sys.stderr)
         return None
