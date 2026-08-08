@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home / X</title>
+<style>
+  :root{
+    --bg:#000;
+    --panel:#16181c;
+    --panel-hover:#1d1f23;
+    --border:#2f3336;
+    --text:#e7e9ea;
+    --muted:#71767b;
+    --blue:#1d9bf0;
+    --blue-hover:#1a8cd8;
+    --hover:rgba(231,233,234,.03);
+    --hover-strong:rgba(231,233,234,.1);
+    --green:#00ba7c;
+    --pink:#f91880;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--text);
+    font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  svg{fill:currentColor}
+  ::-webkit-scrollbar{width:8px}
+  ::-webkit-scrollbar-thumb{background:#333;border-radius:4px}
+
+  .app{display:flex;justify-content:center;max-width:1300px;margin:0 auto}
+
+  /* ---------- LEFT NAV ---------- */
+  .left{width:275px;flex:0 0 275px;height:100vh;position:sticky;top:0;
+    display:flex;flex-direction:column;padding:0 12px;align-items:flex-start}
+  .logo{padding:12px;margin:4px 0;border-radius:50%;display:inline-flex;cursor:pointer}
+  .logo:hover{background:var(--hover-strong)}
+  .logo svg{width:29px;height:29px}
+  .nav{display:flex;flex-direction:column;gap:2px;width:100%}
+  .nav-item{display:flex;align-items:center;gap:20px;padding:12px;border-radius:9999px;
+    font-size:20px;cursor:pointer;width:fit-content}
+  .nav-item svg{width:26px;height:26px}
+  .nav-item:hover{background:var(--hover-strong)}
+  .nav-item.active{font-weight:700}
+  .nav-item .badge{background:var(--blue);color:#fff;font-size:11px;font-weight:700;
+    border-radius:9999px;padding:1px 6px;margin-left:-8px}
+  .post-btn{background:var(--blue);color:#fff;border:none;font-size:17px;font-weight:700;
+    width:90%;padding:16px;border-radius:9999px;margin-top:16px;cursor:pointer}
+  .post-btn:hover{background:var(--blue-hover)}
+  .account{margin-top:auto;margin-bottom:12px;display:flex;align-items:center;gap:12px;
+    padding:12px;border-radius:9999px;cursor:pointer;width:100%}
+  .account:hover{background:var(--hover-strong)}
+  .avatar{width:40px;height:40px;border-radius:50%;flex:0 0 40px;object-fit:cover;
+    background:linear-gradient(135deg,#1d9bf0,#794bc4)}
+  .account .meta{line-height:1.3;overflow:hidden}
+  .account .meta .name{font-weight:700;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .account .meta .handle{color:var(--muted);font-size:15px}
+  .account .dots{margin-left:auto;color:var(--text)}
+
+  /* ---------- CENTER ---------- */
+  .center{width:600px;flex:0 0 600px;min-height:100vh;
+    border-left:1px solid var(--border);border-right:1px solid var(--border)}
+  .c-header{position:sticky;top:0;z-index:10;backdrop-filter:blur(12px);
+    background:rgba(0,0,0,.65)}
+  .c-title{font-size:20px;font-weight:800;padding:16px}
+  .tabs{display:flex}
+  .tab{flex:1;text-align:center;padding:16px 0;color:var(--muted);font-weight:600;
+    font-size:15px;cursor:pointer;position:relative}
+  .tab:hover{background:var(--hover-strong)}
+  .tab.active{color:var(--text);font-weight:700}
+  .tab.active::after{content:"";position:absolute;bottom:0;left:50%;transform:translateX(-50%);
+    width:56px;height:4px;border-radius:9999px;background:var(--blue)}
+
+  .compose{display:flex;gap:12px;padding:12px 16px;border-bottom:1px solid var(--border)}
+  .compose .box{flex:1}
+  .compose textarea{width:100%;background:transparent;border:none;color:var(--text);
+    font-size:20px;resize:none;outline:none;padding-top:12px;font-family:inherit}
+  .compose textarea::placeholder{color:var(--muted)}
+  .compose-actions{display:flex;align-items:center;justify-content:space-between;margin-top:12px}
+  .compose-icons{display:flex;gap:4px;color:var(--blue)}
+  .compose-icons span{width:34px;height:34px;display:flex;align-items:center;justify-content:center;
+    border-radius:50%;cursor:pointer}
+  .compose-icons span:hover{background:rgba(29,155,240,.1)}
+  .compose-icons svg{width:20px;height:20px}
+  .post-mini{background:var(--blue);color:#fff;border:none;font-weight:700;font-size:15px;
+    padding:8px 18px;border-radius:9999px;opacity:.5}
+
+  /* ---------- TWEET ---------- */
+  .tweet{display:flex;gap:12px;padding:12px 16px;border-bottom:1px solid var(--border);cursor:pointer}
+  .tweet:hover{background:var(--hover)}
+  .tweet .body{flex:1;min-width:0}
+  .t-head{display:flex;align-items:center;gap:4px;font-size:15px}
+  .t-head .name{font-weight:700;white-space:nowrap}
+  .t-head .verified{color:var(--blue);width:18px;height:18px}
+  .t-head .handle,.t-head .time{color:var(--muted)}
+  .t-head .dots{margin-left:auto;color:var(--muted)}
+  .t-text{font-size:15px;line-height:1.4;margin-top:2px;white-space:pre-wrap}
+  .t-text .link{color:var(--blue)}
+  .t-media{margin-top:12px;border:1px solid var(--border);border-radius:16px;overflow:hidden;
+    height:280px;background:linear-gradient(135deg,#1a2733,#0f1620);display:flex;
+    align-items:center;justify-content:center;color:var(--muted);font-size:14px}
+  .t-actions{display:flex;justify-content:space-between;max-width:425px;margin-top:12px;color:var(--muted)}
+  .t-action{display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer}
+  .t-action svg{width:18px;height:18px}
+  .t-action.reply:hover{color:var(--blue)}
+  .t-action.rt:hover{color:var(--green)}
+  .t-action.like:hover{color:var(--pink)}
+  .t-action.view:hover{color:var(--blue)}
+  .t-context{font-size:13px;color:var(--muted);padding:4px 16px 0 68px;display:flex;
+    align-items:center;gap:8px}
+
+  /* ---------- RIGHT ---------- */
+  .right{width:350px;flex:0 0 350px;padding:0 0 40px 28px;height:100vh;
+    position:sticky;top:0;overflow-y:auto;overflow-x:hidden}
+  .right::-webkit-scrollbar{display:none}
+  .search{position:sticky;top:0;background:var(--bg);padding:8px 0;z-index:5}
+  .search .field{background:var(--panel);border:1px solid transparent;border-radius:9999px;
+    display:flex;align-items:center;gap:12px;padding:12px 16px}
+  .search .field:focus-within{background:transparent;border-color:var(--blue)}
+  .search svg{width:20px;height:20px;color:var(--muted)}
+  .search input{background:transparent;border:none;outline:none;color:var(--text);font-size:15px;width:100%}
+  .card{background:var(--panel);border-radius:16px;margin-top:16px;overflow:hidden}
+  .card h2{font-size:20px;font-weight:800;padding:12px 16px}
+  .premium p{font-size:13px;color:var(--text);padding:0 16px 4px;line-height:1.4}
+  .premium .desc{font-weight:800;font-size:20px;padding:0 16px 8px}
+  .premium button{margin:8px 16px 16px;background:var(--blue);color:#fff;border:none;
+    font-weight:700;padding:8px 16px;border-radius:9999px;cursor:pointer;font-size:15px}
+  .trend{padding:12px 16px;cursor:pointer}
+  .trend:hover{background:var(--panel-hover)}
+  .trend .cat{font-size:13px;color:var(--muted);display:flex;justify-content:space-between}
+  .trend .topic{font-weight:700;font-size:15px;margin:2px 0}
+  .trend .count{font-size:13px;color:var(--muted)}
+  .show-more{padding:16px;color:var(--blue);font-size:15px;cursor:pointer}
+  .show-more:hover{background:var(--panel-hover)}
+
+  /* ---------- MARKETS WIDGET (X-native) ---------- */
+  .mkt-head{display:flex;align-items:center;justify-content:space-between;padding:12px 16px 4px;flex-wrap:wrap;gap:6px}
+  .mkt-head h2{padding:0;font-size:20px;font-weight:800}
+  .mkt-head .src{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:4px}
+  .mkt-head .src svg{width:13px;height:13px;color:var(--blue)}
+  .persona-sel{width:100%;display:flex;align-items:center;gap:8px;padding:0 16px 8px}
+  .persona-sel label{font-size:13px;color:var(--muted)}
+  .persona-sel select{flex:1;background:#000;color:var(--text);border:1px solid var(--border);
+    border-radius:9999px;padding:6px 12px;font-size:14px;font-family:inherit;cursor:pointer}
+  .mkt{padding:10px 16px;cursor:pointer;border-top:1px solid rgba(47,51,54,.5)}
+  .mkt:hover{background:var(--panel-hover)}
+  .mkt .cat{font-size:13px;color:var(--muted);display:flex;justify-content:space-between}
+  .mkt .q{font-weight:700;font-size:15px;margin:3px 0 8px;line-height:1.3}
+  .mkt .odds{display:flex;align-items:flex-end;gap:18px;margin-bottom:8px}
+  .mkt .o-col{display:flex;flex-direction:column;gap:1px}
+  .mkt .o-lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+  .mkt .o-val{font-size:19px;font-weight:800;display:flex;align-items:center;gap:3px}
+  .mkt .o-val svg{width:15px;height:15px}
+  .mkt .o-val.up{color:var(--green)}
+  .mkt .o-val.down{color:var(--pink)}
+  .mkt .o-val.flat{color:var(--text)}
+  .mkt .edge{margin-left:auto;font-size:12px;font-weight:700;padding:3px 8px;border-radius:9999px;
+    background:rgba(29,155,240,.15);color:var(--blue);align-self:center}
+  .mkt .dualbar{height:5px;border-radius:9999px;background:#2f3336;margin:0 0 8px;position:relative}
+  .mkt .dualbar .xfill{position:absolute;left:0;top:0;height:100%;border-radius:9999px;background:var(--green);opacity:.55}
+  .mkt .dualbar .mkr{position:absolute;top:-2px;width:2px;height:9px;background:var(--text);border-radius:2px}
+  .mkt .stats{font-size:13px;color:var(--muted);display:flex;gap:6px}
+  .mkt .stats b{color:var(--text);font-weight:700}
+  .mkt .sent{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);margin-top:6px}
+  .mkt .sent .dir{display:inline-flex;align-items:center;gap:3px;font-weight:700}
+  .mkt .sent svg{width:15px;height:15px}
+  .mkt .sent .up{color:var(--green)}
+  .mkt .sent .down{color:var(--pink)}
+  .mkt .sent .flat{color:var(--muted)}
+  .mkt-empty{padding:16px;color:var(--muted);font-size:14px}
+  .wtf-row{display:flex;align-items:center;gap:12px;padding:12px 16px;cursor:pointer}
+  .wtf-row:hover{background:var(--panel-hover)}
+  .wtf-row .meta{line-height:1.3;min-width:0}
+  .wtf-row .meta .name{font-weight:700;font-size:15px;display:flex;align-items:center;gap:3px}
+  .wtf-row .meta .verified{color:var(--blue);width:16px;height:16px}
+  .wtf-row .meta .handle{color:var(--muted);font-size:15px}
+  .wtf-row .follow{margin-left:auto;background:var(--text);color:#000;border:none;
+    font-weight:700;font-size:14px;padding:8px 16px;border-radius:9999px;cursor:pointer}
+  .footer{font-size:13px;color:var(--muted);padding:16px;line-height:1.6}
+  .footer a{margin-right:8px;white-space:nowrap}
+  .footer a:hover{text-decoration:underline}
+
+  @media(max-width:1100px){.right{display:none}}
+  @media(max-width:700px){
+    .left{width:88px;flex:0 0 88px}
+    .nav-item span,.account .meta,.account .dots,.logo{}
+    .nav-item span:not(.badge){display:none}
+    .post-btn{width:50px;height:50px;padding:0;font-size:0}
+    .account .meta,.account .dots{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ===================== LEFT NAV ===================== -->
+  <nav class="left">
+    <a class="logo" href="#" aria-label="X">
+      <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+    </a>
+    <div class="nav">
+      <div class="nav-item active"><svg viewBox="0 0 24 24"><path d="M21.591 7.146L12.52 1.157c-.316-.21-.724-.21-1.04 0l-9.071 5.99c-.26.173-.409.456-.409.757v13.183c0 .502.418.913.929.913H9.14c.51 0 .929-.41.929-.913v-7.075h3.909v7.075c0 .502.417.913.928.913h6.165c.511 0 .929-.41.929-.913V7.904c0-.301-.158-.584-.408-.758z"/></svg><span>Home</span></div>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M10.25 3.75c-3.59 0-6.5 2.91-6.5 6.5s2.91 6.5 6.5 6.5c1.795 0 3.419-.726 4.596-1.904 1.178-1.177 1.904-2.801 1.904-4.596 0-3.59-2.91-6.5-6.5-6.5zm-8.5 6.5c0-4.694 3.806-8.5 8.5-8.5s8.5 3.806 8.5 8.5c0 1.986-.682 3.815-1.824 5.262l4.781 4.781-1.414 1.414-4.781-4.781c-1.447 1.142-3.276 1.824-5.262 1.824-4.694 0-8.5-3.806-8.5-8.5z"/></svg><span>Explore</span></div>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M19.993 9.042C19.48 5.017 16.054 2 11.996 2s-7.49 3.021-7.999 7.051L2.866 18H7.1c.463 2.282 2.481 4 4.9 4s4.437-1.718 4.9-4h4.236zM12 20c-1.312 0-2.412-.897-2.732-2.111h5.463c-.32 1.214-1.42 2.111-2.731 2.111zm-6.895-4l.867-6.836C6.35 6.041 8.98 4 11.996 4s5.645 2.041 6.024 5.164L18.887 16z"/></svg><span>Notifications</span><span class="badge">7</span></div>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M1.998 5.5c0-1.381 1.119-2.5 2.5-2.5h15c1.381 0 2.5 1.119 2.5 2.5v13c0 1.381-1.119 2.5-2.5 2.5h-15c-1.381 0-2.5-1.119-2.5-2.5zm2.5-.5c-.276 0-.5.224-.5.5v2.764l8 3.638 8-3.636V5.5c0-.276-.224-.5-.5-.5zm15.5 5.463l-8 3.636-8-3.638V18.5c0 .276.224.5.5.5h15c.276 0 .5-.224.5-.5z"/></svg><span>Messages</span></div>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M13.833 20.615l7.933-14.24c.288-.517.09-1.17-.442-1.46-.532-.288-1.2-.098-1.502.42L13.5 16.15V4c0-.552-.447-1-1-1s-1 .448-1 1v12.15L5.678 5.335c-.302-.518-.97-.708-1.502-.42-.532.29-.73.943-.442 1.46l7.933 14.24c.316.567 1.05.783 1.617.483.204-.108.375-.28.483-.483z"/></svg><span>Grok</span></div>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M7.501 19.917L7.471 21H.472l.029-1.027c.184-6.618 3.736-8.977 7-8.977.963 0 1.95.212 2.87.672-.444.478-.851 1.03-1.207 1.665-.529-.203-1.087-.337-1.663-.337-2.11 0-4.578 1.31-4.968 6zM24 9c0 2.208-1.792 4-4 4s-4-1.792-4-4 1.792-4 4-4 4 1.792 4 4zm-2 0c0-1.104-.896-2-2-2s-2 .896-2 2 .896 2 2 2 2-.896 2-2zM8.5 6.5C8.5 4.292 6.708 2.5 4.5 2.5S.5 4.292.5 6.5s1.792 4 4 4 4-1.792 4-4zm-2 0c0 1.104-.896 2-2 2s-2-.896-2-2 .896-2 2-2 2 .896 2 2zm11.999 13.417L18.529 21H23.5l-.029-1.027c-.184-6.618-3.736-8.977-7-8.977-.259 0-.518.017-.775.05 3.298.635 6.198 3.244 6.803 8.871z"/></svg><span>Communities</span></div>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg><span>Premium</span></div>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M12 1.75L9.19 4H5.75C4.784 4 4 4.784 4 5.75v3.44L1.75 12 4 14.81v3.44c0 .966.784 1.75 1.75 1.75h3.44L12 22.25 14.81 20h3.44c.966 0 1.75-.784 1.75-1.75v-3.44L22.25 12 20 9.19V5.75c0-.966-.784-1.75-1.75-1.75h-3.44zm3.503 8.86l-4.5 5.5-.752.919-.775-.9-2.5-2.902 1.515-1.306 1.735 2.014 3.735-4.566z"/></svg><span>Verified Orgs</span></div>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M5.651 19h12.698c-.337-1.8-1.023-3.21-1.945-4.19C15.318 13.65 13.838 13 12 13s-3.317.65-4.404 1.81c-.922.98-1.608 2.39-1.945 4.19zm.486-5.56C7.627 11.85 9.648 11 12 11s4.373.85 5.863 2.44c1.477 1.58 2.366 3.8 2.632 6.46l.11 1.1H3.395l.11-1.1c.266-2.66 1.155-4.88 2.632-6.46zM12 4c-1.105 0-2 .9-2 2s.895 2 2 2 2-.9 2-2-.895-2-2-2zM8 6c0-2.21 1.791-4 4-4s4 1.79 4 4-1.791 4-4 4-4-1.79-4-4z"/></svg><span>Profile</span></div>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 12c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm9 2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm7 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/></svg><span>More</span></div>
+    </div>
+    <button class="post-btn">Post</button>
+
+    <div class="account">
+      <div class="avatar"></div>
+      <div class="meta">
+        <div class="name">You</div>
+        <div class="handle">@you</div>
+      </div>
+      <div class="dots"><svg viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M3 12c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm9 2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm7 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/></svg></div>
+    </div>
+  </nav>
+
+  <!-- ===================== CENTER ===================== -->
+  <main class="center">
+    <header class="c-header">
+      <div class="c-title">Home</div>
+      <div class="tabs">
+        <div class="tab active">For you</div>
+        <div class="tab">Following</div>
+      </div>
+    </header>
+
+    <div class="compose">
+      <div class="avatar"></div>
+      <div class="box">
+        <textarea rows="1" placeholder="What is happening?!"></textarea>
+        <div class="compose-actions">
+          <div class="compose-icons">
+            <span><svg viewBox="0 0 24 24"><path d="M3 5.5C3 4.119 4.119 3 5.5 3h13C19.881 3 21 4.119 21 5.5v13c0 1.381-1.119 2.5-2.5 2.5h-13C4.119 21 3 19.881 3 18.5zM5.5 5c-.276 0-.5.224-.5.5v9.086l3-3 3 3 5-5 3 3V5.5c0-.276-.224-.5-.5-.5zM19 15.414l-3-3-5 5-3-3-3 3V18.5c0 .276.224.5.5.5h13c.276 0 .5-.224.5-.5zM9.75 7C8.784 7 8 7.784 8 8.75s.784 1.75 1.75 1.75 1.75-.784 1.75-1.75S10.716 7 9.75 7z"/></svg></span>
+            <span><svg viewBox="0 0 24 24"><path d="M3 5.5C3 4.119 4.12 3 5.5 3h13C19.88 3 21 4.119 21 5.5v13c0 1.381-1.12 2.5-2.5 2.5h-13C4.12 21 3 19.881 3 18.5zm2.5-.5c-.28 0-.5.224-.5.5v13c0 .276.22.5.5.5h13c.28 0 .5-.224.5-.5v-13c0-.276-.22-.5-.5-.5zM18 10.711V9.25h-3.74v5.5h1.44v-1.719h1.7V11.57h-1.7v-.859zM11.79 9.25h1.44v5.5h-1.44zm-3.07 1.375c.34 0 .77.172 1.02.43l1.03-.86c-.51-.601-1.28-.945-2.05-.945C7.19 9.25 6 10.453 6 12s1.19 2.75 2.72 2.75c.85 0 1.54-.344 2.05-.945v-2.149H8.38v1.032h1.02v.6c-.18.111-.43.176-.68.176-.87 0-1.44-.63-1.44-1.354s.57-1.375 1.44-1.375z"/></svg></span>
+            <span><svg viewBox="0 0 24 24"><path d="M6 5c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zM2 7c0-2.209 1.791-4 4-4s4 1.791 4 4-1.791 4-4 4-4-1.791-4-4zm20 1H12V6h10zM6 15c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-4 2c0-2.209 1.791-4 4-4s4 1.791 4 4-1.791 4-4 4-4-1.791-4-4zm20 1H12v-2h10z"/></svg></span>
+            <span><svg viewBox="0 0 24 24"><path d="M8 9.5C8 8.119 8.672 7 9.5 7S11 8.119 11 9.5 10.328 12 9.5 12 8 10.881 8 9.5zm6.5 2.5c.828 0 1.5-1.119 1.5-2.5S15.328 7 14.5 7 13 8.119 13 9.5s.672 2.5 1.5 2.5zM12 16c-2.577 0-4.351-1.664-4.998-3.245l-1.85.758C6.014 15.796 8.5 18 12 18s5.986-2.204 6.848-4.487l-1.85-.758C16.35 14.336 14.577 16 12 16zm10-4c0 5.514-4.486 10-10 10S2 17.514 2 12 6.486 2 12 2s10 4.486 10 10zm-2 0c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8 8-3.589 8-8z"/></svg></span>
+            <span><svg viewBox="0 0 24 24"><path d="M6 3V2h2v1h6V2h2v1h1.5C19.985 3 21 4.015 21 5.5v13c0 1.485-1.015 2.5-2.5 2.5h-13C4.015 21 3 19.985 3 18.5v-13C3 4.015 4.015 3 5.5 3zm11 2H7v1H5V5h-.5c-.276 0-.5.224-.5.5V8h16V5.5c0-.276-.224-.5-.5-.5H17v1h-2zM4 18.5c0 .276.224.5.5.5h14c.276 0 .5-.224.5-.5V10H4zm3-6.5h2v2H7zm4 0h2v2h-2zm4 0h2v2h-2z"/></svg></span>
+          </div>
+          <button class="post-mini">Post</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- feed injected by JS -->
+    <div id="feed"></div>
+  </main>
+
+  <!-- ===================== RIGHT ===================== -->
+  <aside class="right">
+    <div class="search">
+      <div class="field">
+        <svg viewBox="0 0 24 24"><path d="M10.25 3.75c-3.59 0-6.5 2.91-6.5 6.5s2.91 6.5 6.5 6.5c1.795 0 3.419-.726 4.596-1.904 1.178-1.177 1.904-2.801 1.904-4.596 0-3.59-2.91-6.5-6.5-6.5zm-8.5 6.5c0-4.694 3.806-8.5 8.5-8.5s8.5 3.806 8.5 8.5c0 1.986-.682 3.815-1.824 5.262l4.781 4.781-1.414 1.414-4.781-4.781c-1.447 1.142-3.276 1.824-5.262 1.824-4.694 0-8.5-3.806-8.5-8.5z"/></svg>
+        <input placeholder="Search">
+      </div>
+    </div>
+
+    <div class="card premium">
+      <h2>Subscribe to Premium</h2>
+      <p>Subscribe to unlock new features and if eligible, receive a share of revenue.</p>
+      <button>Subscribe</button>
+    </div>
+
+    <div class="card" id="markets">
+      <!-- markets injected by JS -->
+    </div>
+
+    <div class="card" id="trends">
+      <h2>What's happening</h2>
+      <!-- trends injected by JS -->
+    </div>
+
+    <div class="card">
+      <h2>Who to follow</h2>
+      <div class="wtf-row">
+        <div class="avatar" style="width:40px;height:40px;flex:0 0 40px;background:linear-gradient(135deg,#00ba7c,#1d9bf0)"></div>
+        <div class="meta">
+          <div class="name">Polymarket <svg class="verified" viewBox="0 0 24 24"><path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.689.878.634.132 1.293.084 1.902-.14.271.588.7 1.089 1.24 1.443s1.167.551 1.813.565c.647-.016 1.274-.213 1.816-.567.542-.354.972-.854 1.245-1.44.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"/></svg></div>
+          <div class="handle">@Polymarket</div>
+        </div>
+        <button class="follow">Follow</button>
+      </div>
+      <div class="wtf-row">
+        <div class="avatar" style="width:40px;height:40px;flex:0 0 40px;background:linear-gradient(135deg,#794bc4,#f91880)"></div>
+        <div class="meta">
+          <div class="name">Kalshi <svg class="verified" viewBox="0 0 24 24"><path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.689.878.634.132 1.293.084 1.902-.14.271.588.7 1.089 1.24 1.443s1.167.551 1.813.565c.647-.016 1.274-.213 1.816-.567.542-.354.972-.854 1.245-1.44.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"/></svg></div>
+          <div class="handle">@Kalshi</div>
+        </div>
+        <button class="follow">Follow</button>
+      </div>
+      <div class="show-more">Show more</div>
+    </div>
+
+    <div class="footer">
+      <a href="#">Terms of Service</a><a href="#">Privacy Policy</a><a href="#">Cookie Policy</a>
+      <a href="#">Accessibility</a><a href="#">Ads info</a><a href="#">More ···</a>
+      <div style="margin-top:4px">© 2026 X Corp.</div>
+    </div>
+  </aside>
+</div>
+
+<script>
+const verifiedSVG = '<svg class="verified" viewBox="0 0 24 24"><path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.689.878.634.132 1.293.084 1.902-.14.271.588.7 1.089 1.24 1.443s1.167.551 1.813.565c.647-.016 1.274-.213 1.816-.567.542-.354.972-.854 1.245-1.44.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"/></svg>';
+
+const ic = {
+  reply:'<svg viewBox="0 0 24 24"><path d="M1.751 10c0-4.42 3.584-8 8.005-8h4.366c4.49 0 8.129 3.64 8.129 8.13 0 2.96-1.607 5.68-4.196 7.11l-8.054 4.46v-3.69h-.067c-4.49.1-8.183-3.51-8.183-8.01zm8.005-6c-3.317 0-6.005 2.69-6.005 6 0 3.37 2.77 6.08 6.138 6.01l.351-.01h1.761v2.3l5.087-2.81c1.951-1.08 3.163-3.13 3.163-5.36 0-3.39-2.744-6.13-6.129-6.13z"/></svg>',
+  rt:'<svg viewBox="0 0 24 24"><path d="M4.5 3.88l4.432 4.14-1.364 1.46L5.5 7.55V16c0 1.1.896 2 2 2H13v2H7.5c-2.209 0-4-1.79-4-4V7.55L1.432 9.48.068 8.02 4.5 3.88zM16.5 6H11V4h5.5c2.209 0 4 1.79 4 4v8.45l2.068-1.93 1.364 1.46-4.432 4.14-4.432-4.14 1.364-1.46 2.068 1.93V8c0-1.1-.896-2-2-2z"/></svg>',
+  like:'<svg viewBox="0 0 24 24"><path d="M16.697 5.5c-1.222-.06-2.679.51-3.89 2.16l-.805 1.09-.806-1.09C9.984 6.01 8.526 5.44 7.304 5.5c-1.243.07-2.349.78-2.91 1.91-.552 1.12-.633 2.78.479 4.82 1.074 1.97 3.257 4.27 7.129 6.61 3.87-2.34 6.052-4.64 7.126-6.61 1.111-2.04 1.03-3.7.477-4.82-.561-1.13-1.667-1.84-2.908-1.91zm4.187 7.69c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.896 1.81.846 4.17-.514 6.67z"/></svg>',
+  view:'<svg viewBox="0 0 24 24"><path d="M8.75 21V3h2v18zm-6 0V8.5h2V21zm12 0V11.5h2V21zm6 0V13.5h2V21z"/></svg>',
+  share:'<svg viewBox="0 0 24 24"><path d="M12 2.59l5.7 5.7-1.41 1.42L13 6.41V16h-2V6.41l-3.3 3.3-1.41-1.42zM21 15l-.02 3.51c0 1.38-1.12 2.49-2.5 2.49H5.5C4.11 21 3 19.88 3 18.5V15h2v3.5c0 .28.22.5.5.5h12.98c.28 0 .5-.22.5-.5L19 15z"/></svg>'
+};
+
+const tweets = [
+  {name:'Paul Graham', handle:'@paulg', v:true, time:'2h', color:'linear-gradient(135deg,#ff7a45,#f91880)',
+   text:'The most important thing about a startup idea is not whether it sounds good, but whether it actually solves a real problem people have right now.',
+   r:'842', rt:'1.2K', l:'9.4K', vw:'480K'},
+  {name:'Polymarket', handle:'@Polymarket', v:true, time:'4h', color:'linear-gradient(135deg,#00ba7c,#1d9bf0)',
+   text:'Will the Fed cut rates in September?\n\nTraders now say 68% YES 📈\n\nVolume just crossed $4.2M on this market.',
+   media:'📊  Fed Rate Decision — Sept 2026',
+   r:'310', rt:'540', l:'3.1K', vw:'210K'},
+  {name:'Naval', handle:'@naval', v:true, time:'6h', color:'linear-gradient(135deg,#794bc4,#1d9bf0)',
+   text:'Play long-term games with long-term people.\n\nAll returns in life, whether in wealth, relationships, or knowledge, come from compound interest.',
+   r:'1.1K', rt:'4.8K', l:'22K', vw:'1.4M'},
+  {name:'The Verge', handle:'@verge', v:true, time:'8h', color:'linear-gradient(135deg,#ff5c00,#8b00ff)',
+   text:'BREAKING: A new prediction-market feature is reportedly being tested inside a major social app, letting users bet on trending topics directly from their feed.',
+   media:'🖼  theverge.com — Prediction markets go mainstream',
+   r:'268', rt:'932', l:'5.6K', vw:'620K'},
+  {name:'Elon Musk', handle:'@elonmusk', v:true, time:'10h', color:'linear-gradient(135deg,#1d9bf0,#00ba7c)',
+   text:'Interesting',
+   r:'14K', rt:'8.9K', l:'120K', vw:'12M'},
+];
+
+function tweetHTML(t){
+  return `<article class="tweet">
+    <div class="avatar" style="background:${t.color}"></div>
+    <div class="body">
+      <div class="t-head">
+        <span class="name">${t.name}</span>
+        ${t.v?verifiedSVG:''}
+        <span class="handle">${t.handle}</span>
+        <span class="handle">·</span>
+        <span class="time">${t.time}</span>
+        <span class="dots"><svg viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M3 12c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm9 2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm7 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/></svg></span>
+      </div>
+      <div class="t-text">${t.text}</div>
+      ${t.media?`<div class="t-media">${t.media}</div>`:''}
+      <div class="t-actions">
+        <div class="t-action reply">${ic.reply}<span>${t.r}</span></div>
+        <div class="t-action rt">${ic.rt}<span>${t.rt}</span></div>
+        <div class="t-action like">${ic.like}<span>${t.l}</span></div>
+        <div class="t-action view">${ic.view}<span>${t.vw}</span></div>
+        <div class="t-action">${ic.share}</div>
+      </div>
+    </div>
+  </article>`;
+}
+document.getElementById('feed').innerHTML = tweets.map(tweetHTML).join('');
+
+// ---------- MARKETS FOR YOU (live from insights API) ----------
+const API = 'http://localhost:8000';
+const upSVG   = '<svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8v5h2V3h-7v2h4l-7 7-4-4-8 8z"/></svg>';
+const downSVG = '<svg viewBox="0 0 24 24"><path d="M3 7l6 6 4-4 8 8v-5h2v9h-7v-2h4l-7-7-4 4L3 7z"/></svg>';
+const flatSVG = '<svg viewBox="0 0 24 24"><path d="M4 11h16v2H4z"/></svg>';
+const CAT_LABEL = {crypto:'Crypto',politics:'Politics',sports:'Sports',
+  technology:'Technology',economics:'Business & finance',science:'Science',
+  world:'World',['pop-culture']:'Entertainment',other:'Trending'};
+
+function money(n){
+  n = Number(n)||0;
+  if(n>=1e9) return '$'+(n/1e9).toFixed(1)+'B';
+  if(n>=1e6) return '$'+(n/1e6).toFixed(1)+'M';
+  if(n>=1e3) return '$'+(n/1e3).toFixed(0)+'K';
+  return '$'+n.toFixed(0);
+}
+function dirIcon(d){return d==='up'?upSVG:d==='down'?downSVG:flatSVG;}
+function leanLabel(d){return d==='up'?'X leaning Yes':d==='down'?'X leaning No':'X split';}
+
+function marketRow(e){
+  const s = e.sentiment||{};
+  const mkt = e.market_pct==null?0:e.market_pct;
+  const xi  = s.x_implied_pct==null?mkt:s.x_implied_pct;
+  const dir = s.direction||'flat';
+  const diff = Math.round(xi - mkt);
+  const edge = Math.abs(diff)>=5
+    ? `<span class="edge">${diff>0?'+':''}${diff} edge</span>` : '';
+  const cat = CAT_LABEL[e.category]||'Trending';
+  const posts = s.post_count?` · ${s.post_count} posts`:'';
+  return `<div class="mkt" data-id="${encodeURIComponent(e.id)}">
+    <div class="cat"><span>${cat} · Trending</span><span>···</span></div>
+    <div class="q">${e.question}</div>
+    <div class="odds">
+      <div class="o-col"><span class="o-lbl">Market</span><span class="o-val">${mkt}%</span></div>
+      <div class="o-col"><span class="o-lbl">X-implied</span><span class="o-val ${dir}">${xi}% ${dirIcon(dir)}</span></div>
+      ${edge}
+    </div>
+    <div class="dualbar">
+      <div class="xfill" style="width:${Math.max(0,Math.min(100,xi))}%"></div>
+      <div class="mkr" style="left:${Math.max(0,Math.min(100,mkt))}%"></div>
+    </div>
+    <div class="stats"><b>${money(e.volume)}</b> Vol · <b>${money(e.liquidity)}</b> Liq</div>
+    <div class="sent"><span class="dir ${dir}">${dirIcon(dir)}${leanLabel(dir)}</span>${posts}</div>
+  </div>`;
+}
+
+const src = verifiedSVG.replace('class="verified"','');
+let users = [];
+
+async function loadUsers(){
+  try{
+    users = await (await fetch(`${API}/users`)).json();
+  }catch(err){ users = []; }
+}
+async function loadMarkets(userId){
+  const head = `<div class="mkt-head">
+      <h2>Markets for you</h2>
+      <span class="src">via Polymarket ${src}</span>
+    </div>` +
+    (users.length?`<div class="persona-sel">
+      <label>Viewing as</label>
+      <select id="userSel">${users.map(u=>
+        `<option value="${u.id}"${u.id===userId?' selected':''}>${u.avatar||''} ${u.name} · ${u.handle}</option>`
+      ).join('')}</select>
+    </div>`:'');
+  const el = document.getElementById('markets');
+  try{
+    const events = await (await fetch(`${API}/events?user=${encodeURIComponent(userId)}&limit=6`)).json();
+    el.innerHTML = head + (events.length
+      ? events.map(marketRow).join('') + `<div class="show-more">Show more markets</div>`
+      : `<div class="mkt-empty">No markets for this user yet.</div>`);
+  }catch(err){
+    el.innerHTML = head +
+      `<div class="mkt-empty">Insights API offline. Start it with:<br>
+       <code>uvicorn insights.api:app --port 8000</code></div>`;
+  }
+  const sel = document.getElementById('userSel');
+  if(sel) sel.addEventListener('change', e=>loadMarkets(e.target.value));
+}
+
+(async ()=>{
+  await loadUsers();
+  if(users.length) await loadMarkets(users[0].id);
+  else await loadMarkets('');
+})();
+
+const trends = [
+  {cat:'Business & finance · Trending', topic:'Federal Reserve', count:'48.2K posts'},
+  {cat:'Trending in United States', topic:'Prediction Markets', count:'12.9K posts'},
+  {cat:'Technology · Trending', topic:'#AI', count:'302K posts'},
+  {cat:'Sports · Trending', topic:'World Cup', count:'88.1K posts'},
+  {cat:'Politics · Trending', topic:'2026 Elections', count:'156K posts'},
+];
+document.getElementById('trends').innerHTML =
+  '<h2>What\'s happening</h2>' +
+  trends.map(t=>`<div class="trend">
+    <div class="cat"><span>${t.cat}</span><span>···</span></div>
+    <div class="topic">${t.topic}</div>
+    <div class="count">${t.count}</div>
+  </div>`).join('') +
+  '<div class="show-more">Show more</div>';
+</script>
+</body>
+</html>
