@@ -1,13 +1,13 @@
-"""Read API for the insights tab (build step 1).
+"""Read API for the insights tab.
 
-Thin FastAPI layer over the SQLite store. The browser feed and the Expo phone
-app both read from here; swapping to Supabase later means pointing the clients at
-the Supabase REST URL instead — the JSON shapes below stay the same.
+Thin FastAPI layer over the Polymarket bet DB (SQLite). User interests are not
+stored here — they come live from the Grok interest classifier (see
+`insights.interests`) and are used to rank events per user.
 
 Endpoints:
-  GET /personas                    -> all demo personas
-  GET /events?persona=<id>&limit=  -> events filtered by persona interests
-  GET /events/{event_id}           -> one event + sentiment + top posts
+  GET /users                    -> demo users classified by Grok (+ their categories)
+  GET /events?user=<id>&limit=  -> bet events ranked by that user's interests
+  GET /events/{event_id}        -> one event + sentiment + top posts
 
 Run (from repo root):
   uvicorn insights.api:app --reload --port 8000
@@ -19,6 +19,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from insights.db import as_list, connect
+from insights.interests import list_users, load_user
 
 app = FastAPI(title="X Prediction Markets — Insights API")
 
@@ -65,37 +66,28 @@ EVENT_SELECT = """
 """
 
 
-@app.get("/personas")
-def personas() -> list[dict]:
-    with connect() as conn:
-        rows = conn.execute("SELECT * FROM personas ORDER BY name").fetchall()
-    return [
-        {"id": r["id"], "name": r["name"], "avatar": r["avatar"],
-         "interests": as_list(r["interests"])}
-        for r in rows
-    ]
+@app.get("/users")
+def users() -> list[dict]:
+    """Demo users classified live by the Grok interest classifier."""
+    return list_users()
 
 
 @app.get("/events")
-def events(persona: str | None = None, limit: int = 6) -> list[dict]:
-    with connect() as conn:
-        interests: list[str] = []
-        if persona:
-            prow = conn.execute(
-                "SELECT interests FROM personas WHERE id = ?", (persona,)
-            ).fetchone()
-            if prow is None:
-                raise HTTPException(404, f"unknown persona '{persona}'")
-            interests = as_list(prow["interests"])
+def events(user: str | None = None, limit: int = 6) -> list[dict]:
+    categories: list[str] = []
+    if user:
+        u = load_user(user)
+        if u is None:
+            raise HTTPException(404, f"no classified interests for user '{user}'")
+        categories = u["categories"]
 
-        rows = conn.execute(
-            EVENT_SELECT + " ORDER BY e.volume_24hr DESC"
-        ).fetchall()
+    with connect() as conn:
+        rows = conn.execute(EVENT_SELECT + " ORDER BY e.volume_24hr DESC").fetchall()
 
     result = [_event_row(r) for r in rows]
-    if interests:
-        pref = [e for e in result if e["category"] in interests]
-        rest = [e for e in result if e["category"] not in interests]
+    if categories:
+        pref = [e for e in result if e["category"] in categories]
+        rest = [e for e in result if e["category"] not in categories]
         result = pref + rest  # interest-matched first, then fill
     return result[:limit]
 

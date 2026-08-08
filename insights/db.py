@@ -4,14 +4,17 @@ Local-first stand-in for the Supabase (Postgres) DB in `docs/system-design.md`.
 Same table shapes, so swapping to Supabase later is a Writer + base-URL change,
 not a schema change.
 
+This is the Polymarket bet DB only. User interests are NOT stored here — they
+come live from the Grok interest classifier (`user_interest_classifier`, saved to
+`outputs/<user>_interests.json`) and are used at request time to filter events.
+
 Tables:
-  personas   demo users with an interests[] tag list
   events     Polymarket events (question, prices, volume, liquidity, category)
   sentiment  per-event X-implied % + momentum + summary (1:1 with events)
   top_posts  harvested X/Reddit posts backing an event's sentiment
 
-Interests/categories/tags are stored as JSON-encoded text arrays (SQLite has no
-array type), mirroring Gamma's JSON-string quirk.
+Categories/tags are stored as JSON-encoded text arrays (SQLite has no array
+type), mirroring Gamma's JSON-string quirk.
 """
 
 from __future__ import annotations
@@ -23,13 +26,6 @@ from pathlib import Path
 DB_PATH = Path(__file__).resolve().parents[1] / "app.db"
 
 SCHEMA = """
-CREATE TABLE IF NOT EXISTS personas (
-    id         TEXT PRIMARY KEY,
-    name       TEXT NOT NULL,
-    avatar     TEXT,
-    interests  TEXT NOT NULL DEFAULT '[]'   -- JSON array of category slugs
-);
-
 CREATE TABLE IF NOT EXISTS events (
     id               TEXT PRIMARY KEY,       -- polymarket conditionId / slug
     question         TEXT NOT NULL,

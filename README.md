@@ -9,7 +9,7 @@ One repo, one `.env`:
 | **X search extractor** | `x_search/` | `python -m x_search.extract` · `./x_search/ask.sh` |
 | **User scraper** | `user_based_scraper/` | `python -m user_based_scraper.user` · `./user_based_scraper/ask.sh` |
 | **Interest classifier** | `user_interest_classifier/` | `python -m user_interest_classifier.classify` · `./user_interest_classifier/ask.sh` |
-| **Insights DB + API** | `insights/` | `python -m insights.seed_personas` · `python -m insights.seed_events` · `uvicorn insights.api:app --port 8000` |
+| **Insights DB + API** | `insights/` | `python -m insights.seed_events` · `uvicorn insights.api:app --port 8000` |
 
 ```
 grokbot/
@@ -81,10 +81,22 @@ Local-first backend for the X prediction-markets tab (see
 [`docs/system-design.md`](docs/system-design.md)). SQLite stand-in for Supabase +
 a FastAPI read layer that the browser feed and Expo phone app both consume.
 
+The DB holds **only Polymarket bet data** (events + sentiment + posts). User
+interests are **not** stored — they come live from the Grok interest classifier
+(`user_interest_classifier` → `outputs/<user>_interests.json`) and rank events
+per user at request time.
+
 ```bash
-python -m insights.seed_personas          # 4 demo personas
-python -m insights.seed_events            # top ~18 Polymarket events (live Gamma fetch)
-uvicorn insights.api:app --port 8000      # GET /personas · /events?persona= · /events/{id}
+# 1. classify demo users (real Grok, writes outputs/<user>_interests.json)
+python -m user_interest_classifier.classify VitalikButerin --max-pages 2
+python -m user_interest_classifier.classify BarackObama    --max-pages 2
+python -m user_interest_classifier.classify business       --max-pages 2
+
+# 2. seed the bet DB (live Gamma fetch -> top ~18 events)
+python -m insights.seed_events
+
+# 3. serve
+uvicorn insights.api:app --port 8000   # GET /users · /events?user= · /events/{id}
 ```
 
 Sentiment rows from `seed_events` are flagged `source='seed-placeholder'` — a
