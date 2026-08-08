@@ -1,22 +1,38 @@
 # grokbot
 
-Minimal template for the [xAI API](https://docs.x.ai/docs/overview): text, images, video, and TTS.
+One repo, one `.env`, two API surfaces:
+
+| API | Console | Client | Shell |
+|-----|---------|--------|-------|
+| **xAI** | https://console.x.ai/ | `python -m xai.client` | `./xai/ask.sh` |
+| **X** | https://console.x.com/accounts/2085957761431465984 | `python -m x.client` | `./x/ask.sh` |
+
+```
+grokbot/
+├── .env                 # both keys (gitignored)
+├── .env.example
+├── common/env.py        # shared env loader
+├── xai/
+│   ├── client.py
+│   └── ask.sh
+└── x/
+    ├── client.py
+    └── ask.sh
+```
 
 ## Setup
 
-1. Copy your API key from https://console.x.ai/
-2. Put it in either place (both are gitignored):
+1. Copy keys into `.env` (see `.env.example`):
 
 ```bash
-# option A
 cp .env.example .env
-# edit .env → XAI_API_KEY=xai-...
-
-# option B
-echo 'xai-...' > api_key.txt
+# edit .env:
+#   XAI_API_KEY=...
+#   X_BEARER_TOKEN=...
+#   X_API_KEY / X_API_SECRET / X_ACCESS_TOKEN / X_ACCESS_TOKEN_SECRET=...
 ```
 
-3. Install deps (Python path):
+2. Install Python deps:
 
 ```bash
 python3 -m venv .venv
@@ -24,103 +40,38 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-Video shell helper also needs `jq` (`brew install jq`).
-
-## Usage
-
-### Python
+3. Make shell helpers executable:
 
 ```bash
-python xai_client.py text "What is the capital of France?"
-python xai_client.py image "A collage of London landmarks in a stenciled street-art style"
-python xai_client.py video "A glowing crystal-powered rocket launching from Mars"
-python xai_client.py tts "Hello! Welcome to the xAI Text to Speech API." -o hello.mp3
-
-# shorthand → text
-python xai_client.py "Explain quantum entanglement in one sentence"
+chmod +x xai/ask.sh x/ask.sh
 ```
 
-### Shell (`./ask.sh`)
+## xAI
 
 ```bash
-chmod +x ask.sh
-./ask.sh text  "Explain quantum entanglement in one sentence"
-./ask.sh image "A collage of London landmarks in a stenciled street-art style"
-./ask.sh video "A glowing crystal-powered rocket launching from Mars"
-./ask.sh tts   "Hello! Welcome to the xAI Text to Speech API." -o hello.mp3
+python -m xai.client text "What is the capital of France?"
+python -m xai.client image "A collage of London landmarks in a stenciled street-art style"
+python -m xai.client video "A glowing crystal-powered rocket launching from Mars"
+python -m xai.client tts "Hello!" -o hello.mp3
+
+./xai/ask.sh text "Explain quantum entanglement"
+./xai/ask.sh image "..."
+./xai/ask.sh video "..."
+./xai/ask.sh tts "Hello!" -o hello.mp3
 ```
 
-### Raw curl
+## X (Twitter)
 
-**Text** (`/v1/responses`)
-
-```bash
-curl -sS https://api.x.ai/v1/responses \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer $XAI_API_KEY" \
-  -d '{
-    "model": "grok-4.5",
-    "input": "Fix this function and explain the bug: function median(a){a.sort();return a[a.length/2]}"
-  }'
-```
-
-**Image** (`/v1/images/generations`)
+Bearer token covers read helpers. OAuth 1.0a keys cover `me` and `post`.
 
 ```bash
-curl -sS https://api.x.ai/v1/images/generations \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer $XAI_API_KEY" \
-  -d '{
-    "model": "grok-imagine-image-quality",
-    "prompt": "A collage of London landmarks in a stenciled street-art style"
-  }'
-```
+python -m x.client user elonmusk
+python -m x.client me
+python -m x.client search "from:xai" --max 10
+python -m x.client post "Hello from grokbot"
 
-**Video** (start + poll)
-
-```bash
-REQUEST_ID=$(curl -sS -X POST https://api.x.ai/v1/videos/generations \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer $XAI_API_KEY" \
-  -d '{
-    "model": "grok-imagine-video",
-    "prompt": "A glowing crystal-powered rocket launching from Mars"
-  }' | jq -r '.request_id')
-
-while true; do
-  RESULT=$(curl -sS "https://api.x.ai/v1/videos/$REQUEST_ID" \
-    -H "Authorization: Bearer $XAI_API_KEY")
-  STATUS=$(echo "$RESULT" | jq -r '.status')
-  if [ "$STATUS" = "done" ]; then
-    echo "$RESULT" | jq -r '.video.url'
-    break
-  fi
-  if [ "$STATUS" = "failed" ] || [ "$STATUS" = "expired" ]; then
-    echo "$RESULT" >&2
-    exit 1
-  fi
-  sleep 5
-done
-```
-
-**TTS** (`/v1/tts`)
-
-```bash
-HTTP_CODE=$(curl -sS -X POST https://api.x.ai/v1/tts \
-  -H "Authorization: Bearer $XAI_API_KEY" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "text": "Hello! Welcome to the xAI Text to Speech API.",
-    "voice_id": "eve",
-    "language": "en"
-  }' \
-  --output hello.mp3 \
-  --write-out '%{http_code}')
-
-if [ "$HTTP_CODE" != "200" ]; then
-  echo "TTS error $HTTP_CODE: $(cat hello.mp3)" >&2
-  rm -f hello.mp3
-else
-  echo "Saved to hello.mp3"
-fi
+./x/ask.sh user elonmusk
+./x/ask.sh me
+./x/ask.sh search "from:xai"
+./x/ask.sh post "Hello from grokbot"
 ```

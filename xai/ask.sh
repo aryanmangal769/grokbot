@@ -1,38 +1,31 @@
 #!/usr/bin/env bash
-# Thin curl wrappers for xAI text / image / video / TTS.
+# xAI curl helpers. Keys come from the repo-root `.env`.
 #
-#   ./ask.sh text  "Your prompt"
-#   ./ask.sh image "A collage of London landmarks..."
-#   ./ask.sh video "A glowing crystal-powered rocket..."
-#   ./ask.sh tts   "Hello!" [-o hello.mp3] [--voice eve]
-#   ./ask.sh "Your prompt"   # shorthand → text
+#   ./xai/ask.sh text  "Your prompt"
+#   ./xai/ask.sh image "A collage of London landmarks..."
+#   ./xai/ask.sh video "A glowing crystal-powered rocket..."
+#   ./xai/ask.sh tts   "Hello!" [-o hello.mp3] [--voice eve]
 
 set -euo pipefail
 
-ROOT="$(cd "$(dirname "$0")" && pwd)"
-cd "$ROOT"
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+cd "$REPO_ROOT"
 
 json_escape() {
   python3 -c 'import json,sys; print(json.dumps(sys.argv[1]))' "$1"
 }
 
 load_key() {
-  if [[ -f .env ]]; then
-    # shellcheck disable=SC1091
+  if [[ -f "$REPO_ROOT/.env" ]]; then
     set -a
     # shellcheck disable=SC1091
-    source .env
+    source "$REPO_ROOT/.env"
     set +a
   fi
 
   if [[ -z "${XAI_API_KEY:-}" || "$XAI_API_KEY" == xai-your-key-here ]]; then
-    if [[ -f api_key.txt ]]; then
-      XAI_API_KEY="$(tr -d '[:space:]' < api_key.txt)"
-    fi
-  fi
-
-  if [[ -z "${XAI_API_KEY:-}" || "$XAI_API_KEY" == xai-your-key-here ]]; then
-    echo "Missing XAI API key. Set XAI_API_KEY in .env or put the key in api_key.txt" >&2
+    echo "Missing XAI_API_KEY. Add it to $REPO_ROOT/.env (see .env.example)." >&2
     exit 1
   fi
   export XAI_API_KEY
@@ -127,22 +120,10 @@ cmd_tts() {
 
   while [[ $# -gt 0 ]]; do
     case "$1" in
-      --voice)
-        voice="$2"
-        shift 2
-        ;;
-      --language)
-        language="$2"
-        shift 2
-        ;;
-      -o|--output)
-        output="$2"
-        shift 2
-        ;;
-      *)
-        text_parts+=("$1")
-        shift
-        ;;
+      --voice) voice="$2"; shift 2 ;;
+      --language) language="$2"; shift 2 ;;
+      -o|--output) output="$2"; shift 2 ;;
+      *) text_parts+=("$1"); shift ;;
     esac
   done
 
@@ -174,21 +155,18 @@ cmd_tts() {
 usage() {
   cat <<'EOF'
 Usage:
-  ./ask.sh text  [prompt]
-  ./ask.sh image [prompt]
-  ./ask.sh video [prompt]
-  ./ask.sh tts   [text] [--voice eve] [--language en] [-o hello.mp3]
-  ./ask.sh [prompt]          # shorthand for text
+  ./xai/ask.sh text  [prompt]
+  ./xai/ask.sh image [prompt]
+  ./xai/ask.sh video [prompt]
+  ./xai/ask.sh tts   [text] [--voice eve] [--language en] [-o hello.mp3]
+  ./xai/ask.sh [prompt]          # shorthand for text
 EOF
 }
 
 main() {
   if [[ $# -gt 0 ]]; then
     case "$1" in
-      -h|--help|help)
-        usage
-        return
-        ;;
+      -h|--help|help) usage; return ;;
     esac
   fi
 
@@ -200,25 +178,11 @@ main() {
   fi
 
   case "$1" in
-    text)
-      shift
-      cmd_text "$@"
-      ;;
-    image)
-      shift
-      cmd_image "$@"
-      ;;
-    video)
-      shift
-      cmd_video "$@"
-      ;;
-    tts)
-      shift
-      cmd_tts "$@"
-      ;;
-    *)
-      cmd_text "$@"
-      ;;
+    text) shift; cmd_text "$@" ;;
+    image) shift; cmd_image "$@" ;;
+    video) shift; cmd_video "$@" ;;
+    tts) shift; cmd_tts "$@" ;;
+    *) cmd_text "$@" ;;
   esac
 }
 

@@ -1,30 +1,26 @@
-"""xAI API template: text, image, video, and TTS.
+"""xAI API client: text, image, video, and TTS.
 
-Usage:
-  python xai_client.py text "Your prompt"
-  python xai_client.py image "A collage of London landmarks..."
-  python xai_client.py video "A glowing crystal-powered rocket..."
-  python xai_client.py tts "Hello!" --voice eve -o hello.mp3
-
-  # shorthand (defaults to text):
-  python xai_client.py "Your prompt"
+Usage (from repo root):
+  python -m xai.client text "Your prompt"
+  python -m xai.client image "A collage of London landmarks..."
+  python -m xai.client video "A glowing crystal-powered rocket..."
+  python -m xai.client tts "Hello!" --voice eve -o hello.mp3
 """
 
 from __future__ import annotations
 
 import argparse
 import json
-import os
 import sys
 import time
 import urllib.error
 import urllib.request
 from pathlib import Path
 
-from dotenv import load_dotenv
 from openai import OpenAI
 
-ROOT = Path(__file__).resolve().parent
+from common.env import REPO_ROOT, require_env
+
 API_BASE = "https://api.x.ai/v1"
 
 DEFAULT_TEXT_MODEL = "grok-4.5"
@@ -43,22 +39,7 @@ DEFAULT_TTS_TEXT = "Hello! Welcome to the xAI Text to Speech API."
 
 
 def load_api_key() -> str:
-    load_dotenv(ROOT / ".env")
-
-    key = os.getenv("XAI_API_KEY", "").strip()
-    if key and not key.startswith("xai-your-key"):
-        return key
-
-    key_file = ROOT / "api_key.txt"
-    if key_file.exists():
-        key = key_file.read_text(encoding="utf-8").strip()
-        if key and not key.startswith("xai-your-key"):
-            return key
-
-    raise SystemExit(
-        "Missing XAI API key. Set XAI_API_KEY in .env or put the key in api_key.txt "
-        "(see .env.example)."
-    )
+    return require_env("XAI_API_KEY", placeholder_prefix="xai-your-key")
 
 
 def get_client() -> OpenAI:
@@ -72,11 +53,8 @@ def _request(
     payload: dict | None = None,
     expect_json: bool = True,
 ) -> dict | bytes:
-    """Raw REST helper for endpoints the OpenAI SDK does not cover."""
     data = None
-    headers = {
-        "Authorization": f"Bearer {load_api_key()}",
-    }
+    headers = {"Authorization": f"Bearer {load_api_key()}"}
     if payload is not None:
         data = json.dumps(payload).encode("utf-8")
         headers["Content-Type"] = "application/json"
@@ -99,7 +77,6 @@ def _request(
 
 
 def respond(prompt: str, *, model: str = DEFAULT_TEXT_MODEL) -> str:
-    """POST /v1/responses → output text."""
     response = get_client().responses.create(model=model, input=prompt)
     return response.output_text
 
@@ -110,7 +87,6 @@ def generate_image(
     model: str = DEFAULT_IMAGE_MODEL,
     n: int = 1,
 ) -> list[str]:
-    """POST /v1/images/generations → image URL(s)."""
     response = get_client().images.generate(model=model, prompt=prompt, n=n)
     return [item.url for item in response.data if item.url]
 
@@ -121,7 +97,6 @@ def generate_video(
     model: str = DEFAULT_VIDEO_MODEL,
     poll_seconds: float = 5.0,
 ) -> str:
-    """POST /v1/videos/generations, then poll GET /v1/videos/{id} until done."""
     started = _request(
         "POST",
         "/videos/generations",
@@ -155,7 +130,6 @@ def text_to_speech(
     language: str = DEFAULT_TTS_LANGUAGE,
     output_path: Path,
 ) -> Path:
-    """POST /v1/tts → write MP3 bytes to output_path."""
     audio = _request(
         "POST",
         "/tts",
@@ -163,14 +137,13 @@ def text_to_speech(
         expect_json=False,
     )
     assert isinstance(audio, bytes)
+    output_path = output_path if output_path.is_absolute() else REPO_ROOT / output_path
     output_path.write_bytes(audio)
     return output_path
 
 
 def _build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(
-        description="xAI API template (text / image / video / tts)",
-    )
+    parser = argparse.ArgumentParser(description="xAI API client (text / image / video / tts)")
     sub = parser.add_subparsers(dest="command")
 
     text_p = sub.add_parser("text", help="Responses API (default)")
@@ -193,7 +166,6 @@ def _build_parser() -> argparse.ArgumentParser:
     tts_p.add_argument("--language", default=DEFAULT_TTS_LANGUAGE)
     tts_p.add_argument("-o", "--output", default="hello.mp3", type=Path)
 
-    # Positional-only shorthand for text when no subcommand is given.
     parser.add_argument("prompt", nargs="*", help=argparse.SUPPRESS)
     return parser
 
