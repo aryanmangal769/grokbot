@@ -153,6 +153,13 @@ fetch('markets.json').then(r=>r.json()).then(markets=>{
       </div>
     </div>
 
+    <!-- graphs from this market's topic opinion report -->
+    <div class="sec">
+      <div class="h2">Sentiment breakdown</div>
+      ${barChart(rep.plots.outcome_leaning)}
+      ${barChart(rep.plots.camp_distribution)}
+    </div>
+
     <!-- all polymarket data -->
     <div class="sec">
       <div class="h2">Market data <span class="small muted">· Polymarket</span></div>
@@ -179,13 +186,6 @@ fetch('markets.json').then(r=>r.json()).then(markets=>{
         <span class="muted small">${rep.X_leaning_percentages.yes}% yes · ${rep.X_leaning_percentages.no}% no · ${rep.X_leaning_percentages.mixed}% mixed</span>
       </div>
       <div class="summary">${rep.tweet_summary}</div>
-    </div>
-
-    <!-- graphs from this market's topic opinion report -->
-    <div class="sec">
-      <div class="h2">Sentiment breakdown</div>
-      ${barChart(rep.plots.outcome_leaning)}
-      ${barChart(rep.plots.camp_distribution)}
     </div>
 
     <!-- top 3 tweets per camp -->
