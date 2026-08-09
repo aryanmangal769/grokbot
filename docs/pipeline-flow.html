@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Grokbot · Pipeline graph</title>
+<style>
+  :root {
+    --bg: #0b0d12;
+    --panel: #151922;
+    --text: #f0f2f5;
+    --muted: #9aa3af;
+    --line: #3d4654;
+    --blue: #4aa3ff;
+    --green: #34d399;
+    --pink: #f472b6;
+    --gold: #fbbf24;
+    --purple: #a78bfa;
+    --cyan: #22d3ee;
+    --orange: #fb923c;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -10%, rgba(74,163,255,.15), transparent),
+      radial-gradient(ellipse 40% 40% at 100% 50%, rgba(167,139,250,.08), transparent),
+      radial-gradient(ellipse 40% 40% at 0% 80%, rgba(52,211,153,.06), transparent),
+      var(--bg);
+    color: var(--text);
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+  }
+
+  .page { max-width: 1080px; margin: 0 auto; padding: 24px 16px 48px; }
+  header { text-align: center; margin-bottom: 8px; }
+  header h1 { font-size: 1.5rem; font-weight: 800; letter-spacing: -.03em; }
+  header p { color: var(--muted); font-size: .875rem; margin-top: 4px; }
+  header p em { color: var(--purple); font-style: normal; font-weight: 600; }
+
+  /* ===== Graph canvas ===== */
+  .graph {
+    position: relative;
+    width: 100%;
+    /* tall enough for full graph; still one scroll-ish but denser */
+    height: min(920px, calc(100vh - 100px));
+    min-height: 720px;
+    margin-top: 12px;
+  }
+
+  /* SVG edges behind nodes */
+  .edges {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .edges path {
+    fill: none;
+    stroke: var(--line);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+  }
+  .edges path.accent {
+    stroke: url(#edgeGrad);
+    stroke-width: 2.5;
+    opacity: .9;
+  }
+  .edges circle { fill: var(--blue); }
+
+  /* Nodes positioned in % of graph */
+  .node {
+    position: absolute;
+    z-index: 1;
+    width: 148px;
+    height: 148px;
+    border-radius: 22px;
+    background: var(--panel);
+    border: 2px solid var(--bc, var(--line));
+    box-shadow:
+      0 0 0 1px rgba(255,255,255,.03) inset,
+      0 12px 32px rgba(0,0,0,.4);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 12px 10px;
+    cursor: pointer;
+    transition: transform .15s, box-shadow .15s, border-color .15s;
+    user-select: none;
+  }
+  .node:hover {
+    transform: translate(-50%, -50%) scale(1.05) !important;
+    box-shadow: 0 0 0 1px rgba(255,255,255,.06) inset, 0 16px 40px rgba(0,0,0,.5),
+      0 0 24px color-mix(in srgb, var(--c) 25%, transparent);
+  }
+  .node.open {
+    border-color: var(--c);
+    box-shadow: 0 0 0 1px color-mix(in srgb, var(--c) 40%, transparent) inset,
+      0 16px 48px rgba(0,0,0,.55),
+      0 0 32px color-mix(in srgb, var(--c) 30%, transparent);
+    z-index: 5;
+  }
+  /* position via left/top % + center transform */
+  .node { transform: translate(-50%, -50%); }
+
+  .node .ico {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    display: grid; place-items: center;
+    font-weight: 800; font-size: 14px;
+    margin-bottom: 8px;
+    background: color-mix(in srgb, var(--c) 20%, transparent);
+    color: var(--c);
+    border: 1px solid color-mix(in srgb, var(--c) 35%, transparent);
+  }
+  .node h2 {
+    font-size: 12.5px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -.02em;
+    max-width: 120px;
+  }
+  .node .mod {
+    font-size: 9.5px;
+    color: var(--muted);
+    margin-top: 4px;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    max-width: 128px;
+    line-height: 1.25;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  /* Hub larger square */
+  .node.hub {
+    width: 168px;
+    height: 168px;
+    border-width: 2.5px;
+    background: linear-gradient(160deg, #1e1a32 0%, var(--panel) 70%);
+  }
+  .node.hub .ico { width: 46px; height: 46px; font-size: 16px; }
+  .node.hub h2 { font-size: 13.5px; }
+
+  /* Video slightly wider square still */
+  .node.video {
+    width: 156px;
+    height: 156px;
+    background: linear-gradient(160deg, #2a1c12 0%, var(--panel) 65%);
+  }
+
+  .node.dash {
+    width: 160px;
+    height: 160px;
+    background: linear-gradient(160deg, #10241c 0%, var(--panel) 65%);
+  }
+
+  /* Floating detail panel */
+  .panel {
+    position: absolute;
+    z-index: 10;
+    width: min(320px, calc(100vw - 32px));
+    background: #1a2030ee;
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 14px 16px;
+    box-shadow: 0 20px 50px rgba(0,0,0,.55);
+    display: none;
+    pointer-events: auto;
+  }
+  .panel.show { display: block; animation: pop .15s ease; }
+  @keyframes pop {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: none; }
+  }
+  .panel .ph {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .panel .ph .dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--pc, var(--blue));
+  }
+  .panel h3 { font-size: 14px; font-weight: 800; }
+  .panel .pm {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: ui-monospace, Menlo, monospace;
+    margin-bottom: 8px;
+  }
+  .panel p { font-size: 12.5px; color: #c5ccd6; line-height: 1.45; margin-bottom: 8px; }
+  .panel ul { margin: 0 0 0 16px; font-size: 12px; color: #b0b8c4; }
+  .panel li { margin: 3px 0; }
+  .panel .close {
+    position: absolute;
+    top: 10px; right: 12px;
+    border: none; background: transparent;
+    color: var(--muted); font-size: 18px; cursor: pointer;
+    line-height: 1;
+  }
+  .panel .close:hover { color: var(--text); }
+  .pills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+  .pill {
+    font-size: 10px; font-weight: 700;
+    padding: 3px 8px; border-radius: 999px;
+    border: 1px solid var(--border); color: var(--muted);
+  }
+  .pill.in { color: var(--cyan); border-color: rgba(34,211,238,.35); }
+  .pill.out { color: var(--green); border-color: rgba(52,211,153,.35); }
+
+  .legend {
+    display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+    margin-top: 16px;
+  }
+  .leg {
+    font-size: 11px; color: var(--muted);
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--panel); border: 1px solid var(--border);
+    padding: 4px 10px; border-radius: 999px;
+  }
+  .leg i {
+    width: 8px; height: 8px; border-radius: 2px; display: inline-block;
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>Grokbot technical pipeline</h1>
+      <p>Graph view · <em>report agent is the hub</em> · click a square for details</p>
+    </header>
+
+    <div class="graph" id="graph">
+      <svg class="edges" id="edges" preserveAspectRatio="none"></svg>
+
+      <!-- Row 1: sources -->
+      <div class="node" id="n-x" data-id="x" style="left:22%;top:9%;--c:var(--blue);--bc:rgba(74,163,255,.45)"
+           onclick="show(event,'x')">
+        <div class="ico">X</div>
+        <h2>X user activity</h2>
+        <div class="mod">user_based_scraper</div>
+      </div>
+      <div class="node" id="n-pm" data-id="pm" style="left:78%;top:9%;--c:var(--gold);--bc:rgba(251,191,36,.45)"
+           onclick="show(event,'pm')">
+        <div class="ico">PM</div>
+        <h2>Polymarket</h2>
+        <div class="mod">polymarket_contract</div>
+      </div>
+
+      <!-- Interest under X -->
+      <div class="node" id="n-int" data-id="int" style="left:22%;top:32%;--c:var(--cyan);--bc:rgba(34,211,238,.4)"
+           onclick="show(event,'int')">
+        <div class="ico">★</div>
+        <h2>Interest agent</h2>
+        <div class="mod">interest_classifier</div>
+      </div>
+
+      <!-- Harvest center -->
+      <div class="node" id="n-har" data-id="har" style="left:50%;top:32%;--c:var(--blue);--bc:rgba(74,163,255,.4)"
+           onclick="show(event,'har')">
+        <div class="ico">Σ</div>
+        <h2>X topic harvest</h2>
+        <div class="mod">x_search_public</div>
+      </div>
+
+      <!-- Opinion -->
+      <div class="node" id="n-op" data-id="op" style="left:50%;top:52%;--c:var(--pink);--bc:rgba(244,114,182,.4)"
+           onclick="show(event,'op')">
+        <div class="ico">◎</div>
+        <h2>Opinion / threads</h2>
+        <div class="mod">grok.opinion</div>
+      </div>
+
+      <!-- Report HUB -->
+      <div class="node hub" id="n-rep" data-id="rep" style="left:50%;top:72%;--c:var(--purple);--bc:rgba(167,139,250,.55)"
+           onclick="show(event,'rep')">
+        <div class="ico">R</div>
+        <h2>Report agent</h2>
+        <div class="mod">hub · Grok 4.5 · DB</div>
+      </div>
+
+      <!-- Video left of fan-out -->
+      <div class="node video" id="n-vid" data-id="vid" style="left:22%;top:91%;--c:var(--orange);--bc:rgba(251,146,60,.5)"
+           onclick="show(event,'vid')">
+        <div class="ico">▶</div>
+        <h2>Explainer video</h2>
+        <div class="mod">Grok · Imagine · ffmpeg</div>
+      </div>
+
+      <!-- Dashboard -->
+      <div class="node dash" id="n-ui" data-id="ui" style="left:78%;top:91%;--c:var(--green);--bc:rgba(52,211,153,.5)"
+           onclick="show(event,'ui')">
+        <div class="ico">UI</div>
+        <h2>Markets UI</h2>
+        <div class="mod">dashboard merge</div>
+      </div>
+
+      <div class="panel" id="panel">
+        <button class="close" type="button" onclick="hidePanel(event)" aria-label="Close">×</button>
+        <div class="ph"><span class="dot" id="pdot"></span><h3 id="ptitle"></h3></div>
+        <div class="pm" id="pmod"></div>
+        <p id="pbody"></p>
+        <ul id="plist"></ul>
+        <div class="pills" id="ppills"></div>
+      </div>
+    </div>
+
+    <div class="legend">
+      <span class="leg"><i style="background:var(--blue)"></i> X / harvest</span>
+      <span class="leg"><i style="background:var(--gold)"></i> Polymarket</span>
+      <span class="leg"><i style="background:var(--purple)"></i> Report hub</span>
+      <span class="leg"><i style="background:var(--orange)"></i> Video stack</span>
+      <span class="leg"><i style="background:var(--green)"></i> Dashboard</span>
+    </div>
+  </div>
+
+<script>
+const INFO = {
+  x: {
+    c: 'var(--blue)', title: 'X user activity', mod: 'user_based_scraper',
+    body: 'Public timeline only — posts, replies, quotes, reposts.',
+    items: ['Resolve @handle → user id', 'Page public tweets', 'No private likes'],
+    pills: [['out', 'timeline JSON']],
+  },
+  pm: {
+    c: 'var(--gold)', title: 'Polymarket contract', mod: 'polymarket_contract',
+    body: 'Live odds & book from Gamma / CLOB / Data API. Verified in Python, then optional Grok profile.',
+    items: ['Volume, liquidity, outcomes', 'No mocked prices', 'Feeds report agent + markets.json'],
+    pills: [['out', 'verified bundle']],
+  },
+  int: {
+    c: 'var(--cyan)', title: 'Interest agent', mod: 'user_interest_classifier · Grok',
+    body: 'Timeline → interest labels / themes → persona domains for the feed and report context.',
+    items: ['Grok classifies public posts only', 'Output feeds report hub + UI filter'],
+    pills: [['in', 'timeline'], ['out', 'persona · interests']],
+  },
+  har: {
+    c: 'var(--blue)', title: 'X topic harvest', mod: 'x_search_public',
+    body: 'For each market question, harvest posts and total topic volume (num_tweets).',
+    items: ['High-recall topic search', 'Stored on topic_opinions.collection'],
+    pills: [['out', 'posts · num_tweets']],
+  },
+  op: {
+    c: 'var(--pink)', title: 'Opinion / threads', mod: 'x_search_public.grok.opinion',
+    body: 'Read reply threads, drop noise, summarize posts, synthesize camps.',
+    items: ['Per-post thread read', 'Global camp synthesis', 'Input to report agent'],
+    pills: [['out', 'camps · thread takes']],
+  },
+  rep: {
+    c: 'var(--purple)', title: 'Report agent (hub)', mod: 'polymarket_x_report · Grok 4.5 · DB',
+    body: 'Hub: Polymarket + interest + X opinion in. Two products out.',
+    items: [
+      'IN: Polymarket context, persona/interest, harvest + opinion',
+      'OUT 1: dashboard report (summary, camps, plots, leaning)',
+      'OUT 2: same JSON schema → explainer video',
+      'Upsert topic_opinion_reports',
+    ],
+    pills: [['in', 'PM + interest + X'], ['out', 'dashboard'], ['out', 'video input']],
+  },
+  vid: {
+    c: 'var(--orange)', title: 'Explainer video', mod: 'summary.imagine_brief',
+    body: 'Multi-step media stack from the report JSON.',
+    items: [
+      '1 · Grok text — monologue A/B',
+      '2 · X hydrate — real text, likes, avatars, premium',
+      '3 · Cards — title, summary, tweet UI, leaning',
+      '4 · Grok Imagine — 2×15s green-screen host',
+      '5 · ffmpeg — concat, chromakey PiP, speed 0.8',
+    ],
+    pills: [['out', 'summary_image.mp4']],
+  },
+  ui: {
+    c: 'var(--green)', title: 'Markets UI dashboard', mod: 'markets-ui · markets.json',
+    body: 'Merge point for odds, report, video, and persona.',
+    items: [
+      'index.html — persona-filtered market feed',
+      'event.html — charts, camp posts, video player',
+      'market.video → summary_image.mp4',
+    ],
+    pills: [['in', 'odds'], ['in', 'report'], ['in', 'video'], ['in', 'persona']],
+  },
+};
+
+function anchor(id, side) {
+  const el = document.getElementById(id);
+  const g = document.getElementById('graph');
+  const er = el.getBoundingClientRect();
+  const gr = g.getBoundingClientRect();
+  const x = ((er.left + er.width / 2) - gr.left) / gr.width * 100;
+  const yTop = ((er.top) - gr.top) / gr.height * 100;
+  const yBot = ((er.bottom) - gr.top) / gr.height * 100;
+  const yMid = ((er.top + er.height / 2) - gr.top) / gr.height * 100;
+  const xLeft = ((er.left) - gr.left) / gr.width * 100;
+  const xRight = ((er.right) - gr.left) / gr.width * 100;
+  if (side === 'bottom') return [x, yBot];
+  if (side === 'top') return [x, yTop];
+  if (side === 'left') return [xLeft, yMid];
+  if (side === 'right') return [xRight, yMid];
+  return [x, yMid];
+}
+
+function path(a, b, bend = 0) {
+  const [x1, y1] = a, [x2, y2] = b;
+  if (bend === 0) {
+    const my = (y1 + y2) / 2;
+    return `M ${x1} ${y1} C ${x1} ${my}, ${x2} ${my}, ${x2} ${y2}`;
+  }
+  return `M ${x1} ${y1} C ${x1 + bend} ${y1}, ${x2 + bend} ${y2}, ${x2} ${y2}`;
+}
+
+function drawEdges() {
+  const svg = document.getElementById('edges');
+  const links = [
+    ['n-x', 'bottom', 'n-int', 'top', false],
+    ['n-x', 'bottom', 'n-har', 'top', false],
+    ['n-pm', 'bottom', 'n-har', 'top', false],
+    ['n-pm', 'bottom', 'n-rep', 'top', true],   // polymarket → report
+    ['n-int', 'bottom', 'n-rep', 'top', true],  // interest → report
+    ['n-har', 'bottom', 'n-op', 'top', false],
+    ['n-op', 'bottom', 'n-rep', 'top', false],
+    ['n-rep', 'bottom', 'n-vid', 'top', true],
+    ['n-rep', 'bottom', 'n-ui', 'top', true],
+    ['n-vid', 'right', 'n-ui', 'left', false],
+  ];
+  let d = '';
+  // use viewBox 0 0 100 100 so % coords work
+  svg.setAttribute('viewBox', '0 0 100 100');
+  const paths = links.map(([a, as, b, bs, accent]) => {
+    const p = path(anchor(a, as), anchor(b, bs));
+    return `<path class="${accent ? 'accent' : ''}" d="${p}" />`;
+  }).join('');
+  svg.innerHTML = `
+    <defs>
+      <linearGradient id="edgeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="#a78bfa"/>
+        <stop offset="100%" stop-color="#34d399"/>
+      </linearGradient>
+    </defs>
+    ${paths}
+  `;
+}
+
+function show(ev, id) {
+  ev.stopPropagation();
+  document.querySelectorAll('.node').forEach(n => n.classList.remove('open'));
+  const node = document.getElementById('n-' + id);
+  node.classList.add('open');
+  const info = INFO[id];
+  const panel = document.getElementById('panel');
+  document.getElementById('pdot').style.background = info.c;
+  document.getElementById('ptitle').textContent = info.title;
+  document.getElementById('pmod').textContent = info.mod;
+  document.getElementById('pbody').textContent = info.body;
+  document.getElementById('plist').innerHTML = info.items.map(i => `<li>${i}</li>`).join('');
+  document.getElementById('ppills').innerHTML = (info.pills || [])
+    .map(([k, t]) => `<span class="pill ${k}">${t}</span>`).join('');
+
+  // place panel near node, keep on screen
+  const g = document.getElementById('graph');
+  const nr = node.getBoundingClientRect();
+  const gr = g.getBoundingClientRect();
+  let left = nr.right - gr.left + 12;
+  let top = nr.top - gr.top;
+  panel.classList.add('show');
+  panel.style.left = '0';
+  panel.style.top = '0';
+  // measure after show
+  requestAnimationFrame(() => {
+    const pw = panel.offsetWidth;
+    const ph = panel.offsetHeight;
+    if (left + pw > gr.width - 8) left = nr.left - gr.left - pw - 12;
+    if (left < 8) left = 8;
+    if (top + ph > gr.height - 8) top = gr.height - ph - 8;
+    if (top < 8) top = 8;
+    panel.style.left = left + 'px';
+    panel.style.top = top + 'px';
+  });
+}
+
+function hidePanel(ev) {
+  if (ev) ev.stopPropagation();
+  document.getElementById('panel').classList.remove('show');
+  document.querySelectorAll('.node').forEach(n => n.classList.remove('open'));
+}
+
+document.getElementById('graph').addEventListener('click', (e) => {
+  if (e.target.closest('.node') || e.target.closest('.panel')) return;
+  hidePanel();
+});
+
+window.addEventListener('resize', drawEdges);
+window.addEventListener('load', () => {
+  drawEdges();
+  // redraw after fonts/layout
+  setTimeout(drawEdges, 50);
+});
+</script>
+</body>
+</html>
