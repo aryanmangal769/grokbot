@@ -1,0 +1,1513 @@
+[
+  {
+    "id": "0xb56f8dfc3e5929cf15036f4b8ecd24c9bfafa80c90bf550d396e43a45af42aa8",
+    "title": "Will Brooklyn Nets win the 2027 NBA Finals?",
+    "url": "https://polymarket.com/event/nba-2027-champion",
+    "profiles": [
+      "sports"
+    ],
+    "summary": "This is a live prediction market asking whether the Brooklyn Nets will win the 2027 NBA Finals. The contract remains active and open with substantial total volume near $294k and liquidity over $631k. It covers the 2026-27 NBA season champion.",
+    "volume": 293834.532226,
+    "volume_24hr": 40.56,
+    "liquidity": 631379.07369,
+    "end_date": "2027-07-01T00:00:00Z",
+    "top_outcome": {
+      "label": "No",
+      "pct": 99.9
+    },
+    "outcomes": [
+      {
+        "label": "No",
+        "pct": 99.9,
+        "best_bid": 0.998,
+        "best_ask": 0.999,
+        "bid_depth": 506954.4,
+        "ask_depth": 807858.62
+      },
+      {
+        "label": "Yes",
+        "pct": 0.1,
+        "best_bid": 0.001,
+        "best_ask": 0.002,
+        "bid_depth": 807858.62,
+        "ask_depth": 506954.4
+      }
+    ],
+    "price_read": "Yes trades at a gamma/mid price of 0.0015 with best bid 0.001 and best ask 0.002 amid deep books (bid depth ~808k, ask depth ~507k). No sits at 0.9985 with a one-cent spread and inverted deep liquidity.",
+    "resolution_summary": "This market will resolve to \"Yes\" if the Brooklyn Nets are determined as the champion of the NBA for the 2026-27 season; otherwise it resolves to \"No\". It resolves to \"No\" early if the team is eliminated, and to \"Other\" if the event is cancelled, postponed after June 30, 2027 11:59 PM ET, or no champion is declared by then. Resolution uses official NBA information or a consensus of credible reporting.",
+    "notes": [],
+    "report": {
+      "plots": {
+        "outcome_leaning": {
+          "data": [
+            {
+              "label": "Yes",
+              "value": 5
+            },
+            {
+              "label": "No",
+              "value": 75
+            },
+            {
+              "label": "Mixed",
+              "value": 20
+            }
+          ],
+          "type": "bar",
+          "unit": "percent",
+          "title": "X prediction leaning"
+        },
+        "camp_distribution": {
+          "data": [
+            {
+              "label": "Rebuild skeptics",
+              "value": 60
+            },
+            {
+              "label": "Young-core optimists",
+              "value": 25
+            },
+            {
+              "label": "Asset-maximizer rebuilders",
+              "value": 15
+            }
+          ],
+          "type": "bar",
+          "unit": "percent",
+          "title": "Camp distribution"
+        }
+      },
+      "topic": "Will Brooklyn Nets win the 2027 NBA Finals?",
+      "X_leaning": "no",
+      "num_tweets": 5000,
+      "top_tweets": {
+        "camp1": {
+          "name": "Rebuild skeptics (no realistic 2027 path)",
+          "tweet1": {
+            "url": "https://x.com/NetsDaily/status/2085394537413841396",
+            "handle": "NetsDaily",
+            "summary": "Grades the offseason a B with mostly high marks; replies heavily reject this as too generous, calling the team still stinking, Jefferson a reach, Claxton dumped for nothing, and the offseason a disaster or C without a star\u2014directly undercutting 2027 contention."
+          },
+          "tweet2": {
+            "url": "https://x.com/NetsDaily/status/2086179559863722203",
+            "handle": "NetsDaily",
+            "summary": "Reports MPJ talks may accelerate; sole reply dismisses MPJ as offering no future wins and only tiny ticket upside, urging elite two-way wings and flipping Randle instead\u2014reinforcing that current direction does not build a Finals roster."
+          },
+          "tweet3": null
+        },
+        "camp2": {
+          "name": "Young-core optimists (foundation could eventually contend)",
+          "tweet1": {
+            "url": "https://x.com/NetsDaily/status/2085149745073230311",
+            "handle": "NetsDaily",
+            "summary": "Reports Traore looks healthy, bigger, and stronger post-knee scope; positive replies cite bench-press gains and top-3 kids looking great, supplying the main (limited) evidence of developmental upside."
+          },
+          "tweet2": {
+            "url": "https://x.com/NetsDaily/status/2086259661267685580",
+            "handle": "NetsDaily",
+            "summary": "Details the haul of five unprotected firsts, swaps, and MPJ from the Bridges/Johnson deal, underscoring long-term asset value that optimists view as a multi-year foundation even if 2027 remains a stretch."
+          },
+          "tweet3": null
+        }
+      },
+      "tweet_summary": "Sampled Nets-fan discussion on X is overwhelmingly skeptical that Brooklyn has any realistic 2027 Finals path, treating the team as a star-less rebuild still collecting lottery tickets rather than building a contender. Preference and prediction align: replies to the highest-reach offseason-grades post reject a B grade as too generous, call the roster mediocre or worse, and stress the need for an actual star. Mild optimism is limited to Traore\u2019s post-scope strength gains and the young core looking good, plus asset-maximizer calls to avoid MPJ and keep optionality; none of that extends to championship forecasts. Strongest evidence is the lopsided reply pushback under the grades thread; main uncertainty is whether future unprotected firsts or an external star acquisition could change the trajectory, but the thin sample supplies no such signal.",
+      "X_leaning_percentages": {
+        "no": 75,
+        "yes": 5,
+        "mixed": 20
+      }
+    }
+  },
+  {
+    "id": "0x8acf7dd78e0d46dd1dcd81037dae30dbdb8a51c0943541d79d32b01daf228a2b",
+    "title": "Will Mohammed bin Salman attend Cristiano Ronaldo's wedding?",
+    "url": "https://polymarket.com/event/who-will-attend-cristiano-ronaldos-wedding-20260803185630253",
+    "profiles": [
+      "sports",
+      "culture"
+    ],
+    "summary": "This live prediction market asks whether Mohammed bin Salman will attend Cristiano Ronaldo's wedding. The contract remains active and open through August 2026, with roughly $45k in total volume and $21k in liquidity.",
+    "volume": 45069.426035,
+    "volume_24hr": 3897.967731,
+    "liquidity": 21267.55661,
+    "end_date": "2026-08-08T23:59:00Z",
+    "top_outcome": {
+      "label": "No",
+      "pct": 97.7
+    },
+    "outcomes": [
+      {
+        "label": "No",
+        "pct": 97.7,
+        "best_bid": 0.975,
+        "best_ask": 0.979,
+        "bid_depth": 1511.28,
+        "ask_depth": 5534.93
+      },
+      {
+        "label": "Yes",
+        "pct": 2.3,
+        "best_bid": 0.021,
+        "best_ask": 0.025,
+        "bid_depth": 5534.93,
+        "ask_depth": 1511.28
+      }
+    ],
+    "price_read": "Yes trades at about 2.3 cents (best bid 2.1 cent / ask 2.5 cent) with deeper bids than asks; No sits at 97.7 cents with the inverse book. Spreads are tight at 0.4 cent on both sides.",
+    "resolution_summary": "The market resolves to Yes if Mohammed bin Salman is confirmed in physical attendance at any part of a wedding between Cristiano Ronaldo and Georgina Rodriguez that occurs after market creation and by December 31, 2026 11:59 PM ET. Otherwise it resolves to No; a wedding known to have occurred before creation triggers immediate No. Resolution relies on consensus of credible reporting.",
+    "notes": [],
+    "report": {
+      "plots": {
+        "outcome_leaning": {
+          "data": [
+            {
+              "label": "Yes",
+              "value": 0
+            },
+            {
+              "label": "No",
+              "value": 92
+            },
+            {
+              "label": "Mixed",
+              "value": 8
+            }
+          ],
+          "type": "bar",
+          "unit": "percent",
+          "title": "X prediction leaning"
+        },
+        "camp_distribution": {
+          "data": [
+            {
+              "label": "Wedding fake hence automatic No",
+              "value": 92
+            },
+            {
+              "label": "Mild wedding skepticism only",
+              "value": 8
+            }
+          ],
+          "type": "bar",
+          "unit": "percent",
+          "title": "Camp distribution"
+        }
+      },
+      "topic": "Will Mohammed bin Salman attend Cristiano Ronaldo's wedding?",
+      "X_leaning": "no",
+      "num_tweets": 5000,
+      "top_tweets": {
+        "camp1": {
+          "name": "Wedding fake hence automatic No",
+          "tweet1": {
+            "url": "https://x.com/TouchlineX/status/2086211279950106899",
+            "handle": "TouchlineX",
+            "summary": "Reports Ronaldo's sister posted on Instagram denying any wedding today as a false Sun rumor that drew crowds, directly collapsing the premise so MBS cannot attend."
+          },
+          "tweet2": {
+            "url": "https://x.com/TimelineCR7/status/2086217824553583011",
+            "handle": "TimelineCR7",
+            "summary": "States Ronaldo's sister confirmed via Instagram no wedding today and crowds are only due to the false Sun rumor, reinforcing automatic No on attendance."
+          },
+          "tweet3": {
+            "url": "https://x.com/i/status/2086094913536688400",
+            "handle": "i",
+            "summary": "Claims despite Sun report and crowds the wedding is not happening today at Madeira Cathedral or Savoy Palace with no official date, making MBS attendance impossible now."
+          }
+        },
+        "camp2": {
+          "name": "Mild wedding skepticism only",
+          "tweet1": {
+            "url": "https://x.com/Vlad_Web3/status/2086162029384282393",
+            "handle": "Vlad_Web3",
+            "summary": "Notes no official confirmation of any wedding date or that it occurred, discusses Polymarket hedges assuming not today, offering only date skepticism without MBS view."
+          },
+          "tweet2": {
+            "url": "https://x.com/i/status/2085723484110373186",
+            "handle": "i",
+            "summary": "Reports wedding set for August 8 based on outlets but unconfirmed by the couple and highlights other guest odds, showing market interest without addressing MBS."
+          },
+          "tweet3": {
+            "url": "https://x.com/TimelineCR7/status/2085833909225545988",
+            "handle": "TimelineCR7",
+            "summary": "Claims per The Sun the wedding will take place 8 August at Madeira Cathedral, yet thread replies immediately doubt the unverified source, reflecting mild unconfirmed-date skepticism."
+          }
+        }
+      },
+      "tweet_summary": "Sampled X posts and replies overwhelmingly accept that the August 8 Madeira wedding is a false Sun tabloid rumor, citing Ronaldo's sister Instagram denial, no cathedral booking, and crowds watching only a local couple, so MBS attendance is treated as an automatic No with zero mentions of him or Saudi guests across threads; sentiment is mocking of hype and fans rather than predictive preference, strongest evidence is the family primary-source denials, and main uncertainty is any later confirmed date that could reopen guest speculation.",
+      "X_leaning_percentages": {
+        "no": 92,
+        "yes": 0,
+        "mixed": 8
+      }
+    }
+  },
+  {
+    "id": "0xf6f3ab86ba22d9d362e2429701722f15115e4a10a3d790c18f88df2ddff7f4ed",
+    "title": "Will Mohamed Salah win the 2026 Ballon d'Or?",
+    "url": "https://polymarket.com/event/ballon-dor-winner-2026",
+    "profiles": [
+      "sports"
+    ],
+    "summary": "This is a live prediction market asking whether Mohamed Salah will win the 2026 Ballon d'Or. The contract remains active and open, with substantial total volume over $1 million and deep liquidity. It is scheduled to end on 2026-10-31.",
+    "volume": 1057628.957406,
+    "volume_24hr": 1.9,
+    "liquidity": 728745.7023,
+    "end_date": "2026-10-31T00:00:00Z",
+    "top_outcome": {
+      "label": "No",
+      "pct": 100.0
+    },
+    "outcomes": [
+      {
+        "label": "No",
+        "pct": 100.0,
+        "best_bid": 0.999,
+        "best_ask": null,
+        "bid_depth": 633940.6999999998,
+        "ask_depth": 0.0
+      },
+      {
+        "label": "Yes",
+        "pct": 0.1,
+        "best_bid": null,
+        "best_ask": 0.001,
+        "bid_depth": 0.0,
+        "ask_depth": 633940.6999999998
+      }
+    ],
+    "price_read": "Yes trades at a gamma/mid price of 0.0005 with a best ask of 0.001 and roughly 634k ask depth (no bid). No sits at 0.9995 with a best bid of 0.999 and matching ~634k bid depth (no ask).",
+    "resolution_summary": "This market will resolve according to the winner of the 2026 Ballon d\u2019Or. If no 2026 Ballon d\u2019Or winner is declared by December 31, 2026, 11:59 PM ET, this market will resolve to \"Other\". The primary resolution source is official information from France Football.",
+    "notes": [],
+    "report": {
+      "plots": {
+        "outcome_leaning": {
+          "data": [
+            {
+              "label": "Yes",
+              "value": 15
+            },
+            {
+              "label": "No",
+              "value": 78
+            },
+            {
+              "label": "Mixed",
+              "value": 7
+            }
+          ],
+          "type": "bar",
+          "unit": "percent",
+          "title": "X prediction leaning"
+        },
+        "camp_distribution": {
+          "data": [
+            {
+              "label": "No chance after Turkey move",
+              "value": 78
+            },
+            {
+              "label": "Still capable / Europe keeps door open",
+              "value": 15
+            },
+            {
+              "label": "Award is corrupt anyway / past snubs",
+              "value": 7
+            }
+          ],
+          "type": "bar",
+          "unit": "percent",
+          "title": "Camp distribution"
+        }
+      },
+      "topic": "Will Mohamed Salah win the 2026 Ballon d'Or?",
+      "X_leaning": "no",
+      "num_tweets": 100000,
+      "top_tweets": {
+        "camp1": {
+          "name": "No chance after Turkey move",
+          "tweet1": {
+            "url": "https://x.com/FabrizioRomano/status/2085339036562923967",
+            "handle": "FabrizioRomano",
+            "summary": "Reports Salah has officially signed for Trabzonspor until June 2028; replies uniformly call it a massive downgrade and career wind-down that ends Ballon d'Or prospects."
+          },
+          "tweet2": {
+            "url": "https://x.com/nytimes/status/2085766183588974889",
+            "handle": "nytimes",
+            "summary": "Notes Salah went from Ballon d'Or contention a year ago to a Trabzonspor signing framed as less glamorous than peer late moves, supporting the view the Super Lig step removes him from contention."
+          },
+          "tweet3": {
+            "url": "https://x.com/i/status/2085491626407805075",
+            "handle": "i",
+            "summary": "Ballon d'Or account itself reports the Trabzonspor signing after nine Liverpool years and six nominations; replies accept the transfer while focusing on past snubs, treating 2026 chances as over."
+          }
+        },
+        "camp2": {
+          "name": "Still capable / Europe keeps door open",
+          "tweet1": {
+            "url": "https://x.com/i/status/2085393468910653565",
+            "handle": "i",
+            "summary": "Turkish pundits argue Salah should have won a prior Ballon d'Or and still maintains elite form with a Premier League double-double, directly pushing back against 'finished' claims."
+          },
+          "tweet2": {
+            "url": "https://x.com/McFlybowy/status/2085737937455517985",
+            "handle": "McFlybowy",
+            "summary": "Defends Salah\u2019s decade of elite consistency, Golden Boots and peak output over Hazard; replies note he would have won Ballon d'Or in a stronger national-team context, supporting continued capability."
+          },
+          "tweet3": {
+            "url": "https://x.com/StatLineX/status/2085622248837193865",
+            "handle": "StatLineX",
+            "summary": "Highlights Salah\u2019s 47 goal involvements in the title season versus Hazard\u2019s peak, framing his volume and quality as still elite and relevant to award debates."
+          }
+        }
+      },
+      "tweet_summary": "Sampled X discussion overwhelmingly treats Mohamed Salah winning the 2026 Ballon d'Or as effectively impossible after his confirmed free transfer to Trabzonspor, framing the move as a late-career downgrade following a sharp output drop rather than mere preference. Strongest evidence is institutional: official Trabzonspor announcements of medical, arrival, and signing ceremony plus Fabrizio Romano and Ballon d'Or account confirmation of the deal to 2028, with replies calling it a massive fall-off ending contention. Turkish and some Egyptian fans defend the club\u2019s passion and UEFA path as keeping the door ajar, but almost none predict an actual win; main uncertainty is hypothetical deep European runs or a top-club return, which the supplied high-view threads do not treat as realistic. This synthesis reflects the provided multi-million-view threads and reply samples, not a full platform census.",
+      "X_leaning_percentages": {
+        "no": 78,
+        "yes": 15,
+        "mixed": 7
+      }
+    }
+  },
+  {
+    "id": "0x60613b262912ce2e3138ec5610a31a2f932b6300843c094053cb33aaff9f2238",
+    "title": "Will Kai and Speed beat the Minecraft challenge by August 17?",
+    "url": "https://polymarket.com/event/kai-and-speed-beat-minecraft-challenge-byptptpt-20260807141254095",
+    "profiles": [
+      "sports",
+      "culture"
+    ],
+    "summary": "This market asks whether Kai Cenat and IShowSpeed will complete a hardcore Minecraft challenge\u2014defeating the Ender Dragon, Wither, Warden, and Elder Guardian on the same seed without either dying\u2014by August 17, 2026. The attempt is scheduled as a live stream marathon starting August 7, 2026. The market is active with substantial trading volume.",
+    "volume": 134282.561996,
+    "volume_24hr": 131677.754644,
+    "liquidity": 33769.1598,
+    "end_date": "2026-08-17T23:59:00Z",
+    "top_outcome": {
+      "label": "No",
+      "pct": 84.5
+    },
+    "outcomes": [
+      {
+        "label": "No",
+        "pct": 84.5,
+        "best_bid": 0.84,
+        "best_ask": 0.85,
+        "bid_depth": 31178.99,
+        "ask_depth": 35405.82
+      },
+      {
+        "label": "Yes",
+        "pct": 15.5,
+        "best_bid": 0.15,
+        "best_ask": 0.16,
+        "bid_depth": 35405.82,
+        "ask_depth": 31178.99
+      }
+    ],
+    "price_read": "Yes is trading at 0.155 (best bid 0.15, best ask 0.16) with deep liquidity on both sides; No is at 0.845 (best bid 0.84, best ask 0.85). The order book is balanced and fresh.",
+    "resolution_summary": "The market resolves to Yes if Kai and Speed complete all four objectives live on stream in a single hardcore Java world on the same seed, without deaths, cheats, or rule changes, between market creation and 11:59 PM ET on the end date. Otherwise it resolves to No, including if the challenge is cancelled, abandoned, delayed past the date, or completed under modified rules. Resolution relies on official YouTube and Twitch broadcast footage.",
+    "notes": [],
+    "report": {
+      "plots": {
+        "outcome_leaning": {
+          "data": [
+            {
+              "label": "Yes",
+              "value": 5
+            },
+            {
+              "label": "No",
+              "value": 85
+            },
+            {
+              "label": "Mixed",
+              "value": 10
+            }
+          ],
+          "type": "bar",
+          "unit": "percent",
+          "title": "X prediction leaning"
+        },
+        "camp_distribution": {
+          "data": [
+            {
+              "label": "Hard no / endless failure",
+              "value": 85
+            },
+            {
+              "label": "Rule-change or grind path",
+              "value": 10
+            },
+            {
+              "label": "Slim yes / content will force it",
+              "value": 5
+            }
+          ],
+          "type": "bar",
+          "unit": "percent",
+          "title": "Camp distribution"
+        }
+      },
+      "topic": "Will Kai and Speed beat the Minecraft challenge by August 17?",
+      "X_leaning": "no",
+      "num_tweets": 29000,
+      "top_tweets": {
+        "camp1": {
+          "name": "Hard no / endless failure",
+          "tweet1": {
+            "url": "https://x.com/i/status/2086078870726521195",
+            "handle": "i",
+            "summary": "Reports the pair\u2019s 6th hardcore attempt ended in a Warden sonic-boom one-shot and that the full challenge could take months, directly illustrating why resets make the August 17 deadline unrealistic."
+          },
+          "tweet2": {
+            "url": "https://x.com/KreekCraft/status/2086076734982459519",
+            "handle": "KreekCraft",
+            "summary": "Notes the Warden one-shot and polls GTA 6 releasing first versus them finishing; replies heavily favor GTA 6 and call the streamers cooked, reinforcing the endless-failure view."
+          },
+          "tweet3": {
+            "url": "https://x.com/IShowSpeedHQ/status/2085905167388495882",
+            "handle": "IShowSpeedHQ",
+            "summary": "Documents Speed\u2019s fall-damage death forcing a full marathon restart; replies consensus is that incompetence and resets will stretch the effort into weeks or a month."
+          }
+        },
+        "camp2": {
+          "name": "Rule-change or grind path",
+          "tweet1": {
+            "url": "https://x.com/i/status/2085838993103651326",
+            "handle": "i",
+            "summary": "States the official 10-day window for all bosses in one hardcore run, after which separate boss runs are allowed, establishing the fallback that could still enable eventual completion."
+          },
+          "tweet2": {
+            "url": "https://x.com/i/status/2085840779260400034",
+            "handle": "i",
+            "summary": "Confirms the rules giving 10 days for a single-run clear of every boss before single-boss grinding is permitted, supporting the grind-path alternative."
+          },
+          "tweet3": {
+            "url": "https://x.com/i/status/2086059853102154229",
+            "handle": "i",
+            "summary": "Reports they have allotted themselves 10 days to beat every boss in one run or else narrow focus to one boss, underscoring the built-in rule change."
+          }
+        }
+      },
+      "tweet_summary": "Sampled X discussion under high-view announcement and death-clip posts is overwhelmingly skeptical that Kai and Speed will complete the full single-run hardcore challenge (all four bosses) by August 17, treating their skill gap, AFK/fall/creeper deaths, and especially Warden sonic-boom resets as making a clean win unrealistic; most expect weeks-to-months of chaos, content-milking, or quitting rather than success. Preference for entertainment is distinct from the dominant prediction of failure. Strongest evidence is repeated documented full restarts plus the stated 10-day rule. Main uncertainty is whether post-deadline single-boss fallback still satisfies the market definition of beating the challenge; the sample reflects vocal replies, not all of X.",
+      "X_leaning_percentages": {
+        "no": 85,
+        "yes": 5,
+        "mixed": 10
+      }
+    }
+  },
+  {
+    "id": "0xd961e85c58d27699749eaa069e629519e2f4af701a7c2a02a486dca77e101fdc",
+    "title": "Will Manchester City win the 2026-27 UEFA Champions League Championship?",
+    "url": "https://polymarket.com/event/uefa-champions-league-2027-champion-20260701202025549",
+    "profiles": [
+      "sports"
+    ],
+    "summary": "This is a live prediction market on whether Manchester City will win the 2026-27 UEFA Champions League title. The market is active and open, with substantial liquidity and recent trading volume.",
+    "volume": 25767.211601,
+    "volume_24hr": 471168.108461,
+    "liquidity": 317541.792,
+    "end_date": "2027-05-30T23:59:00Z",
+    "top_outcome": {
+      "label": "No",
+      "pct": 87.5
+    },
+    "outcomes": [
+      {
+        "label": "No",
+        "pct": 87.5,
+        "best_bid": 0.87,
+        "best_ask": 0.88,
+        "bid_depth": 218355.7,
+        "ask_depth": 155798.19
+      },
+      {
+        "label": "Yes",
+        "pct": 12.5,
+        "best_bid": 0.12,
+        "best_ask": 0.13,
+        "bid_depth": 155798.19,
+        "ask_depth": 218355.7
+      }
+    ],
+    "price_read": "Yes is trading at 0.125 (best bid 0.12, best ask 0.13) with deep books on both sides; No is at 0.875 (bid 0.87 / ask 0.88).",
+    "resolution_summary": "The market resolves to Yes if Manchester City wins the 2026-27 UEFA Champions League Championship, based on official UEFA information or credible reporting. It resolves to No if the team is eliminated and can no longer win; if the season is cancelled, postponed after June 19, 2027 11:59 PM ET, or no winner is declared by then, it resolves to Other.",
+    "notes": [],
+    "report": {
+      "plots": {
+        "outcome_leaning": {
+          "data": [
+            {
+              "label": "Yes",
+              "value": 27
+            },
+            {
+              "label": "No",
+              "value": 58
+            },
+            {
+              "label": "Mixed",
+              "value": 15
+            }
+          ],
+          "type": "bar",
+          "unit": "percent",
+          "title": "X prediction leaning"
+        },
+        "camp_distribution": {
+          "data": [
+            {
+              "label": "Post-Pep/Rodri collapse skeptics",
+              "value": 58
+            },
+            {
+              "label": "City resilience / deal-skeptics",
+              "value": 27
+            },
+            {
+              "label": "Other-clubs-ascendant",
+              "value": 15
+            }
+          ],
+          "type": "bar",
+          "unit": "percent",
+          "title": "Camp distribution"
+        }
+      },
+      "topic": "Will Manchester City win the 2026-27 UEFA Champions League Championship?",
+      "X_leaning": "no",
+      "num_tweets": 681000,
+      "top_tweets": {
+        "camp1": {
+          "name": "Post-Pep/Rodri collapse dooms City UCL hopes",
+          "tweet1": {
+            "url": "https://x.com/FabrizioRomano/status/2086074543177601083",
+            "handle": "FabrizioRomano",
+            "summary": "Reports Rodri informed City he only wants Barcelona and Bar\u00e7a are fully confident the transfer is only a matter of time after preparing a new bid, directly fueling claims that losing the midfield heartbeat ends City's dominance."
+          },
+          "tweet2": {
+            "url": "https://x.com/i/status/2085392317142200534",
+            "handle": "i",
+            "summary": "States Rodri gave green light to Barcelona after talks with Deco and Flick with an official proposal already with his agent and club contact made, framed as full speed ahead and treated in replies as fatally weakening City."
+          },
+          "tweet3": {
+            "url": "https://x.com/FabrizioRomano/status/2085969257062674618",
+            "handle": "FabrizioRomano",
+            "summary": "Confirms Rodri told City he wants to join Barcelona who remain confident of completing soon with a higher bid after the first offer was rejected, prompting comments that the midfield-brain loss is massive for City's prospects."
+          }
+        },
+        "camp2": {
+          "name": "City keep Rodri or replace adequately and stay contenders",
+          "tweet1": {
+            "url": "https://x.com/i/status/2085716378359570546",
+            "handle": "i",
+            "summary": "Reports City turned down Barcelona's opening \u20ac45m + \u20ac5m bid while direct talks continue and City know the player wants Bar\u00e7a, supporting the view that City hold the cards on fee and may retain him or force a proper price."
+          },
+          "tweet2": {
+            "url": "https://x.com/FabrizioRomano/status/2085833864295948731",
+            "handle": "FabrizioRomano",
+            "summary": "Announces Geronimo Rulli deal agreed with medical set, showing City adding experienced depth that underpins resilience arguments even amid other squad changes."
+          },
+          "tweet3": {
+            "url": "https://x.com/i/status/2085705903697772895",
+            "handle": "i",
+            "summary": "States Bouaddi negotiations with Lille are in final stages as a midfield addition while other targets progress, evidence cited that City are already securing replacements to remain competitive."
+          }
+        }
+      },
+      "tweet_summary": "Sampled X discussion is dominated by multi-million-view Rodri-to-Barcelona rumor threads and leans against City winning the 2026-27 UCL, with view-weighted substantive replies treating his potential exit plus Pep's departure as creating an irreplaceable midfield hole that ends their era and elevates Bar\u00e7a or Arsenal; tribal celebration and trolling far outnumber calm multi-year forecasts. Strongest signal comes from repeated insider reports of personal terms agreed and low bids rejected, yet the main uncertainty is whether any club-to-club deal actually closes given City's higher valuation, disputed Bar\u00e7a finances/FFP, and active City replacement moves (Bouaddi, Rulli). The sample is meme-heavy banter, not a representative poll of X.",
+      "X_leaning_percentages": {
+        "no": 58,
+        "yes": 27,
+        "mixed": 15
+      }
+    }
+  },
+  {
+    "id": "0x60c2c085ee8c16bc8f2419739a94971d4c9d00f637ead10fc0f540afa1be64e8",
+    "title": "Strait of Hormuz traffic returns to normal by August 31?",
+    "url": "https://polymarket.com/event/strait-of-hormuz-traffic-returns-to-normal-by-august-31-20260702154212320",
+    "profiles": [
+      "politics"
+    ],
+    "summary": "This is a live prediction market on whether ship traffic through the Strait of Hormuz returns to normal levels by August 31, 2026. It tracks the 7-day moving average of vessel arrivals as reported by IMF Portwatch, with substantial trading volume over $10 million and deep liquidity. Yes shares currently trade at a low price, reflecting market skepticism that the threshold will be met in time.",
+    "volume": 10215694.683094,
+    "volume_24hr": 932869.079581,
+    "liquidity": 1093692.9298,
+    "end_date": "2026-08-31T00:00:00Z",
+    "top_outcome": {
+      "label": "No",
+      "pct": 92.5
+    },
+    "outcomes": [
+      {
+        "label": "No",
+        "pct": 92.5,
+        "best_bid": 0.92,
+        "best_ask": 0.93,
+        "bid_depth": 629075.1599999999,
+        "ask_depth": 802187.94
+      },
+      {
+        "label": "Yes",
+        "pct": 7.5,
+        "best_bid": 0.07,
+        "best_ask": 0.08,
+        "bid_depth": 802187.94,
+        "ask_depth": 629075.1599999999
+      }
+    ],
+    "price_read": "Yes is trading at 7.5 cents (midpoint) with a tight 0.07\u20130.08 book and hundreds of thousands in depth on both sides; No sits at 92.5 cents with the inverse 0.92\u20130.93 spread and matching deep liquidity.",
+    "resolution_summary": "The market resolves to Yes if IMF Portwatch publishes a 7-day moving average of transit calls (arrivals of container, dry bulk, RoRo, general cargo, and tanker ships) for the Strait of Hormuz at or above 60 on any date from creation through August 31, 2026. Otherwise it resolves to No, using the official Portwatch chart and downloadable data; it can resolve early if the threshold is hit, or after a short grace period if final data is delayed.",
+    "notes": [],
+    "report": {
+      "plots": {
+        "outcome_leaning": {
+          "data": [
+            {
+              "label": "Yes",
+              "value": 4
+            },
+            {
+              "label": "No",
+              "value": 84
+            },
+            {
+              "label": "Mixed",
+              "value": 12
+            }
+          ],
+          "type": "bar",
+          "unit": "percent",
+          "title": "X prediction leaning"
+        },
+        "camp_distribution": {
+          "data": [
+            {
+              "label": "Iran-holds-the-chokepoint skeptics",
+              "value": 78
+            },
+            {
+              "label": "Conditional-deal watchers",
+              "value": 12
+            },
+            {
+              "label": "Escalate-to-normalize hawks",
+              "value": 6
+            },
+            {
+              "label": "Admin-success / markets-adjust minority",
+              "value": 4
+            }
+          ],
+          "type": "bar",
+          "unit": "percent",
+          "title": "Camp distribution"
+        }
+      },
+      "topic": "Strait of Hormuz traffic returns to normal by August 31?",
+      "X_leaning": "no",
+      "num_tweets": 15000,
+      "top_tweets": {
+        "camp1": {
+          "name": "Traffic stays abnormal; Iran sustains low-cost chokepoint disruption",
+          "tweet1": {
+            "url": "https://x.com/HormuzReport/status/2085679635426320879",
+            "handle": "HormuzReport",
+            "summary": "Reports Trump/White House admitting the Strait remains unsafe with vessels still vulnerable to Iranian drones, mines and missiles and shippers unwilling to risk multi-billion-dollar assets; directly supports the camp by confirming commercial refusal and ongoing risk that blocks normal volumes."
+          },
+          "tweet2": {
+            "url": "https://x.com/Reuters/status/2086121549015200007",
+            "handle": "Reuters",
+            "summary": "Reports UAE statement that Iran attacked an ADNOC commercial vessel with a missile in the Strait; evidences persistent strikes that keep traffic abnormal and shippers deterred past the August 31 horizon."
+          },
+          "tweet3": {
+            "url": "https://x.com/HormuzLetter/status/2085897401622012204",
+            "handle": "HormuzLetter",
+            "summary": "Reports satellite imagery of Iran striking and setting fire to another vessel in the US-backed southern corridor despite heavy air escort; shows escorts failing and Iran's ability to disrupt at will, reinforcing indefinite abnormality."
+          }
+        },
+        "camp2": {
+          "name": "Narrow conditional Oman-Iran deal may reopen limited corridors",
+          "tweet1": {
+            "url": "https://x.com/Reuters/status/2085813304010662317",
+            "handle": "Reuters",
+            "summary": "Reports a US official expecting a deal soon between Iran and Oman on the Strait; anchors the camp's view that a framework could restore some flow even if imperfect and short of full free navigation."
+          },
+          "tweet2": {
+            "url": "https://x.com/i/status/2086069993276363108",
+            "handle": "i",
+            "summary": "Reports Iran's statement that a deal is close but Iran will not reopen the waterway unilaterally and conditions remain; supports conditional watchers by indicating progress on a framework while underscoring remaining barriers to full normalization."
+          },
+          "tweet3": {
+            "url": "https://x.com/i/status/2085710046168600913",
+            "handle": "i",
+            "summary": "Reports Iran and Oman nearing a deal that might allow transit tolls while an oil analyst calls a functioning deal hard to envision; highlights the fragile, fee-laden corridor possibility that defines this camp."
+          }
+        }
+      },
+      "tweet_summary": "Sampled X discussion heavily predicts against normal Hormuz traffic by August 31, driven by evidence of continued Iranian strikes on escorted vessels, White House admissions that shippers will not risk billion-dollar assets to mines/drones/missiles, punitive insurance, and CENTCOM blockade stats showing managed abnormality rather than free transit; this is directional prediction from physical and official signals, not mere anti-Trump preference. Strongest evidence is the high-view admission and attack reports that undercut 'deal soon' headlines. Main uncertainty is whether any narrow Oman-Iran corridor/toll framework gains commercial acceptance; the relevance-filtered sample from ~20 threads is not representative of all X.",
+      "X_leaning_percentages": {
+        "no": 84,
+        "yes": 4,
+        "mixed": 12
+      }
+    }
+  },
+  {
+    "id": "0x6bd56627aa21311850825edb27e53434a0e17a4f782be0086bc07f71eee00d0d",
+    "title": "Putin out as President of Russia by December 31, 2026?",
+    "url": "https://polymarket.com/event/putin-out-before-2027",
+    "profiles": [
+      "politics"
+    ],
+    "summary": "This live prediction market asks whether Vladimir Putin will cease to be President of Russia by December 31, 2026. It is actively trading with substantial total volume over 18 million and strong liquidity near 783,000. The market remains open with no closure flags.",
+    "volume": 18626858.892071,
+    "volume_24hr": 24880.716198,
+    "liquidity": 783161.5647,
+    "end_date": "2026-12-31T18:30:00Z",
+    "top_outcome": {
+      "label": "No",
+      "pct": 92.5
+    },
+    "outcomes": [
+      {
+        "label": "No",
+        "pct": 92.5,
+        "best_bid": 0.92,
+        "best_ask": 0.93,
+        "bid_depth": 506213.73000000004,
+        "ask_depth": 1198997.27
+      },
+      {
+        "label": "Yes",
+        "pct": 7.5,
+        "best_bid": 0.07,
+        "best_ask": 0.08,
+        "bid_depth": 1198997.27,
+        "ask_depth": 506213.73000000004
+      }
+    ],
+    "price_read": "Yes is trading at about 7.5 cents (best bid 0.07 / ask 0.08) with deep bids over 1.1 million, while No sits at 92.5 cents (best bid 0.92 / ask 0.93). The book is tight, uncrossed, and fresh on both sides.",
+    "resolution_summary": "The market resolves to Yes if Vladimir Putin ceases to be President of Russia for any period between creation and the end date, including via announced resignation/removal (effective immediately on announcement), detention, or permanent prevention from duties. Otherwise it resolves to No, based on official Russian government information or a consensus of credible reporting.",
+    "notes": [],
+    "report": {
+      "plots": {
+        "outcome_leaning": {
+          "data": [
+            {
+              "label": "Yes",
+              "value": 42
+            },
+            {
+              "label": "No",
+              "value": 48
+            },
+            {
+              "label": "Mixed",
+              "value": 10
+            }
+          ],
+          "type": "bar",
+          "unit": "percent",
+          "title": "X prediction leaning"
+        },
+        "camp_distribution": {
+          "data": [
+            {
+              "label": "Durable control",
+              "value": 48
+            },
+            {
+              "label": "Regime self-devouring",
+              "value": 42
+            },
+            {
+              "label": "Low-signal hostility",
+              "value": 10
+            }
+          ],
+          "type": "bar",
+          "unit": "percent",
+          "title": "Camp distribution"
+        }
+      },
+      "topic": "Putin out as President of Russia by December 31, 2026?",
+      "X_leaning": "no",
+      "num_tweets": 5000,
+      "top_tweets": {
+        "camp1": {
+          "name": "Putin stays through 2026 under durable FSB and security control",
+          "tweet1": {
+            "url": "https://x.com/tass_agency/status/2084947970034716776",
+            "handle": "tass_agency",
+            "summary": "Announces Putin's appointment of Valery Solodchuk to head newly consolidated MoD logistics, demonstrating unbroken personnel authority and routine governance that undercuts imminent-ouster claims."
+          },
+          "tweet2": {
+            "url": "https://x.com/tass_agency/status/2085086521237938249",
+            "handle": "tass_agency",
+            "summary": "Reports Putin chairing a Defense Ministry leadership meeting on structure and rearrangements, evidencing active executive command inconsistent with loss of power by late 2026."
+          },
+          "tweet3": {
+            "url": "https://x.com/tass_agency/status/2085426005372445141",
+            "handle": "tass_agency",
+            "summary": "Details Putin receiving a combat situation report from the 76th Airborne commander and thanking troops, underscoring continued wartime leadership and operational control."
+          }
+        },
+        "camp2": {
+          "name": "Regime self-devours with Putin out by 2026 via purges and pressure",
+          "tweet1": {
+            "url": "https://x.com/business/status/2085690019142939131",
+            "handle": "business",
+            "summary": "Reports elites fear an out-of-control FSB as Putin leans on it for power, citing the Durov terrorism charge as proof of widening repression that frays the system toward collapse."
+          },
+          "tweet2": {
+            "url": "https://x.com/officejjsmart/status/2086176540589519130",
+            "handle": "officejjsmart",
+            "summary": "Claims FSB has locked down Moscow and begun purging elite crypto holdings while Putin sits isolated in a bunker losing control, framing an active power shift that seals his fate."
+          },
+          "tweet3": {
+            "url": "https://x.com/nexta_tv/status/2086110183181242869",
+            "handle": "nexta_tv",
+            "summary": "Cites Bloomberg that the inner circle fears unchecked FSB power reducing other Kremlin blocs to technical staff and the system devouring itself, supporting elite-betrayal or collapse exit."
+          }
+        }
+      },
+      "tweet_summary": "Sampled X posts and replies, centered on Bloomberg FSB-elite-fear stories plus TASS/MID official actions, display strong anti-Putin preference and dark hope yet no consensus prediction of exit by end-2026; durable-control takes that cite FSB/FSO protection, elite co-option, recycled failed forecasts and continuous appointments slightly edge self-devouring hopes tied to repression and war strain, with strongest evidence in institutional continuity signals versus speculative purge narratives, main uncertainty being unverified health shocks or triad fractures; the thin substantive sample does not represent all of X.",
+      "X_leaning_percentages": {
+        "no": 48,
+        "yes": 42,
+        "mixed": 10
+      }
+    }
+  },
+  {
+    "id": "0x377e7fe65cf198a7fc4fdae3f2136b74729279267858daaf96718b23bc2a5607",
+    "title": "Iran leadership change by December 31?",
+    "url": "https://polymarket.com/event/iran-leadership-change-by",
+    "profiles": [
+      "politics"
+    ],
+    "summary": "This is a live prediction market on whether Iran will see a leadership change by December 31, 2026. It specifically tracks if Mojtaba Khamenei ceases to be the de facto leader of Iran. The market is active with substantial trading volume over $3.9 million and solid liquidity.",
+    "volume": 3909066.484274,
+    "volume_24hr": 71011.550142,
+    "liquidity": 123685.1981,
+    "end_date": "2026-12-31T00:00:00Z",
+    "top_outcome": {
+      "label": "No",
+      "pct": 77.5
+    },
+    "outcomes": [
+      {
+        "label": "No",
+        "pct": 77.5,
+        "best_bid": 0.77,
+        "best_ask": 0.78,
+        "bid_depth": 56596.04,
+        "ask_depth": 94787.72
+      },
+      {
+        "label": "Yes",
+        "pct": 22.5,
+        "best_bid": 0.22,
+        "best_ask": 0.23,
+        "bid_depth": 94987.72,
+        "ask_depth": 56796.04
+      }
+    ],
+    "price_read": "Yes is trading at 0.225 with a tight 0.22 bid / 0.23 ask and deep size on both sides; No is at 0.775 with a matching 0.77/0.78 book. The order books are fresh and uncrossed.",
+    "resolution_summary": "The market resolves to Yes if Mojtaba Khamenei ceases to be the de facto leader of Iran at any point between market creation and the end date, including via removal, detention, loss of position, or an official announcement of resignation or removal. Otherwise it resolves to No, based on a consensus of credible reporting.",
+    "notes": [],
+    "report": {
+      "plots": {
+        "outcome_leaning": {
+          "data": [
+            {
+              "label": "Yes",
+              "value": 55
+            },
+            {
+              "label": "No",
+              "value": 37
+            },
+            {
+              "label": "Mixed",
+              "value": 8
+            }
+          ],
+          "type": "bar",
+          "unit": "percent",
+          "title": "X prediction leaning"
+        },
+        "camp_distribution": {
+          "data": [
+            {
+              "label": "Already dead / cover-up transition",
+              "value": 55
+            },
+            {
+              "label": "Real fractures but IRGC vetoes collapse",
+              "value": 25
+            },
+            {
+              "label": "Alive, isolated, status-quo holds",
+              "value": 12
+            },
+            {
+              "label": "Everything is psy-op / no signal",
+              "value": 8
+            }
+          ],
+          "type": "bar",
+          "unit": "percent",
+          "title": "Camp distribution"
+        }
+      },
+      "topic": "Iran leadership change by December 31?",
+      "X_leaning": "yes",
+      "num_tweets": 10000,
+      "top_tweets": {
+        "camp1": {
+          "name": "Already dead / cover-up transition",
+          "tweet1": {
+            "url": "https://x.com/Osint613/status/2085657891797647530",
+            "handle": "Osint613",
+            "summary": "Reports via IranWire that Mojtaba is in extremely critical condition per sources close to Pezeshkian; high-reach thread and replies treat this as confirmation he is already dead, enabling a cover narrative for imminent formal transition."
+          },
+          "tweet2": {
+            "url": "https://x.com/JewishWarrior13/status/2085709977985929682",
+            "handle": "JewishWarrior13",
+            "summary": "Cites multiple inside-Iran sources that the new Supreme Leader was rushed to hospital in critical condition; dominant replies insist he died months earlier with his father and this is Weekend-at-Bernie's prep to finally announce death and name a successor."
+          },
+          "tweet3": {
+            "url": "https://x.com/ShaykhSulaiman/status/2085082478239183293",
+            "handle": "ShaykhSulaiman",
+            "summary": "Shares Pezeshkian video admitting communication with Mojtaba is currently very difficult while still invoking his presence and 12/13 council vote; replies widely read the difficulty as proof of death or vegetative state, supporting change-by-cover-up claims."
+          }
+        },
+        "camp2": {
+          "name": "Real fractures but IRGC vetoes collapse",
+          "tweet1": {
+            "url": "https://x.com/TheIranWatcher/status/2085331435519451485",
+            "handle": "TheIranWatcher",
+            "summary": "Reports regime insider/relative Kharrazi publicly attacking key figures, alleging Mojtaba sidelining, corruption, and succession fights; replies include the view that IRGC institutional power still limits any sudden collapse or real leadership change before year-end."
+          },
+          "tweet2": {
+            "url": "https://x.com/shanaka86/status/2085749460903297202",
+            "handle": "shanaka86",
+            "summary": "Notes Pezeshkian and Araghchi statements of extreme difficulty reaching Mojtaba, ignored prior orders, and independent SNSC committee decisions with no sightings since February; replies argue IRGC has run the state for decades so Leader status is irrelevant to systemic continuity."
+          },
+          "tweet3": {
+            "url": "https://x.com/fresh_sadegh/status/2085439219925737977",
+            "handle": "fresh_sadegh",
+            "summary": "Flags unconfirmed rumor of SNSC secretary resignation/replacement by Mojtaba advisor but stresses it is unauthenticated, denied by the Leader's office, and unlikely given the short tenure, undercutting expectations of imminent leadership overhaul."
+          }
+        }
+      },
+      "tweet_summary": "Sampled high-view X threads lean heavily toward predicting leadership change by year-end, driven by viral claims that Mojtaba Khamenei is already dead or comatose and that critical-condition/hospital stories plus Pezeshkian's 'very difficult' communication admissions are cover for a delayed announcement and succession; this is prediction mixed with anti-regime preference and dark humor rather than pure forecasting. Strongest cited signals are IranWire critical-condition sourcing, repeated recirculation of disputed archival/AI-challenged proof-of-life videos, and official statements of no public appearances since February/March with committees deciding independently. Main uncertainty remains the total lack of confirmed death, funeral, or Assembly of Experts succession act, while a minority stresses IRGC institutional continuity would render any formal change cosmetic. The sample is news-driven and concentrated in anti-regime filter bubbles, not representative of broader X or Iranian opinion.",
+      "X_leaning_percentages": {
+        "no": 37,
+        "yes": 55,
+        "mixed": 8
+      }
+    }
+  },
+  {
+    "id": "0x513bf1706e9cbf61b7cc56f12803b1b72a522bae3c5157e7b356abdf36e2e72d",
+    "title": "Will Count Binface win the Clacton by-election?",
+    "url": "https://polymarket.com/event/clacton-by-election-winner-20260707143521303",
+    "profiles": [
+      "politics",
+      "culture"
+    ],
+    "summary": "This is a live prediction market on whether Count Binface will win the upcoming Clacton parliamentary by-election in the UK, expected after Nigel Farage's announced resignation. The market is active with substantial trading volume over $2.4 million and solid liquidity.",
+    "volume": 2468616.473861,
+    "volume_24hr": 83026.066388,
+    "liquidity": 212968.64025,
+    "end_date": "2026-08-13T16:00:00Z",
+    "top_outcome": {
+      "label": "No",
+      "pct": 98.9
+    },
+    "outcomes": [
+      {
+        "label": "No",
+        "pct": 98.9,
+        "best_bid": 0.988,
+        "best_ask": 0.99,
+        "bid_depth": 48661.33,
+        "ask_depth": 21387.79
+      },
+      {
+        "label": "Yes",
+        "pct": 1.1,
+        "best_bid": 0.01,
+        "best_ask": 0.012,
+        "bid_depth": 21387.79,
+        "ask_depth": 48661.33
+      }
+    ],
+    "price_read": "Yes trades at about 1.1 cents (midpoint 0.011) with best bid 0.01 and ask 0.012; No is at 98.9 cents. The order book shows healthy depth on both sides and is fresh.",
+    "resolution_summary": "The market resolves according to the candidate who wins the Clacton parliamentary by-election. If results are not known definitively by June 30, 2027, 11:59 PM ET, it resolves to \"Other\". Resolution uses a consensus of credible reporting, or in ambiguity the official results from Tendring District Council and the UK Parliament.",
+    "notes": [],
+    "report": {
+      "plots": {
+        "outcome_leaning": {
+          "data": [
+            {
+              "label": "Yes",
+              "value": 10
+            },
+            {
+              "label": "No",
+              "value": 62
+            },
+            {
+              "label": "Mixed",
+              "value": 28
+            }
+          ],
+          "type": "bar",
+          "unit": "percent",
+          "title": "X prediction leaning"
+        },
+        "camp_distribution": {
+          "data": [
+            {
+              "label": "Farage locks it / Binface zero chance",
+              "value": 62
+            },
+            {
+              "label": "Protest cheerleaders (high share, no win)",
+              "value": 28
+            },
+            {
+              "label": "Narrow upset hopers",
+              "value": 8
+            },
+            {
+              "label": "Pure Binface believers",
+              "value": 2
+            }
+          ],
+          "type": "bar",
+          "unit": "percent",
+          "title": "Camp distribution"
+        }
+      },
+      "topic": "Will Count Binface win the Clacton by-election?",
+      "X_leaning": "no",
+      "num_tweets": 7500,
+      "top_tweets": {
+        "camp1": {
+          "name": "Farage locks easy win; Binface has zero realistic chance",
+          "tweet1": {
+            "url": "https://x.com/BenGrahamUK/status/2085987416796536847",
+            "handle": "BenGrahamUK",
+            "summary": "Cites Farage polling at 73% (up 26.8 points) in the Clacton by-election as proof of surging Reform support, directly underpinning the lock-for-Farage view even as replies note the opponent is essentially a bin."
+          },
+          "tweet2": {
+            "url": "https://x.com/JoshHousden/status/2085682067119968323",
+            "handle": "JoshHousden",
+            "summary": "Extrapolates a Survation head-to-head to census level and concludes Binface achieves at best 45/55 splits and wins nowhere in Clacton, supplying the clearest map-based case that an upset is structurally implausible."
+          },
+          "tweet3": {
+            "url": "https://x.com/poll_checker/status/2085731270282141995",
+            "handle": "poll_checker",
+            "summary": "Shares historical right-wing vote shares in Clacton plus a Survation projection of Reform at 73%, reinforcing that Farage's baseline and the boycott make Binface's deposit-loss or low-20s ceiling the realistic ceiling."
+          }
+        },
+        "camp2": {
+          "name": "Narrow upset still possible via protest switch and collapse in turnout",
+          "tweet1": {
+            "url": "https://x.com/i/status/2085783105105739870",
+            "handle": "i",
+            "summary": "Binface posts on-the-ground campaign photo in Clacton; replies amplify an Ipsos-style claim of national preference for him over Farage and treat his presence as generating real anti-Farage momentum that could convert protest into votes."
+          },
+          "tweet2": {
+            "url": "https://x.com/SlyForTheRight/status/2085767326608093548",
+            "handle": "SlyForTheRight",
+            "summary": "Shares video of Clacton residents shouting 'BinFace! Bin for the win!' during Farage campaigning, offered as evidence of visible local rejection that, combined with boycotts, might produce a closer result than polls show."
+          },
+          "tweet3": {
+            "url": "https://x.com/i/status/2085857811997548689",
+            "handle": "i",
+            "summary": "BBC clip of a Clacton resident reporting that people keep telling him to vote Binface, used by cheerleaders to argue name recognition and protest sentiment are higher than Farage's team admits and could matter under low turnout."
+          }
+        }
+      },
+      "tweet_summary": "Sampled X discussion overwhelmingly treats a Count Binface win as a near-impossibility and joke, with prediction (not mere preference) clustered on Farage cruising at 60-73% in a low-turnout contest against only fringe/satirical opponents after major parties boycotted; anti-Farage mockery, 'vote Binface' memes, and protest cheers are loud under Binface posts but frame him as a spoiler who might hit ~20% and humiliate Reform rather than a realistic victor. Strongest evidence is repeated Survation-style polling, the boycott leaving ~34 candidates, Binface's serial satirical losses, and raw-vote math on the ~78k electorate. Main uncertainty is whether low turnout plus any Lab/Lib/Green tactical switch could narrow margins in pockets, though even hopers rarely claim the seat. This is a relevance-sampled, meme-heavy national slice, not a poll of Clacton voters.",
+      "X_leaning_percentages": {
+        "no": 62,
+        "yes": 10,
+        "mixed": 28
+      }
+    }
+  },
+  {
+    "id": "0x5db999fad322cea2914535aae5517060c3f80ad6d8c0231cde2124a434d16846",
+    "title": "Will the U.S. invade Iran before 2027?",
+    "url": "https://polymarket.com/event/will-the-us-invade-iran-before-2027",
+    "profiles": [
+      "politics"
+    ],
+    "summary": "This is a live prediction market asking whether the United States will invade Iran before 2027. It remains active and open, with substantial trading volume over $57 million and solid liquidity. The market currently prices a low probability of a Yes outcome.",
+    "volume": 57791942.538035,
+    "volume_24hr": 192788.453402,
+    "liquidity": 904839.3084,
+    "end_date": "2026-12-31T00:00:00Z",
+    "top_outcome": {
+      "label": "No",
+      "pct": 83.5
+    },
+    "outcomes": [
+      {
+        "label": "No",
+        "pct": 83.5,
+        "best_bid": 0.83,
+        "best_ask": 0.84,
+        "bid_depth": 278948.83,
+        "ask_depth": 1833262.05
+      },
+      {
+        "label": "Yes",
+        "pct": 16.5,
+        "best_bid": 0.16,
+        "best_ask": 0.17,
+        "bid_depth": 1831862.05,
+        "ask_depth": 279148.83
+      }
+    ],
+    "price_read": "Yes trades at 0.165 (best bid 0.16 / best ask 0.17) with deep bid-side liquidity, while No trades at 0.835 (best bid 0.83 / best ask 0.84). The order books are tight and uncrossed on both sides.",
+    "resolution_summary": "The market resolves to Yes if the United States commences a military offensive intended to establish control over any portion of Iran by December 31, 2026, 11:59 PM ET; otherwise it resolves to No. Land de facto controlled by Iran or the United States as of November 4, 2025 12:00 PM ET is treated as that country\u2019s sovereign territory. Resolution is based on a consensus of credible sources.",
+    "notes": [],
+    "report": {
+      "plots": {
+        "outcome_leaning": {
+          "data": [
+            {
+              "label": "Yes",
+              "value": 18
+            },
+            {
+              "label": "No",
+              "value": 52
+            },
+            {
+              "label": "Mixed",
+              "value": 30
+            }
+          ],
+          "type": "bar",
+          "unit": "percent",
+          "title": "X prediction leaning"
+        },
+        "camp_distribution": {
+          "data": [
+            {
+              "label": "Diplomacy skeptics (conflict grinds on)",
+              "value": 42
+            },
+            {
+              "label": "Isolationists / quagmire realists",
+              "value": 28
+            },
+            {
+              "label": "Limited hawks (pressure not occupation)",
+              "value": 18
+            },
+            {
+              "label": "Deal / de-escalation optimists",
+              "value": 12
+            }
+          ],
+          "type": "bar",
+          "unit": "percent",
+          "title": "Camp distribution"
+        }
+      },
+      "topic": "Will the U.S. invade Iran before 2027?",
+      "X_leaning": "no",
+      "num_tweets": 8500,
+      "top_tweets": {
+        "camp1": {
+          "name": "Deals and talks are fake or temporary; conflict grinds on with elevated escalation risk",
+          "tweet1": {
+            "url": "https://x.com/AJEnglish/status/2085138785633751364",
+            "handle": "AJEnglish",
+            "summary": "Reports Trump claiming talks with Iran, preference for a deal, and standing down from a major planned attack; replies overwhelmingly treat the claims as lies, cite Iranian denials of any negotiations, and portray the U.S. as desperate, reinforcing that no durable de-escalation is underway."
+          },
+          "tweet2": {
+            "url": "https://x.com/Kalshi/status/2084991561746501780",
+            "handle": "Kalshi",
+            "summary": "Reports Trump stating \u2018very good\u2019 discussions with Iran; dominant replies call it the latest empty repetition (20\u201350+ prior times), note Iran denies direct U.S. talks (only Oman), and treat headlines as market theater, keeping conflict risk alive."
+          },
+          "tweet3": {
+            "url": "https://x.com/Polymarket/status/2084847864757526748",
+            "handle": "Polymarket",
+            "summary": "Claims U.S./Iran/Oman nearing a Hormuz reopening deal for Wednesday; replies dismiss it as fake news, the nth failed announcement, or Iranian time-buying under continued military pressure, with IRGC-linked sources rejecting any deal while threats persist."
+          }
+        },
+        "camp2": {
+          "name": "Invasion would be a death-trap quagmire; U.S. should leave the Middle East",
+          "tweet1": {
+            "url": "https://x.com/Rusia_HD/status/2085181903758344279",
+            "handle": "Rusia_HD",
+            "summary": "Claims Trump threatened ground invasion if Iran does not surrender while citing warnings that Iran\u2019s army would isolate U.S. troops and cut air support, framing it as sending soldiers to die for ego; replies treat invasion as reckless folly certain to produce body bags."
+          },
+          "tweet2": {
+            "url": "https://x.com/CENTCOM/status/2085827179858825273",
+            "handle": "CENTCOM",
+            "summary": "Official update that blockade forces redirected 51 vessels, disabled 2, boarded 2; replies are heavily isolationist or hostile, claiming Iran controls the Strait, hundreds of ships get through, the U.S. is losing prestige, and America should exit the Middle East entirely."
+          },
+          "tweet3": {
+            "url": "https://x.com/sentdefender/status/2085528380942794891",
+            "handle": "sentdefender",
+            "summary": "Reports CENTCOM photos of 11th MEU Marines embarked on USS Boxer for the Iran blockade with redirect/board stats; replies focus on high costs, prolonged no-end deployment, distrust of claims, and preference for Iranian uprising over U.S. ground action."
+          }
+        }
+      },
+      "tweet_summary": "Sampled high-view X threads on the ongoing U.S. naval blockade and repeated Hormuz/deal headlines show deep cynicism that any talks or agreements will stick\u2014users cite Iranian denials of direct negotiations, Trump\u2019s dozens of prior empty \u201cvery good\u201d claims, and escape clauses\u2014keeping low-intensity conflict risk elevated. Full ground invasion before 2027 is rarely the base-case prediction; isolationist replies under CENTCOM posts call the blockade costly theater or reverse-controlled by Iran and label invasion a death trap producing body bags, while limited hawks prefer regime pressure over occupation. Strongest evidence remains institutional (CENTCOM photos/stats of embarked Marines and vessel redirects still active in Aug 2026, narrow OFAC delistings misread as broad sanctions relief). Main uncertainty is whether fatigue yields drawdown or a sudden spiral, but the supplied sample favors prolonged grind or exit over invasion and is weighted to engaged newsy threads rather than all of X.",
+      "X_leaning_percentages": {
+        "no": 52,
+        "yes": 18,
+        "mixed": 30
+      }
+    }
+  },
+  {
+    "id": "0x6d3fe00d69ee048011f6ea7d2b5f49a103c013286bd463a8fbc9fe0775392ad7",
+    "title": "Will Elon Musk post <40 tweets from August 8 to August 10, 2026?",
+    "url": "https://polymarket.com/event/elon-musk-of-tweets-august-8-august-10",
+    "profiles": [
+      "culture"
+    ],
+    "summary": "This is a live prediction market on whether Elon Musk will make fewer than 40 posts on X between August 8 and August 10, 2026. It uses the official X account as the reference and is currently active with solid trading volume and liquidity.",
+    "volume": 28480.30594,
+    "volume_24hr": 24252.189217,
+    "liquidity": 17863.9487,
+    "end_date": "2026-08-10T16:00:00Z",
+    "top_outcome": {
+      "label": "No",
+      "pct": 76.5
+    },
+    "outcomes": [
+      {
+        "label": "No",
+        "pct": 76.5,
+        "best_bid": 0.76,
+        "best_ask": 0.77,
+        "bid_depth": 3272.71,
+        "ask_depth": 1981.7
+      },
+      {
+        "label": "Yes",
+        "pct": 23.5,
+        "best_bid": 0.23,
+        "best_ask": 0.24,
+        "bid_depth": 2181.7,
+        "ask_depth": 3272.71
+      }
+    ],
+    "price_read": "Yes is trading at about 0.235 (best bid 0.23 / ask 0.24) with solid depth on both sides; No is at 0.765 (bid 0.76 / ask 0.77). The books are tight, uncrossed, and fresh.",
+    "resolution_summary": "The market resolves based on the number of Elon Musk (@elonmusk) posts on X from August 8 12:00 PM ET to August 10 2026 12:00 PM ET. Only main feed posts, quote posts, and reposts count; replies do not (except certain main-feed replies), deleted posts count if captured, and the primary source is the Post Counter at xtracker.polymarket.com, with X itself as backup.",
+    "notes": [],
+    "report": {
+      "plots": {
+        "outcome_leaning": {
+          "data": [
+            {
+              "label": "Yes",
+              "value": 0
+            },
+            {
+              "label": "No",
+              "value": 0
+            },
+            {
+              "label": "Mixed",
+              "value": 100
+            }
+          ],
+          "type": "bar",
+          "unit": "percent",
+          "title": "X prediction leaning"
+        },
+        "camp_distribution": {
+          "data": [
+            {
+              "label": "Completely unengaged / silent",
+              "value": 100
+            }
+          ],
+          "type": "bar",
+          "unit": "percent",
+          "title": "Camp distribution"
+        }
+      },
+      "topic": "Will Elon Musk post <40 tweets from August 8 to August 10, 2026?",
+      "X_leaning": "mixed",
+      "num_tweets": 311500,
+      "top_tweets": {
+        "camp1": {
+          "name": "Completely unengaged / silent",
+          "tweet1": {
+            "url": "https://x.com/i/status/2086104561555583102",
+            "handle": "i",
+            "summary": "Elon claims Hitler was a left-wing socialist citing identity politics and collectivism; 110 replies debate historical left/right placement of Nazism with insults and Grok screenshots but zero mention of tweet volume or the Aug 8-10 window, illustrating total disengagement from the forecast."
+          },
+          "tweet2": {
+            "url": "https://x.com/elonmusk/status/2086127247077843282",
+            "handle": "elonmusk",
+            "summary": "Elon announces major Grok Imagine image-editing upgrade with hover segment demo; 78 replies praise or nitpick the feature quality/limits/pricing with memes and spam but contain no discussion of posting frequency, supporting the unengaged camp."
+          },
+          "tweet3": {
+            "url": "https://x.com/i/status/2086110723239747584",
+            "handle": "i",
+            "summary": "Elon replies 'True' to Gad Saad on Democrats' positions and Republican apathy destroying the US; 95 replies affirm, call Elon hypocrite or attack Saad in polarized political rants with zero reference to tweet counts, confirming silence on the volume question."
+          }
+        },
+        "camp2": {
+          "name": "No meaningful opposing camp",
+          "tweet1": null,
+          "tweet2": null,
+          "tweet3": null
+        }
+      },
+      "tweet_summary": "Sampled X discussion across roughly 20 high-view Elon Musk and SpaceX threads (tens of millions of combined views) contains literally zero engagement with the forecast of whether he posts under 40 times from August 8-10 2026; every reply cluster instead reacts only to post content such as Grok Imagine edits, Starlink launches and revenue claims, political statements on Hitler/Nazism/Twitch/police/judges, or Boring Company demos. No directional predictions or even preferences on volume appear in over 1300 replies read. The strongest evidence is the parent posts themselves documenting heavy August 8 activity (multiple videos, quote-tweets, single-word replies and announcements), which on base rates weighs against staying under 40 across three days, while the main uncertainty remains whether that cadence continues or drops; the sample does not represent all of X.",
+      "X_leaning_percentages": {
+        "no": 0,
+        "yes": 0,
+        "mixed": 100
+      }
+    }
+  },
+  {
+    "id": "0xebdc2da839f2e79706137d22c671e1c3b0bd0f511e4ba9ceb3704a5336a91c7f",
+    "title": "Will the total domestic gross for Spider-Man: Brand New Day be less than 400m by August 31?",
+    "url": "https://polymarket.com/event/spider-man-brand-new-day-total-domestic-gross-by-august-31-20260716181307512",
+    "profiles": [
+      "culture"
+    ],
+    "summary": "This is a live prediction market on whether the domestic box office gross for the movie Spider-Man: Brand New Day will total less than $400 million by August 31, 2026. It is currently active with modest trading volume around $6,190 and solid liquidity near $13,000.",
+    "volume": 6190.085752,
+    "volume_24hr": 231.0,
+    "liquidity": 13087.63481,
+    "end_date": "2026-08-31T23:59:00Z",
+    "top_outcome": {
+      "label": "No",
+      "pct": 100.0
+    },
+    "outcomes": [
+      {
+        "label": "No",
+        "pct": 100.0,
+        "best_bid": 0.999,
+        "best_ask": null,
+        "bid_depth": 8636.539999999999,
+        "ask_depth": 0.0
+      },
+      {
+        "label": "Yes",
+        "pct": 0.1,
+        "best_bid": null,
+        "best_ask": 0.001,
+        "bid_depth": 0.0,
+        "ask_depth": 8636.539999999999
+      }
+    ],
+    "price_read": "Yes trades at a gamma/midpoint of 0.0005 with a best ask of 0.001 and roughly 8,637 ask depth (no bid), while No sits at 0.9995 with a best bid of 0.999 and matching bid depth (no ask), showing the market prices a sub-$400m gross as extremely unlikely.",
+    "resolution_summary": "The market resolves based on the total domestic gross for Spider-Man: Brand New Day by August 31, 2026, using final (non-estimate) Daily Box Office Performance figures from The Numbers website for dates from the July 31, 2026 opening through August 31. If figures fall exactly between brackets it goes to the higher range; ambiguity keeps it open until Box Office Mojo and The Numbers both confirm finals, or a new source is chosen if no data by September 30, 2026.",
+    "notes": [],
+    "report": {
+      "plots": {
+        "outcome_leaning": {
+          "data": [
+            {
+              "label": "Yes",
+              "value": 2
+            },
+            {
+              "label": "No",
+              "value": 81
+            },
+            {
+              "label": "Mixed",
+              "value": 17
+            }
+          ],
+          "type": "bar",
+          "unit": "percent",
+          "title": "X prediction leaning"
+        },
+        "camp_distribution": {
+          "data": [
+            {
+              "label": "Already past / unstoppable smash",
+              "value": 92
+            },
+            {
+              "label": "High but front-loaded / estimates noisy",
+              "value": 7
+            },
+            {
+              "label": "Skeptical of longevity",
+              "value": 1
+            }
+          ],
+          "type": "bar",
+          "unit": "percent",
+          "title": "Camp distribution"
+        }
+      },
+      "topic": "Will the total domestic gross for Spider-Man: Brand New Day be less than 400m by August 31?",
+      "X_leaning": "no",
+      "num_tweets": 5000,
+      "top_tweets": {
+        "camp1": {
+          "name": "Already past $500M+ and unstoppable smash far above $400M",
+          "tweet1": {
+            "url": "https://x.com/THR/status/2085810155749519413",
+            "handle": "THR",
+            "summary": "Reports the highest-grossing domestic first week ever, surpassing $500M in North America in seven days faster than Endgame and setting Monday/Tuesday records, which already places the cume irrevocably above $400M."
+          },
+          "tweet2": {
+            "url": "https://x.com/Variety/status/2086120118569021815",
+            "handle": "Variety",
+            "summary": "Reports $43M on second Friday projecting $143M for the weekend and $653M domestic through weekend two with no signs of slowing, confirming a trajectory locked well above the $400M line."
+          },
+          "tweet3": {
+            "url": "https://x.com/DanielRPK/status/2085665306228179306",
+            "handle": "DanielRPK",
+            "summary": "Claims the film set the all-time domestic opening weekend record without IMAX and is on pace to beat Force Awakens with possible $1B domestic, establishing historic early strength that eliminates any under-$400M scenario."
+          }
+        },
+        "camp2": {
+          "name": "High but front-loaded with noisy estimates still finishes far above $400M",
+          "tweet1": {
+            "url": "https://x.com/ScottMendelson/status/2086148164420272364",
+            "handle": "ScottMendelson",
+            "summary": "Notes a steep drop from the first Friday/weekend yet projects finishing the second Sunday around Inside Out 2\u2019s $652M domestic total, acknowledging front-loading while still confirming a massive cume far over $400M."
+          },
+          "tweet2": {
+            "url": "https://x.com/i/status/2085875673886040268",
+            "handle": "i",
+            "summary": "Projects $135M\u2013$140M+ second weekend (third-best ever); replies debate studio lowballing patterns versus downward revisions as possible steam loss, highlighting estimate noise on a base that remains enormous and well clear of $400M."
+          },
+          "tweet3": {
+            "url": "https://x.com/DEADLINE/status/2086125273901056005",
+            "handle": "DEADLINE",
+            "summary": "Tracks a $143M second weekend as a rare $100M+ sophomore frame (first for Sony) while noting it may not quite beat Force Awakens, framing a historic but not unlimited high path still vastly above $400M."
+          }
+        }
+      },
+      "tweet_summary": "Sampled X posts and replies from high-view THR, Variety, Deadline and tracker threads overwhelmingly treat a domestic total under $400M by August 31 as already impossible, citing reported $500M+ first-week grosses (fastest ever, beating Endgame) plus $143M second-weekend tracking toward $650M+ 10-day totals and $900M\u2013$1B finals. Celebratory preference for the film and Spider-Man\u2019s draw is common but distinct from the predictive consensus grounded in those institutional figures; strongest evidence is the multi-outlet $500M-in-7-days confirmations that mathematically clear the threshold, while main uncertainties concern only exact legs, lowballing of projections, or races with Force Awakens rather than any realistic downside near $400M. The supplied relevance-sampled set (not a full random poll of X) shows near-zero directional support for the Yes outcome.",
+      "X_leaning_percentages": {
+        "no": 81,
+        "yes": 2,
+        "mixed": 17
+      }
+    }
+  }
+]

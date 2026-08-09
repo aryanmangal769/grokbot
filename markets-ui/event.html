@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Market / X</title>
+<style>
+  :root{
+    --bg:#000; --panel:#16181c; --panel-hover:#1d1f23; --border:#2f3336;
+    --text:#e7e9ea; --muted:#71767b; --blue:#1d9bf0; --blue-h:#1a8cd8;
+    --green:#00ba7c; --pink:#f91880;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--bg);color:var(--text);
+    font-family:"Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  svg{fill:currentColor}
+  .wrap{max-width:600px;margin:0 auto;border-left:1px solid var(--border);
+    border-right:1px solid var(--border);min-height:100vh}
+  .top{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:22px;
+    padding:12px 16px;backdrop-filter:blur(12px);background:rgba(0,0,0,.65);
+    border-bottom:1px solid var(--border)}
+  .back{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;
+    justify-content:center;cursor:pointer} .back:hover{background:rgba(231,233,234,.1)}
+  .back svg{width:20px;height:20px}
+  .top h1{font-size:20px;font-weight:800}
+  .sec{padding:16px;border-bottom:1px solid var(--border)}
+  .cat{font-size:13px;color:var(--muted);text-transform:capitalize;margin-bottom:6px}
+  .title{font-size:23px;font-weight:800;line-height:1.3}
+  .verified{width:20px;height:20px;color:var(--blue);vertical-align:-3px}
+  .head-odds{display:flex;gap:26px;margin-top:16px}
+  .ho .l{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+  .ho .v{font-size:26px;font-weight:800}
+  .ho .v.green{color:var(--green)} .ho .sub{font-size:13px;color:var(--muted)}
+  .h2{font-size:19px;font-weight:800;margin-bottom:10px}
+  .muted{color:var(--muted)} .small{font-size:13px}
+  /* market data */
+  .oc{display:flex;align-items:center;justify-content:space-between;padding:10px 0;
+    border-bottom:1px solid rgba(47,51,54,.5)} .oc:last-child{border-bottom:none}
+  .oc .lab{font-weight:700} .oc .pct{font-weight:800;font-size:17px}
+  .oc .ba{font-size:12px;color:var(--muted)}
+  .kv{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:12px;font-size:14px}
+  .kv div{display:flex;flex-direction:column} .kv .k{font-size:12px;color:var(--muted)}
+  .kv .v{font-weight:700}
+  .read{margin-top:12px;font-size:14px;line-height:1.5;color:#c9cdd1}
+  .notes{margin-top:10px;font-size:12px;color:var(--muted)}
+  .pill{display:inline-block;margin-top:12px;font-size:13px;color:var(--blue)}
+  /* sentiment */
+  .summary{font-size:15px;line-height:1.55}
+  .leanrow{display:flex;align-items:center;gap:8px;margin-bottom:14px;font-size:14px}
+  .badge{font-weight:800;padding:3px 10px;border-radius:9999px}
+  .badge.yes{background:rgba(0,186,124,.15);color:var(--green)}
+  .badge.no{background:rgba(249,24,128,.15);color:var(--pink)}
+  .badge.mixed{background:rgba(113,118,123,.2);color:var(--text)}
+  /* charts */
+  .chart{margin:14px 0}
+  .chart .ct{font-size:13px;color:var(--muted);margin-bottom:8px}
+  .bar{display:flex;align-items:center;gap:10px;margin:6px 0;font-size:13px}
+  .bar .bl{width:120px;flex:0 0 120px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .bar .track{flex:1;height:16px;background:#2f3336;border-radius:6px;overflow:hidden}
+  .bar .fill{height:100%;border-radius:6px;background:var(--blue)}
+  .bar .fill.yes{background:var(--green)} .bar .fill.no{background:var(--pink)}
+  .bar .fill.mixed{background:#71767b}
+  .bar .bv{width:42px;text-align:right;font-weight:700}
+  /* camps */
+  .camp{margin-top:16px}
+  .camp .cn{font-weight:800;font-size:15px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+  .camp .cn .tag{font-size:11px;font-weight:700;padding:2px 8px;border-radius:9999px;
+    background:var(--panel-hover);color:var(--muted)}
+  .tw{border:1px solid var(--border);border-radius:14px;padding:12px;margin-bottom:10px}
+  .tw .th{display:flex;align-items:center;gap:6px;font-size:14px;margin-bottom:4px}
+  .tw .th .av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#536471,#1d1f23)}
+  .tw .th .hn{font-weight:700} .tw .th .vf{width:15px;height:15px;color:var(--blue)}
+  .tw .ts{font-size:14px;line-height:1.45;color:#e7e9ea}
+  .tw .tl{font-size:13px;color:var(--blue);margin-top:6px;display:inline-block}
+  /* video */
+  .video{margin-top:12px;border:1px solid var(--border);border-radius:16px;overflow:hidden;
+    aspect-ratio:16/9;background:linear-gradient(135deg,#111,#1d1f23);display:flex;
+    flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--muted)}
+  .video .play{width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.12);
+    display:flex;align-items:center;justify-content:center}
+  .video .play svg{width:28px;height:28px;color:#fff}
+  /* buy */
+  .buybar{padding:16px}
+  .buy{width:100%;background:var(--blue);color:#fff;border:none;font-size:17px;font-weight:800;
+    padding:15px;border-radius:9999px;cursor:pointer;display:flex;align-items:center;
+    justify-content:center;gap:8px} .buy:hover{background:var(--blue-h)}
+  .buy.done{background:var(--green);cursor:default}
+  .buy svg{width:20px;height:20px}
+  .disc{font-size:12px;color:var(--muted);text-align:center;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="back" onclick="history.length>1?history.back():location.href='index.html'">
+      <svg viewBox="0 0 24 24"><path d="M7.414 13l5.043 5.04-1.414 1.42L3.586 12l7.457-7.46 1.414 1.42L7.414 11H21v2z"/></svg>
+    </div>
+    <h1>Market</h1>
+  </div>
+  <div id="content"><div class="sec muted">Loading…</div></div>
+</div>
+
+<script>
+const V='<svg class="verified" viewBox="0 0 24 24"><path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.689.878.634.132 1.293.084 1.902-.14.271.588.7 1.089 1.24 1.443s1.167.551 1.813.565c.647-.016 1.274-.213 1.816-.567.542-.354.972-.854 1.245-1.44.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"/></svg>';
+const vf='<svg class="vf" viewBox="0 0 24 24"><path d="M20.396 11c-.018-.646-.215-1.275-.57-1.816-.354-.54-.852-.972-1.438-1.246.223-.607.27-1.264.14-1.897-.131-.634-.437-1.218-.882-1.687-.47-.445-1.053-.75-1.687-.882-.633-.13-1.29-.083-1.897.14-.273-.587-.704-1.086-1.245-1.44S11.647 1.62 11 1.604c-.646.017-1.273.213-1.813.568s-.969.854-1.24 1.44c-.608-.223-1.267-.272-1.902-.14-.635.13-1.22.436-1.69.882-.445.47-.749 1.055-.878 1.688-.13.633-.08 1.29.144 1.896-.587.274-1.087.705-1.443 1.245-.356.54-.555 1.17-.574 1.817.02.647.218 1.276.574 1.817.356.54.856.972 1.443 1.245-.224.606-.274 1.263-.144 1.896.13.634.433 1.218.877 1.688.47.443 1.054.747 1.689.878.634.132 1.293.084 1.902-.14.271.588.7 1.089 1.24 1.443s1.167.551 1.813.565c.647-.016 1.274-.213 1.816-.567.542-.354.972-.854 1.245-1.44.604.239 1.266.296 1.903.164.636-.132 1.22-.447 1.68-.907.46-.46.776-1.044.908-1.681s.075-1.299-.165-1.903c.586-.274 1.084-.705 1.439-1.246.354-.54.551-1.17.569-1.816zM9.662 14.85l-3.429-3.428 1.293-1.302 2.072 2.072 4.4-4.794 1.347 1.246z"/></svg>';
+
+function money(n){n=Number(n)||0;if(n>=1e9)return '$'+(n/1e9).toFixed(1)+'B';if(n>=1e6)return '$'+(n/1e6).toFixed(1)+'M';if(n>=1e3)return '$'+(n/1e3).toFixed(0)+'K';return '$'+n.toFixed(0);}
+function fdate(s){if(!s)return '—';try{return new Date(s).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'});}catch(e){return s;}}
+function qs(k){return new URLSearchParams(location.search).get(k);}
+
+function barChart(plot){
+  const max=Math.max(...plot.data.map(d=>d.value),1);
+  const cls=l=>{l=l.toLowerCase();return l==='yes'?'yes':l==='no'?'no':l==='mixed'?'mixed':'';};
+  return `<div class="chart"><div class="ct">${plot.title}</div>`+
+    plot.data.map(d=>`<div class="bar"><div class="bl">${d.label}</div>
+      <div class="track"><div class="fill ${cls(d.label)}" style="width:${(d.value/max*100).toFixed(0)}%"></div></div>
+      <div class="bv">${d.value}${plot.unit==='percent'?'%':''}</div></div>`).join('')+`</div>`;
+}
+function camp(c){
+  const tws=['tweet1','tweet2','tweet3'].filter(k=>c[k]).map(k=>{const t=c[k];
+    return `<div class="tw"><div class="th"><div class="av"></div>
+      <span class="hn">${t.handle}</span>${vf}</div>
+      <div class="ts">${t.summary}</div><a class="tl" href="${t.url}" target="_blank">View on X</a></div>`;}).join('');
+  return `<div class="camp"><div class="cn">${c.name} <span class="tag">camp</span></div>${tws}</div>`;
+}
+
+fetch('markets.json').then(r=>r.json()).then(markets=>{
+  const id=qs('id');
+  const m=markets.find(x=>x.id===id)||markets[0];
+  const rep=m.report;
+  const lean=rep.X_leaning;
+  const el=document.getElementById('content');
+  el.innerHTML=`
+    <!-- title + headline odds -->
+    <div class="sec">
+      <div class="cat">${(m.profiles||[])[0]||'market'} · Polymarket</div>
+      <div class="title">${m.title}</div>
+      <div class="head-odds">
+        <div class="ho"><div class="l">Market</div><div class="v green">${m.top_outcome.pct}%</div>
+          <div class="sub">${m.top_outcome.label||'Yes'}</div></div>
+        <div class="ho"><div class="l">X-implied</div><div class="v">${rep.X_leaning_percentages.yes}%</div>
+          <div class="sub">from ${(rep.num_tweets/1000).toFixed(1)}K posts</div></div>
+        <div class="ho"><div class="l">Resolves</div><div class="v" style="font-size:18px">${fdate(m.end_date)}</div></div>
+      </div>
+    </div>
+
+    <!-- all polymarket data -->
+    <div class="sec">
+      <div class="h2">Market data <span class="small muted">· Polymarket</span></div>
+      ${(m.outcomes||[]).map(o=>`<div class="oc"><div>
+        <div class="lab">${o.label}</div>
+        <div class="ba">bid ${o.best_bid??'—'} · ask ${o.best_ask??'—'} · depth ${money(o.bid_depth||0)}/${money(o.ask_depth||0)}</div>
+        </div><div class="pct">${o.pct}%</div></div>`).join('')}
+      <div class="kv">
+        <div><span class="k">Volume</span><span class="v">${money(m.volume)}</span></div>
+        <div><span class="k">24h Volume</span><span class="v">${money(m.volume_24hr)}</span></div>
+        <div><span class="k">Liquidity</span><span class="v">${money(m.liquidity)}</span></div>
+      </div>
+      ${m.price_read?`<div class="read">${m.price_read}</div>`:''}
+      ${m.resolution_summary?`<div class="read"><b>Resolution:</b> ${m.resolution_summary}</div>`:''}
+      ${(m.notes&&m.notes.length)?`<div class="notes">⚠︎ ${m.notes.join(' · ')}</div>`:''}
+      <a class="pill" href="${m.url}" target="_blank">View on Polymarket ↗</a>
+    </div>
+
+    <!-- tweet summary -->
+    <div class="sec">
+      <div class="h2">What X is saying</div>
+      <div class="leanrow">X leaning:
+        <span class="badge ${lean}">${lean.toUpperCase()}</span>
+        <span class="muted small">${rep.X_leaning_percentages.yes}% yes · ${rep.X_leaning_percentages.no}% no · ${rep.X_leaning_percentages.mixed}% mixed</span>
+      </div>
+      <div class="summary">${rep.tweet_summary}</div>
+    </div>
+
+    <!-- graphs from this market's topic opinion report -->
+    <div class="sec">
+      <div class="h2">Sentiment breakdown</div>
+      ${barChart(rep.plots.outcome_leaning)}
+      ${barChart(rep.plots.camp_distribution)}
+    </div>
+
+    <!-- top 3 tweets per camp -->
+    <div class="sec">
+      <div class="h2">Top posts by camp</div>
+      ${camp(rep.top_tweets.camp1)}
+      ${camp(rep.top_tweets.camp2)}
+    </div>
+
+    <!-- video -->
+    <div class="sec">
+      <div class="h2">News summary for you</div>
+      <div class="video"><div class="play">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="small">AI news recap · coming soon</div></div>
+    </div>
+
+    <!-- buy -->
+    <div class="buybar">
+      <button class="buy" id="buy">
+        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        Buy with X money
+      </button>
+      <div class="disc">Prototype — no real funds are moved.</div>
+    </div>`;
+
+  document.getElementById('buy').addEventListener('click',function(){
+    this.classList.add('done');
+    this.innerHTML='<svg viewBox="0 0 24 24"><path d="M9.5 16.5l-4-4L4 14l5.5 5.5L20 9l-1.5-1.5z"/></svg> Order placed (mock)';
+  });
+}).catch(e=>{document.getElementById('content').innerHTML='<div class="sec muted">Could not load market data.</div>';});
+</script>
+</body>
+</html>

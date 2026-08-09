@@ -12,6 +12,7 @@ One repo, one `.env`:
 | **Grok / xAI demos** | `api_usage_demo/grok/` | `python -m api_usage_demo.grok.client` · `./api_usage_demo/grok/ask.sh` |
 | **X / Twitter demos** | `api_usage_demo/twitter/` | `python -m api_usage_demo.twitter.client` · `./api_usage_demo/twitter/ask.sh` |
 | **X search extractor** | `x_search/` | `python -m x_search.extract` · `./x_search/ask.sh` |
+| **Polymarket X report** | `polymarket_x_report.py` | `python polymarket_x_report.py input.json` |
 
 ```
 grokbot/
@@ -62,6 +63,40 @@ Topic → high-recall X post dataset via xAI `x_search` + optional X API hydrati
 python -m x_search.extract "brazil presidential elections" --outdir data/brazil-elections
 ./x_search/ask.sh "world cup" --window 24 --slices 6
 ```
+
+## Polymarket X report
+
+Send a pre-fetched discussion JSON (with `topic`, `global`, and `posts`) to Grok
+and write a compact, machine-readable report. It uses `grok-4.5` and requires
+`XAI_API_KEY` in `.env`.
+
+```bash
+python polymarket_x_report.py input.json --output report.json
+# or: python polymarket_x_report.py - < input.json > report.json
+```
+
+The report contains the exact topic, a tweet/reply synthesis, the top three
+source posts for each of two camps, `X_leaning` (`yes`, `no`, or `mixed`), and
+the supplied total topic tweet volume (`num_tweets`), rather than the number of
+sampled posts. The script refuses malformed input or an
+invalid model response rather than silently emitting an unreliable report.
+
+### PostgreSQL / Supabase batch mode
+
+With `DATABASE_URL` set, analyze each unprocessed row in
+`public.topic_opinions` and upsert its report into
+`public.topic_opinion_reports`:
+
+```bash
+export DATABASE_URL='postgresql://...'
+python polymarket_x_report.py --from-db
+```
+
+The source collection must include `num_tweets` (either at its top level or
+under `totals`). This is the total topic volume—not the count of sampled posts
+or threads—and the batch job skips nothing by silently substituting a sample
+count. Use `--force` to regenerate existing reports and `--limit N` for a
+bounded batch.
 
 ## User-based scraper
 
