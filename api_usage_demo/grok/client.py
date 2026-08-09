@@ -17,6 +17,9 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
+from xai_sdk import Client
+from xai_sdk.chat import assistant, system, user
+
 from common.env import REPO_ROOT, require_env
 
 API_BASE = "https://api.x.ai/v1"
@@ -40,18 +43,12 @@ def load_api_key() -> str:
     return require_env("XAI_API_KEY", placeholder_prefix="xai-your-key")
 
 
-def _output_text(response: dict) -> str:
-    """Extract text from an xAI /responses result."""
-    if isinstance(response.get("output_text"), str):
-        return response["output_text"]
-    chunks: list[str] = []
-    for item in response.get("output") or []:
-        if not isinstance(item, dict):
-            continue
-        for part in item.get("content") or []:
-            if isinstance(part, dict) and part.get("type") == "output_text":
-                chunks.append(part.get("text") or "")
-    return "\n".join(c for c in chunks if c)
+def get_client() -> Client:
+    """Official xAI SDK client (Grok)."""
+    return Client(api_key=load_api_key())
+
+
+_ROLE = {"system": system, "user": user, "assistant": assistant}
 
 
 def _request(
@@ -85,35 +82,23 @@ def _request(
 
 
 def respond(prompt: str, *, model: str = DEFAULT_TEXT_MODEL) -> str:
-    """Plain text completion via the xAI Responses API (Grok)."""
-    resp = _request("POST", "/responses", payload={"model": model, "input": prompt})
-    assert isinstance(resp, dict)
-    return _output_text(resp)
+    """Plain text completion via the xAI SDK (Grok)."""
+    chat = get_client().chat.create(model=model)
+    chat.append(user(prompt))
+    return chat.sample().content
 
 
-def respond_structured(
-    messages: list[dict],
-    schema: dict,
-    *,
-    name: str = "result",
-    model: str = DEFAULT_TEXT_MODEL,
-) -> dict:
-    """Structured (JSON-schema) completion via the xAI Responses API (Grok)."""
-    resp = _request("POST", "/responses", payload={
-        "model": model,
-        "input": messages,
-        "text": {"format": {"type": "json_schema", "name": name,
-                            "schema": schema, "strict": True}},
-    })
-    assert isinstance(resp, dict)
-    text = _output_text(resp).strip()
-    try:
-        return json.loads(text)
-    except json.JSONDecodeError:
-        start, end = text.find("{"), text.rfind("}")
-        if start != -1 and end > start:
-            return json.loads(text[start:end + 1])
-        raise
+def respond_structured(messages: list[dict], shape, *, model: str = DEFAULT_TEXT_MODEL):
+    """Structured completion via the xAI SDK (Grok).
+
+    `shape` is a Pydantic model class; returns an instance of it (use
+    `.model_dump()` for a plain dict). `messages` are {role, content} dicts.
+    """
+    chat = get_client().chat.create(model=model)
+    for m in messages:
+        chat.append(_ROLE[m["role"]](m["content"]))
+    _response, parsed = chat.parse(shape)
+    return parsed
 
 
 def generate_image(

@@ -24,6 +24,8 @@ import sys
 from datetime import datetime, timedelta, timezone
 
 import requests
+from pydantic import BaseModel
+from typing import Literal
 
 from api_usage_demo.grok.client import DEFAULT_TEXT_MODEL, respond_structured
 from insights.db import connect, init_db
@@ -97,37 +99,25 @@ def harvest_reddit(question: str, *, size: int = 60) -> list[dict]:
 # --------------------------------------------------------------------------- #
 # analyze (Grok, structured)
 # --------------------------------------------------------------------------- #
-SENT_SCHEMA = {
-    "type": "object", "additionalProperties": False,
-    "properties": {
-        "x_implied_pct": {"type": "number", "description": "0-100 implied Yes prob from chatter"},
-        "direction": {"type": "string", "enum": ["up", "down", "flat"]},
-        "momentum_score": {"type": "number"},
-        "confidence": {"type": "number"},
-        "post_count": {"type": "string", "description": "e.g. '2.4K'"},
-        "summary": {"type": "string"},
-        "top_posts": {
-            "type": "array",
-            "items": {
-                "type": "object", "additionalProperties": False,
-                "properties": {
-                    "platform": {"type": "string", "enum": ["x", "reddit"]},
-                    "author": {"type": "string"},
-                    "handle": {"type": "string"},
-                    "text": {"type": "string"},
-                    "likes": {"type": "integer"},
-                    "reposts": {"type": "integer"},
-                    "url": {"type": "string"},
-                    "stance": {"type": "string", "enum": ["yes", "no", "neutral"]},
-                },
-                "required": ["platform", "author", "handle", "text", "likes",
-                             "reposts", "url", "stance"],
-            },
-        },
-    },
-    "required": ["x_implied_pct", "direction", "momentum_score", "confidence",
-                 "post_count", "summary", "top_posts"],
-}
+class TopPost(BaseModel):
+    platform: Literal["x", "reddit"]
+    author: str
+    handle: str
+    text: str
+    likes: int
+    reposts: int
+    url: str
+    stance: Literal["yes", "no", "neutral"]
+
+
+class SentimentOut(BaseModel):
+    x_implied_pct: float          # 0-100 implied Yes prob from chatter
+    direction: Literal["up", "down", "flat"]
+    momentum_score: float
+    confidence: float
+    post_count: str               # e.g. "2.4K"
+    summary: str
+    top_posts: list[TopPost]
 
 SYSTEM = (
     "You are a prediction-market sentiment analyst. You are given a Polymarket "
@@ -156,10 +146,11 @@ def analyze(question: str, market_pct: float, x_posts: list[dict],
         "reddit_posts": reddit_posts[:40],
     }, ensure_ascii=False)[:120000]
     try:
-        return respond_structured(
+        out = respond_structured(
             [{"role": "system", "content": SYSTEM},
              {"role": "user", "content": user}],
-            SENT_SCHEMA, name="sentiment", model=DEFAULT_TEXT_MODEL)
+            SentimentOut, model=DEFAULT_TEXT_MODEL)
+        return out.model_dump()
     except Exception as exc:
         print(f"    grok analyze failed: {exc}", file=sys.stderr)
         return None
