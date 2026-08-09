@@ -1,5 +1,134 @@
 [
   {
+    "id": "0x48d47eede033257e77d676631e6f805d5e1848c0567589030a3a76a862fa1e47",
+    "title": "Gianni Infantino out as FIFA President by December 31?",
+    "url": "https://polymarket.com/event/gianni-infantino-out-as-fifa-president-by-december-31-20260706195547871",
+    "profiles": [
+      "sports"
+    ],
+    "summary": "This live prediction market asks whether Gianni Infantino will leave his role as FIFA President by the end of 2026. It is active with roughly $288k in total volume and about $11k in liquidity. Traders currently assign a low probability to him departing.",
+    "volume": 288563.5460889999,
+    "volume_24hr": 15308.432166000004,
+    "liquidity": 9235.6834,
+    "end_date": "2026-12-31T00:00:00Z",
+    "top_outcome": {
+      "label": "No",
+      "pct": 83.5
+    },
+    "outcomes": [
+      {
+        "label": "No",
+        "pct": 83.5,
+        "best_bid": 0.83,
+        "best_ask": 0.84,
+        "bid_depth": 4617.8417,
+        "ask_depth": 4617.8417
+      },
+      {
+        "label": "Yes",
+        "pct": 16.5,
+        "best_bid": 0.16,
+        "best_ask": 0.17,
+        "bid_depth": 4617.8417,
+        "ask_depth": 4617.8417
+      }
+    ],
+    "resolution_summary": "The market resolves to Yes if Infantino ceases to be FIFA president for any length of time between creation and December 31, 2026 11:59 PM ET; otherwise No. An announcement of resignation or firing before the end date resolves it to Yes immediately, and announcements of intention to resign also qualify, but suspensions or temporary leave do not. Primary sources are official FIFA or Infantino information, or a wide consensus of credible reporting.",
+    "notes": [],
+    "report": {
+      "topic": "Gianni Infantino out as FIFA President by December 31?",
+      "num_tweets": 142500,
+      "tweet_summary": "Sampled high-reach X threads show view-weighted sentiment heavily favoring Infantino\u2019s exit by year-end, driven by hostility to scandals, the mistress payoff story, and federation endorsements framed as corrupt payback, with many treating UEFA revenue leverage or boycotts as decisive forcing mechanisms; this is largely preference mixed with prediction rather than pure forecasting. The strongest counter-evidence in the sample is the official AFA, FMF, CAF-aligned and Rabat reaffirmations plus one-member-one-vote math, which a minority camp cites as locking him in past 31 December. Main uncertainty remains whether UEFA or a confederation will actually escalate beyond rhetoric into a formal boycott or congress trigger; the dataset is not a representative poll of all X.",
+      "plots": {
+        "outcome_leaning": {
+          "data": [
+            {
+              "label": "No",
+              "value": 42
+            },
+            {
+              "label": "Yes",
+              "value": 58
+            }
+          ],
+          "type": "bar",
+          "unit": "percent",
+          "title": "X prediction leaning"
+        },
+        "camp_distribution": {
+          "data": [
+            {
+              "label": "Pressure forces exit",
+              "value": 58
+            },
+            {
+              "label": "Votes lock him in",
+              "value": 28
+            },
+            {
+              "label": "Anger without timeline",
+              "value": 14
+            }
+          ],
+          "type": "bar",
+          "unit": "percent",
+          "title": "Camp distribution"
+        }
+      },
+      "top_tweets": {
+        "camp1": {
+          "name": "Pressure forces exit",
+          "tweet1": {
+            "url": "https://x.com/TeleFootball/status/2085824008000282837",
+            "handle": "TeleFootball",
+            "summary": "Reports UEFA paid a six-figure sum to Infantino\u2019s alleged mistress, with replies treating it as the start of a smear campaign that will force his downfall and pile pressure for him to go.",
+            "text": "Uefa paid off an alleged mistress of Gianni Infantino while he was its general secretary, The Telegraph can disclose.\n\nThe woman received a six-figure sum after the alleged relationship with Mr Infantino while he was a top official at European football\u2019s governing body.\n\nRead our full investigation \ud83d\udc47"
+          },
+          "tweet2": {
+            "url": "https://x.com/AliBinAlHussein/status/2085337403284136134",
+            "handle": "AliBinAlHussein",
+            "summary": "Prince Ali refuses to endorse or vote for Infantino despite delayed prize money, linking it to election pressure; replies praise the stand and call for resignation or boycott.",
+            "text": "Thank you to the FIFA administration for suddenly this morning delivering what was owed to our players and coaching staff, for the Jordan National team\u2019s accession to the final of the FIFA Arab Cup in Qatar last December. \nThis was funding that should have been received 8 months ago.\nWhile this is a good development for our players, it does not change the serious concerns we in the football world have regarding the FIFA leadership, nor does it change what our FAs have been subjected to in the past. \nIt is symptomatic of those exact difficulties that we all face, and that are usually linked to the FIFA presidential elections. And it does not change my clear position concerning the leadership of FIFA: my FA and I will not endorse president Infantino, nor will we vote for him."
+          },
+          "tweet3": {
+            "url": "https://x.com/fifamedia/status/2086198317562630170",
+            "handle": "fifamedia",
+            "summary": "FIFA reaffirms Infantino\u2019s democratic mandate and dismisses allegations; overwhelming replies reject it as gaslighting and demand his immediate resignation, treating the statement as proof he is finished.",
+            "text": "FIFA statement, attributable to FIFA spokesperson:\n\nEchoing the recent statements of CONMEBOL and CAF, as well as discussions with FIFA Member Associations and Confederations from around the world, FIFA will not support, facilitate or tolerate any process concerning the election of the FIFA President that is inconsistent with FIFA\u2019s Statutes, democratic procedures and established governance framework. The FIFA President was democratically elected by FIFA\u2019s Member Associations and continues to serve with their mandate.\n\nIt is increasingly evident that there is a concerted and ongoing effort by some to undermine FIFA and its President. Those who do not have the support of FIFA\u2019s Member Associations should not seek to achieve through allegation, insinuation or misinformation what they cannot achieve through FIFA\u2019s established democratic processes.\n\nRecent reporting has included unsubstantiated assertions and demonstrably false claims concerning FIFA and its President. Speculation and insinuation should not be presented as fact, and repetition does not make an allegation true.\n\nThe FIFA President has dedicated more than 30 years of his professional life to European and world football, contributing to significant change in the game and, in particular, to broadening access, resources and opportunity across world football. Change inevitably challenges established interests, but disagreement with that change cannot justify efforts to undermine the democratic mandate of FIFA\u2019s President or the institution he was elected to lead.\n\nFIFA welcomes legitimate scrutiny. But scrutiny is not a licence to distort facts, amplify unsubstantiated allegations or manufacture distractions designed to undermine progress. Where reporting is inaccurate or misleading, FIFA will challenge it directly and vigorously.\n\nFIFA\u2019s responsibility is to its 211 Member Associations and to football around the world. We will not be distracted or diverted from strengthening the organisation, delivering for our Member Associations and continuing the work of making football truly global. Through the FIFA President and the FIFA administration, our focus remains firmly on that mission, and we are more determined than ever to fulfil it."
+          }
+        },
+        "camp2": {
+          "name": "Votes lock him in",
+          "tweet1": {
+            "url": "https://x.com/afa/status/2085501103525749030",
+            "handle": "afa",
+            "summary": "Argentina FA officially endorses Infantino\u2019s continued leadership after 10 years, providing concrete confederation-level backing that structural realists cite as evidence he survives the vote math.",
+            "text": "#Institucional Respaldo a la gesti\u00f3n realizada los \u00faltimos 10 a\u00f1os por Gianni Infantino en la FIFA \n\n\ud83d\udcd8https://www.afa.com.ar/es/posts/respaldo-a-la-gestion-realizada-los-ultimos-10-anos-por-gianni-infantino-en-la-fifa"
+          },
+          "tweet2": {
+            "url": "https://x.com/FMF/status/2085501929526865955",
+            "handle": "FMF",
+            "summary": "Mexican FA fully backs Infantino\u2019s leadership and \u2018institutionality,\u2019 adding another major association endorsement that the minority camp reads as locking in his support base.",
+            "text": "Comunicado FMF"
+          },
+          "tweet3": {
+            "url": "https://x.com/DiceElDani/status/2085555934407913570",
+            "handle": "DiceElDani",
+            "summary": "Argues Infantino has locked CAF, CONMEBOL and enough other splits so he will survive UEFA opposition and boycott threats via one-member-one-vote realities.",
+            "text": "Rough FIFA election math, because it explains where this is heading.\n\nUEFA (55) is the only big block clearly against him. Concacaf and Asia opposed the plan...but they're already splitting: Mexico's backing him, Asian nations peeling off. CAF (54) and CONMEBOL are lining up behind him too.\n\nMy best guess? Infantino has the votes. He's not going anywhere.\n\nBut, then what? UEFA threatened to boycott FIFA competitions over this. If he survives and they don't back down \u2014 do we actually get a 2027 Women's World Cup without Europe? Five of the last six World Cup winners, sitting it out?\n\nThis is getting wilder by the day, and we've only just begun."
+          }
+        }
+      },
+      "X_leaning": "yes",
+      "X_leaning_percentages": {
+        "yes": 58,
+        "no": 42,
+        "mixed": 0
+      }
+    },
+    "video": "../outputs/summary/report_13_gianni_infantino_out_as_fifa_p/summary_image.mp4"
+  },
+  {
     "id": "0xb56f8dfc3e5929cf15036f4b8ecd24c9bfafa80c90bf550d396e43a45af42aa8",
     "title": "Will Brooklyn Nets win the 2027 NBA Finals?",
     "url": "https://polymarket.com/event/nba-2027-champion",
@@ -7,9 +136,9 @@
       "sports"
     ],
     "summary": "This is a live prediction market asking whether the Brooklyn Nets will win the 2027 NBA Finals. The contract remains active and open with substantial total volume near $294k and liquidity over $631k. It covers the 2026-27 NBA season champion.",
-    "volume": 293834.532226,
-    "volume_24hr": 40.56,
-    "liquidity": 631379.07369,
+    "volume": 294872.532226,
+    "volume_24hr": 1078.56,
+    "liquidity": 638288.2817,
     "end_date": "2027-07-01T00:00:00Z",
     "top_outcome": {
       "label": "No",
@@ -19,18 +148,18 @@
       {
         "label": "No",
         "pct": 99.9,
-        "best_bid": 0.998,
-        "best_ask": 0.999,
-        "bid_depth": 506954.4,
-        "ask_depth": 807858.62
+        "best_bid": 1.0,
+        "best_ask": 1.0,
+        "bid_depth": 319144.14085,
+        "ask_depth": 319144.14085
       },
       {
         "label": "Yes",
         "pct": 0.1,
         "best_bid": 0.001,
         "best_ask": 0.002,
-        "bid_depth": 807858.62,
-        "ask_depth": 506954.4
+        "bid_depth": 319144.14085,
+        "ask_depth": 319144.14085
       }
     ],
     "price_read": "Yes trades at a gamma/mid price of 0.0015 with best bid 0.001 and best ask 0.002 amid deep books (bid depth ~808k, ask depth ~507k). No sits at 0.9985 with a one-cent spread and inverted deep liquidity.",
@@ -121,7 +250,37 @@
         "mixed": 20
       }
     },
-    "video": "../outputs/summary/report_02_will_brooklyn_nets_win_the_202/summary_image.mp4"
+    "video": "../outputs/summary/report_02_will_brooklyn_nets_win_the_202/summary_image.mp4",
+    "field": {
+      "legs": 36,
+      "unnamed": 0,
+      "top": [
+        {
+          "name": "Oklahoma City Thunder",
+          "pct": 21.5
+        },
+        {
+          "name": "San Antonio Spurs",
+          "pct": 20.5
+        },
+        {
+          "name": "Philadelphia 76ers",
+          "pct": 13.1
+        },
+        {
+          "name": "New York Knicks",
+          "pct": 9.5
+        },
+        {
+          "name": "Boston Celtics",
+          "pct": 4.5
+        },
+        {
+          "name": "Toronto Raptors",
+          "pct": 3.8
+        }
+      ]
+    }
   },
   {
     "id": "0x8acf7dd78e0d46dd1dcd81037dae30dbdb8a51c0943541d79d32b01daf228a2b",
@@ -132,9 +291,9 @@
       "culture"
     ],
     "summary": "This live prediction market asks whether Mohammed bin Salman will attend Cristiano Ronaldo's wedding. The contract remains active and open through August 2026, with roughly $45k in total volume and $21k in liquidity.",
-    "volume": 45069.426035,
-    "volume_24hr": 3897.967731,
-    "liquidity": 21267.55661,
+    "volume": 45069.426035000004,
+    "volume_24hr": 3115.198502,
+    "liquidity": 20027.72837,
     "end_date": "2026-08-08T23:59:00Z",
     "top_outcome": {
       "label": "No",
@@ -144,18 +303,18 @@
       {
         "label": "No",
         "pct": 97.7,
-        "best_bid": 0.975,
-        "best_ask": 0.979,
-        "bid_depth": 1511.28,
-        "ask_depth": 5534.93
+        "best_bid": 0.97,
+        "best_ask": 0.98,
+        "bid_depth": 10013.864185,
+        "ask_depth": 10013.864185
       },
       {
         "label": "Yes",
-        "pct": 2.3,
-        "best_bid": 0.021,
+        "pct": 2.4,
+        "best_bid": 0.022,
         "best_ask": 0.025,
-        "bid_depth": 5534.93,
-        "ask_depth": 1511.28
+        "bid_depth": 10013.864185,
+        "ask_depth": 10013.864185
       }
     ],
     "price_read": "Yes trades at about 2.3 cents (best bid 2.1 cent / ask 2.5 cent) with deeper bids than asks; No sits at 97.7 cents with the inverse book. Spreads are tight at 0.4 cent on both sides.",
@@ -252,7 +411,37 @@
         "mixed": 8
       }
     },
-    "video": "../outputs/summary/report_03_will_mohammed_bin_salman_atten/summary_image.mp4"
+    "video": "../outputs/summary/report_03_will_mohammed_bin_salman_atten/summary_image.mp4",
+    "field": {
+      "legs": 27,
+      "unnamed": 0,
+      "top": [
+        {
+          "name": "Rio Ferdinand",
+          "pct": 32.0
+        },
+        {
+          "name": "Edu Aguirre",
+          "pct": 32.0
+        },
+        {
+          "name": "Marcelo",
+          "pct": 30.0
+        },
+        {
+          "name": "Nininho Vaz Maia",
+          "pct": 29.0
+        },
+        {
+          "name": "Luan Santana",
+          "pct": 26.5
+        },
+        {
+          "name": "Joao Felix",
+          "pct": 25.5
+        }
+      ]
+    }
   },
   {
     "id": "0xf6f3ab86ba22d9d362e2429701722f15115e4a10a3d790c18f88df2ddff7f4ed",
@@ -262,9 +451,9 @@
       "sports"
     ],
     "summary": "This is a live prediction market asking whether Mohamed Salah will win the 2026 Ballon d'Or. The contract remains active and open, with substantial total volume over $1 million and deep liquidity. It is scheduled to end on 2026-10-31.",
-    "volume": 1057628.957406,
+    "volume": 1057628.9574059998,
     "volume_24hr": 1.9,
-    "liquidity": 728745.7023,
+    "liquidity": 728745.55618,
     "end_date": "2026-10-31T00:00:00Z",
     "top_outcome": {
       "label": "No",
@@ -274,18 +463,18 @@
       {
         "label": "No",
         "pct": 100.0,
-        "best_bid": 0.999,
+        "best_bid": 1.0,
         "best_ask": null,
-        "bid_depth": 633940.6999999998,
-        "ask_depth": 0.0
+        "bid_depth": 364372.77809,
+        "ask_depth": 364372.77809
       },
       {
         "label": "Yes",
         "pct": 0.1,
         "best_bid": null,
         "best_ask": 0.001,
-        "bid_depth": 0.0,
-        "ask_depth": 633940.6999999998
+        "bid_depth": 364372.77809,
+        "ask_depth": 364372.77809
       }
     ],
     "price_read": "Yes trades at a gamma/mid price of 0.0005 with a best ask of 0.001 and roughly 634k ask depth (no bid). No sits at 0.9995 with a best bid of 0.999 and matching ~634k bid depth (no ask).",
@@ -386,142 +575,37 @@
         "mixed": 7
       }
     },
-    "video": "../outputs/summary/report_06_will_mohamed_salah_win_the_202/summary_image.mp4"
-  },
-  {
-    "id": "0x60613b262912ce2e3138ec5610a31a2f932b6300843c094053cb33aaff9f2238",
-    "title": "Will Kai and Speed beat the Minecraft challenge by August 17?",
-    "url": "https://polymarket.com/event/kai-and-speed-beat-minecraft-challenge-byptptpt-20260807141254095",
-    "profiles": [
-      "sports",
-      "culture"
-    ],
-    "summary": "This market asks whether Kai Cenat and IShowSpeed will complete a hardcore Minecraft challenge\u2014defeating the Ender Dragon, Wither, Warden, and Elder Guardian on the same seed without either dying\u2014by August 17, 2026. The attempt is scheduled as a live stream marathon starting August 7, 2026. The market is active with substantial trading volume.",
-    "volume": 134282.561996,
-    "volume_24hr": 131677.754644,
-    "liquidity": 33769.1598,
-    "end_date": "2026-08-17T23:59:00Z",
-    "top_outcome": {
-      "label": "No",
-      "pct": 84.5
-    },
-    "outcomes": [
-      {
-        "label": "No",
-        "pct": 84.5,
-        "best_bid": 0.84,
-        "best_ask": 0.85,
-        "bid_depth": 31178.99,
-        "ask_depth": 35405.82
-      },
-      {
-        "label": "Yes",
-        "pct": 15.5,
-        "best_bid": 0.15,
-        "best_ask": 0.16,
-        "bid_depth": 35405.82,
-        "ask_depth": 31178.99
-      }
-    ],
-    "price_read": "Yes is trading at 0.155 (best bid 0.15, best ask 0.16) with deep liquidity on both sides; No is at 0.845 (best bid 0.84, best ask 0.85). The order book is balanced and fresh.",
-    "resolution_summary": "The market resolves to Yes if Kai and Speed complete all four objectives live on stream in a single hardcore Java world on the same seed, without deaths, cheats, or rule changes, between market creation and 11:59 PM ET on the end date. Otherwise it resolves to No, including if the challenge is cancelled, abandoned, delayed past the date, or completed under modified rules. Resolution relies on official YouTube and Twitch broadcast footage.",
-    "notes": [],
-    "report": {
-      "plots": {
-        "outcome_leaning": {
-          "data": [
-            {
-              "label": "Yes",
-              "value": 5
-            },
-            {
-              "label": "No",
-              "value": 85
-            },
-            {
-              "label": "Mixed",
-              "value": 10
-            }
-          ],
-          "type": "bar",
-          "unit": "percent",
-          "title": "X prediction leaning"
+    "video": "../outputs/summary/report_06_will_mohamed_salah_win_the_202/summary_image.mp4",
+    "field": {
+      "legs": 89,
+      "unnamed": 0,
+      "top": [
+        {
+          "name": "Harry Kane",
+          "pct": 57.5
         },
-        "camp_distribution": {
-          "data": [
-            {
-              "label": "Hard no / endless failure",
-              "value": 85
-            },
-            {
-              "label": "Rule-change or grind path",
-              "value": 10
-            },
-            {
-              "label": "Slim yes / content will force it",
-              "value": 5
-            }
-          ],
-          "type": "bar",
-          "unit": "percent",
-          "title": "Camp distribution"
-        }
-      },
-      "topic": "Will Kai and Speed beat the Minecraft challenge by August 17?",
-      "X_leaning": "no",
-      "num_tweets": 29000,
-      "top_tweets": {
-        "camp1": {
-          "name": "Hard no / endless failure",
-          "tweet1": {
-            "url": "https://x.com/i/status/2086078870726521195",
-            "handle": "i",
-            "summary": "Reports the pair\u2019s 6th hardcore attempt ended in a Warden sonic-boom one-shot and that the full challenge could take months, directly illustrating why resets make the August 17 deadline unrealistic.",
-            "text": "IShowSpeed and Kai's 6th attempt at Minecraft Hardcore ended after they both got one-shotted by a Warden's Sonic Boom \ud83d\ude2d\ud83d\udc80\n\nAnd they realize defeating Minecraft Hardcore and all the bosses could potentially take them months \ud83d\ude2d\u270c"
-          },
-          "tweet2": {
-            "url": "https://x.com/KreekCraft/status/2086076734982459519",
-            "handle": "KreekCraft",
-            "summary": "Notes the Warden one-shot and polls GTA 6 releasing first versus them finishing; replies heavily favor GTA 6 and call the streamers cooked, reinforcing the endless-failure view.",
-            "text": "What happens first\n\n1\ufe0f\u20e3 GTA 6 comes out\n2\ufe0f\u20e3 Speed and Kai beat Hardcore Minecraft\n\nThey just got 1-shot by The Warden \ud83d\ude2d"
-          },
-          "tweet3": {
-            "url": "https://x.com/IShowSpeedHQ/status/2085905167388495882",
-            "handle": "IShowSpeedHQ",
-            "summary": "Documents Speed\u2019s fall-damage death forcing a full marathon restart; replies consensus is that incompetence and resets will stretch the effort into weeks or a month.",
-            "text": "\ud83d\udea8| BREAKING: Speed just DIED from fall damage during the HARDCORE Minecraft Marathon and now they have to RESTART all their progress \ud83d\ude2d\ud83d\ude2d\ud83d\udc80"
-          }
+        {
+          "name": "Lamine Yamal",
+          "pct": 20.1
         },
-        "camp2": {
-          "name": "Rule-change or grind path",
-          "tweet1": {
-            "url": "https://x.com/i/status/2085838993103651326",
-            "handle": "i",
-            "summary": "States the official 10-day window for all bosses in one hardcore run, after which separate boss runs are allowed, establishing the fallback that could still enable eventual completion.",
-            "text": "IShowSpeed and Kai Cenat Reveal the Rules for Their Minecraft Hardcore Marathon! \ud83d\udd25\u26cf\ufe0f\n\n\u23f3 They have 10 days to defeat every boss in ONE Hardcore run: \n\n\u2022 \ud83d\udc09 Ender Dragon\n\u2022 \ud83d\udc80 Wither\n\u2022 \ud83c\udf0a Elder Guardian\n\u2022 \ud83d\udc79 Warden\n\nIf they can't complete the challenge within 10 days, it resets \u274c\n\nAfter Day 10, They'll still have to defeat every boss on Hardcore but they can do it across separate runs instead of all in one."
-          },
-          "tweet2": {
-            "url": "https://x.com/i/status/2085840779260400034",
-            "handle": "i",
-            "summary": "Confirms the rules giving 10 days for a single-run clear of every boss before single-boss grinding is permitted, supporting the grind-path alternative.",
-            "text": "Kai Cenat and iShowSpeed just dropped the rules for their HARDCORE Minecraft marathon \ud83d\ude33\ud83d\udd25\n\n\ud83d\uddd3\ufe0f 10 days to beat EVERY boss in one run.\nIf there's no progress after 10 days, they pick ONE boss to grind each run.\n\nThe stakes are insane. Minecraft Hardcore with the ultimate duo. \u2694\ufe0f"
-          },
-          "tweet3": {
-            "url": "https://x.com/i/status/2086059853102154229",
-            "handle": "i",
-            "summary": "Reports they have allotted themselves 10 days to beat every boss in one run or else narrow focus to one boss, underscoring the built-in rule change.",
-            "text": "Kai Cenat and IShowSpeed revealed the rules for their hardcore Minecraft marathon\n\n They're giving themselves 10 days to beat every boss in a single run, before narrowing their focus to one boss if there is no progress"
-          }
+        {
+          "name": "Rodri",
+          "pct": 8.5
+        },
+        {
+          "name": "Kylian Mbapp\u00e9",
+          "pct": 8.2
+        },
+        {
+          "name": "Lionel Messi",
+          "pct": 2.1
+        },
+        {
+          "name": "Ousmane Demb\u00e9l\u00e9",
+          "pct": 1.5
         }
-      },
-      "tweet_summary": "Sampled X discussion under high-view announcement and death-clip posts is overwhelmingly skeptical that Kai and Speed will complete the full single-run hardcore challenge (all four bosses) by August 17, treating their skill gap, AFK/fall/creeper deaths, and especially Warden sonic-boom resets as making a clean win unrealistic; most expect weeks-to-months of chaos, content-milking, or quitting rather than success. Preference for entertainment is distinct from the dominant prediction of failure. Strongest evidence is repeated documented full restarts plus the stated 10-day rule. Main uncertainty is whether post-deadline single-boss fallback still satisfies the market definition of beating the challenge; the sample reflects vocal replies, not all of X.",
-      "X_leaning_percentages": {
-        "no": 85,
-        "yes": 5,
-        "mixed": 10
-      }
-    },
-    "video": "../outputs/summary/report_07_will_kai_and_speed_beat_the_mi/summary_image.mp4"
+      ]
+    }
   },
   {
     "id": "0xd961e85c58d27699749eaa069e629519e2f4af701a7c2a02a486dca77e101fdc",
@@ -531,9 +615,9 @@
       "sports"
     ],
     "summary": "This is a live prediction market on whether Manchester City will win the 2026-27 UEFA Champions League title. The market is active and open, with substantial liquidity and recent trading volume.",
-    "volume": 25767.211601,
-    "volume_24hr": 471168.108461,
-    "liquidity": 317541.792,
+    "volume": 25923.546388000002,
+    "volume_24hr": 156.334787,
+    "liquidity": 317693.8443,
     "end_date": "2027-05-30T23:59:00Z",
     "top_outcome": {
       "label": "No",
@@ -545,16 +629,16 @@
         "pct": 87.5,
         "best_bid": 0.87,
         "best_ask": 0.88,
-        "bid_depth": 218355.7,
-        "ask_depth": 155798.19
+        "bid_depth": 158846.92215,
+        "ask_depth": 158846.92215
       },
       {
         "label": "Yes",
         "pct": 12.5,
         "best_bid": 0.12,
         "best_ask": 0.13,
-        "bid_depth": 155798.19,
-        "ask_depth": 218355.7
+        "bid_depth": 158846.92215,
+        "ask_depth": 158846.92215
       }
     ],
     "price_read": "Yes is trading at 0.125 (best bid 0.12, best ask 0.13) with deep books on both sides; No is at 0.875 (bid 0.87 / ask 0.88).",
@@ -655,7 +739,37 @@
         "mixed": 15
       }
     },
-    "video": "../outputs/summary/report_08_will_manchester_city_win_the_2/summary_image.mp4"
+    "video": "../outputs/summary/report_08_will_manchester_city_win_the_2/summary_image.mp4",
+    "field": {
+      "legs": 42,
+      "unnamed": 12,
+      "top": [
+        {
+          "name": "Other",
+          "pct": 50.0
+        },
+        {
+          "name": "Paris Saint-Germain",
+          "pct": 14.5
+        },
+        {
+          "name": "Barcelona",
+          "pct": 14.5
+        },
+        {
+          "name": "Real Madrid",
+          "pct": 13.5
+        },
+        {
+          "name": "Bayern Munich",
+          "pct": 13.5
+        },
+        {
+          "name": "Arsenal",
+          "pct": 12.5
+        }
+      ]
+    }
   },
   {
     "id": "0x60c2c085ee8c16bc8f2419739a94971d4c9d00f637ead10fc0f540afa1be64e8",
@@ -665,30 +779,30 @@
       "politics"
     ],
     "summary": "This is a live prediction market on whether ship traffic through the Strait of Hormuz returns to normal levels by August 31, 2026. It tracks the 7-day moving average of vessel arrivals as reported by IMF Portwatch, with substantial trading volume over $10 million and deep liquidity. Yes shares currently trade at a low price, reflecting market skepticism that the threshold will be met in time.",
-    "volume": 10215694.683094,
-    "volume_24hr": 932869.079581,
-    "liquidity": 1093692.9298,
+    "volume": 10330381.055770999,
+    "volume_24hr": 937600.0592840003,
+    "liquidity": 1160122.4619,
     "end_date": "2026-08-31T00:00:00Z",
     "top_outcome": {
       "label": "No",
-      "pct": 92.5
+      "pct": 93.5
     },
     "outcomes": [
       {
         "label": "No",
-        "pct": 92.5,
-        "best_bid": 0.92,
-        "best_ask": 0.93,
-        "bid_depth": 629075.1599999999,
-        "ask_depth": 802187.94
+        "pct": 93.5,
+        "best_bid": 0.93,
+        "best_ask": 0.94,
+        "bid_depth": 580061.23095,
+        "ask_depth": 580061.23095
       },
       {
         "label": "Yes",
-        "pct": 7.5,
-        "best_bid": 0.07,
-        "best_ask": 0.08,
-        "bid_depth": 802187.94,
-        "ask_depth": 629075.1599999999
+        "pct": 6.5,
+        "best_bid": 0.06,
+        "best_ask": 0.07,
+        "bid_depth": 580061.23095,
+        "ask_depth": 580061.23095
       }
     ],
     "price_read": "Yes is trading at 7.5 cents (midpoint) with a tight 0.07\u20130.08 book and hundreds of thousands in depth on both sides; No sits at 92.5 cents with the inverse 0.92\u20130.93 spread and matching deep liquidity.",
@@ -793,7 +907,21 @@
         "mixed": 12
       }
     },
-    "video": "../outputs/summary/report_01_strait_of_hormuz_traffic_retur/summary_image.mp4"
+    "video": "../outputs/summary/report_01_strait_of_hormuz_traffic_retur/summary_image.mp4",
+    "field": {
+      "legs": 2,
+      "unnamed": 0,
+      "top": [
+        {
+          "name": "August 31",
+          "pct": 6.5
+        },
+        {
+          "name": "August 15",
+          "pct": 0.4
+        }
+      ]
+    }
   },
   {
     "id": "0x6bd56627aa21311850825edb27e53434a0e17a4f782be0086bc07f71eee00d0d",
@@ -803,9 +931,9 @@
       "politics"
     ],
     "summary": "This live prediction market asks whether Vladimir Putin will cease to be President of Russia by December 31, 2026. It is actively trading with substantial total volume over 18 million and strong liquidity near 783,000. The market remains open with no closure flags.",
-    "volume": 18626858.892071,
-    "volume_24hr": 24880.716198,
-    "liquidity": 783161.5647,
+    "volume": 18627283.892070986,
+    "volume_24hr": 25061.586198,
+    "liquidity": 810999.7899,
     "end_date": "2026-12-31T18:30:00Z",
     "top_outcome": {
       "label": "No",
@@ -817,16 +945,16 @@
         "pct": 92.5,
         "best_bid": 0.92,
         "best_ask": 0.93,
-        "bid_depth": 506213.73000000004,
-        "ask_depth": 1198997.27
+        "bid_depth": 405499.89495,
+        "ask_depth": 405499.89495
       },
       {
         "label": "Yes",
         "pct": 7.5,
         "best_bid": 0.07,
         "best_ask": 0.08,
-        "bid_depth": 1198997.27,
-        "ask_depth": 506213.73000000004
+        "bid_depth": 405499.89495,
+        "ask_depth": 405499.89495
       }
     ],
     "price_read": "Yes is trading at about 7.5 cents (best bid 0.07 / ask 0.08) with deep bids over 1.1 million, while No sits at 92.5 cents (best bid 0.92 / ask 0.93). The book is tight, uncrossed, and fresh on both sides.",
@@ -927,7 +1055,29 @@
         "mixed": 10
       }
     },
-    "video": "../outputs/summary/report_04_putin_out_as_president_of_russ/summary_image.mp4"
+    "video": "../outputs/summary/report_04_putin_out_as_president_of_russ/summary_image.mp4",
+    "field": {
+      "legs": 4,
+      "unnamed": 0,
+      "top": [
+        {
+          "name": "June 30, 2027",
+          "pct": 12.5
+        },
+        {
+          "name": "December 31, 2026",
+          "pct": 7.5
+        },
+        {
+          "name": "September 30, 2026",
+          "pct": 2.5
+        },
+        {
+          "name": "August 31, 2026",
+          "pct": 0.9
+        }
+      ]
+    }
   },
   {
     "id": "0x377e7fe65cf198a7fc4fdae3f2136b74729279267858daaf96718b23bc2a5607",
@@ -937,9 +1087,9 @@
       "politics"
     ],
     "summary": "This is a live prediction market on whether Iran will see a leadership change by December 31, 2026. It specifically tracks if Mojtaba Khamenei ceases to be the de facto leader of Iran. The market is active with substantial trading volume over $3.9 million and solid liquidity.",
-    "volume": 3909066.484274,
-    "volume_24hr": 71011.550142,
-    "liquidity": 123685.1981,
+    "volume": 3909083.727862,
+    "volume_24hr": 70986.35372999999,
+    "liquidity": 140839.9094,
     "end_date": "2026-12-31T00:00:00Z",
     "top_outcome": {
       "label": "No",
@@ -951,16 +1101,16 @@
         "pct": 77.5,
         "best_bid": 0.77,
         "best_ask": 0.78,
-        "bid_depth": 56596.04,
-        "ask_depth": 94787.72
+        "bid_depth": 70419.9547,
+        "ask_depth": 70419.9547
       },
       {
         "label": "Yes",
         "pct": 22.5,
         "best_bid": 0.22,
         "best_ask": 0.23,
-        "bid_depth": 94987.72,
-        "ask_depth": 56796.04
+        "bid_depth": 70419.9547,
+        "ask_depth": 70419.9547
       }
     ],
     "price_read": "Yes is trading at 0.225 with a tight 0.22 bid / 0.23 ask and deep size on both sides; No is at 0.775 with a matching 0.77/0.78 book. The order books are fresh and uncrossed.",
@@ -1065,7 +1215,37 @@
         "mixed": 8
       }
     },
-    "video": "../outputs/summary/report_09_iran_leadership_change_by_dece/summary_image.mp4"
+    "video": "../outputs/summary/report_09_iran_leadership_change_by_dece/summary_image.mp4",
+    "field": {
+      "legs": 8,
+      "unnamed": 0,
+      "top": [
+        {
+          "name": "June 30, 2027",
+          "pct": 32.0
+        },
+        {
+          "name": "December 31",
+          "pct": 22.5
+        },
+        {
+          "name": "November 30",
+          "pct": 15.5
+        },
+        {
+          "name": "October 31",
+          "pct": 11.5
+        },
+        {
+          "name": "September 30",
+          "pct": 7.5
+        },
+        {
+          "name": "August 31",
+          "pct": 4.0
+        }
+      ]
+    }
   },
   {
     "id": "0x513bf1706e9cbf61b7cc56f12803b1b72a522bae3c5157e7b356abdf36e2e72d",
@@ -1076,30 +1256,30 @@
       "culture"
     ],
     "summary": "This is a live prediction market on whether Count Binface will win the upcoming Clacton parliamentary by-election in the UK, expected after Nigel Farage's announced resignation. The market is active with substantial trading volume over $2.4 million and solid liquidity.",
-    "volume": 2468616.473861,
-    "volume_24hr": 83026.066388,
-    "liquidity": 212968.64025,
+    "volume": 2473178.013861,
+    "volume_24hr": 43401.86638799999,
+    "liquidity": 214328.56571,
     "end_date": "2026-08-13T16:00:00Z",
     "top_outcome": {
       "label": "No",
-      "pct": 98.9
+      "pct": 99.0
     },
     "outcomes": [
       {
         "label": "No",
-        "pct": 98.9,
-        "best_bid": 0.988,
+        "pct": 99.0,
+        "best_bid": 0.99,
         "best_ask": 0.99,
-        "bid_depth": 48661.33,
-        "ask_depth": 21387.79
+        "bid_depth": 107164.282855,
+        "ask_depth": 107164.282855
       },
       {
         "label": "Yes",
-        "pct": 1.1,
-        "best_bid": 0.01,
-        "best_ask": 0.012,
-        "bid_depth": 21387.79,
-        "ask_depth": 48661.33
+        "pct": 1.0,
+        "best_bid": 0.009,
+        "best_ask": 0.011,
+        "bid_depth": 107164.282855,
+        "ask_depth": 107164.282855
       }
     ],
     "price_read": "Yes trades at about 1.1 cents (midpoint 0.011) with best bid 0.01 and ask 0.012; No is at 98.9 cents. The order book shows healthy depth on both sides and is fresh.",
@@ -1204,7 +1384,17 @@
         "mixed": 28
       }
     },
-    "video": "../outputs/summary/report_11_will_count_binface_win_the_cla/summary_image.mp4"
+    "video": "../outputs/summary/report_11_will_count_binface_win_the_cla/summary_image.mp4",
+    "field": {
+      "legs": 52,
+      "unnamed": 27,
+      "top": [
+        {
+          "name": "Nigel Farage",
+          "pct": 99.0
+        }
+      ]
+    }
   },
   {
     "id": "0x5db999fad322cea2914535aae5517060c3f80ad6d8c0231cde2124a434d16846",
@@ -1214,9 +1404,9 @@
       "politics"
     ],
     "summary": "This is a live prediction market asking whether the United States will invade Iran before 2027. It remains active and open, with substantial trading volume over $57 million and solid liquidity. The market currently prices a low probability of a Yes outcome.",
-    "volume": 57791942.538035,
-    "volume_24hr": 192788.453402,
-    "liquidity": 904839.3084,
+    "volume": 57794957.89458201,
+    "volume_24hr": 186773.420825,
+    "liquidity": 983145.7069,
     "end_date": "2026-12-31T00:00:00Z",
     "top_outcome": {
       "label": "No",
@@ -1228,16 +1418,16 @@
         "pct": 83.5,
         "best_bid": 0.83,
         "best_ask": 0.84,
-        "bid_depth": 278948.83,
-        "ask_depth": 1833262.05
+        "bid_depth": 491572.85345,
+        "ask_depth": 491572.85345
       },
       {
         "label": "Yes",
         "pct": 16.5,
         "best_bid": 0.16,
         "best_ask": 0.17,
-        "bid_depth": 1831862.05,
-        "ask_depth": 279148.83
+        "bid_depth": 491572.85345,
+        "ask_depth": 491572.85345
       }
     ],
     "price_read": "Yes trades at 0.165 (best bid 0.16 / best ask 0.17) with deep bid-side liquidity, while No trades at 0.835 (best bid 0.83 / best ask 0.84). The order books are tight and uncrossed on both sides.",
@@ -1352,30 +1542,30 @@
       "culture"
     ],
     "summary": "This is a live prediction market on whether Elon Musk will make fewer than 40 posts on X between August 8 and August 10, 2026. It uses the official X account as the reference and is currently active with solid trading volume and liquidity.",
-    "volume": 28480.30594,
-    "volume_24hr": 24252.189217,
-    "liquidity": 17863.9487,
+    "volume": 32327.542874,
+    "volume_24hr": 27850.241380000025,
+    "liquidity": 17543.2701,
     "end_date": "2026-08-10T16:00:00Z",
     "top_outcome": {
       "label": "No",
-      "pct": 76.5
+      "pct": 69.5
     },
     "outcomes": [
       {
         "label": "No",
-        "pct": 76.5,
-        "best_bid": 0.76,
-        "best_ask": 0.77,
-        "bid_depth": 3272.71,
-        "ask_depth": 1981.7
+        "pct": 69.5,
+        "best_bid": 0.69,
+        "best_ask": 0.7,
+        "bid_depth": 8771.63505,
+        "ask_depth": 8771.63505
       },
       {
         "label": "Yes",
-        "pct": 23.5,
-        "best_bid": 0.23,
-        "best_ask": 0.24,
-        "bid_depth": 2181.7,
-        "ask_depth": 3272.71
+        "pct": 30.5,
+        "best_bid": 0.3,
+        "best_ask": 0.31,
+        "bid_depth": 8771.63505,
+        "ask_depth": 8771.63505
       }
     ],
     "price_read": "Yes is trading at about 0.235 (best bid 0.23 / ask 0.24) with solid depth on both sides; No is at 0.765 (bid 0.76 / ask 0.77). The books are tight, uncrossed, and fresh.",
@@ -1453,7 +1643,37 @@
         "mixed": 100
       }
     },
-    "video": "../outputs/summary/report_05_will_elon_musk_post_40_tweets/summary_image.mp4"
+    "video": "../outputs/summary/report_05_will_elon_musk_post_40_tweets/summary_image.mp4",
+    "field": {
+      "legs": 10,
+      "unnamed": 0,
+      "top": [
+        {
+          "name": "40-64",
+          "pct": 57.5
+        },
+        {
+          "name": "<40",
+          "pct": 30.5
+        },
+        {
+          "name": "65-89",
+          "pct": 12.5
+        },
+        {
+          "name": "90-114",
+          "pct": 2.5
+        },
+        {
+          "name": "115-139",
+          "pct": 0.4
+        },
+        {
+          "name": "140-164",
+          "pct": 0.1
+        }
+      ]
+    }
   },
   {
     "id": "0xebdc2da839f2e79706137d22c671e1c3b0bd0f511e4ba9ceb3704a5336a91c7f",
@@ -1463,9 +1683,9 @@
       "culture"
     ],
     "summary": "This is a live prediction market on whether the domestic box office gross for the movie Spider-Man: Brand New Day will total less than $400 million by August 31, 2026. It is currently active with modest trading volume around $6,190 and solid liquidity near $13,000.",
-    "volume": 6190.085752,
-    "volume_24hr": 231.0,
-    "liquidity": 13087.63481,
+    "volume": 6210.085751999999,
+    "volume_24hr": 251.0,
+    "liquidity": 13690.49146,
     "end_date": "2026-08-31T23:59:00Z",
     "top_outcome": {
       "label": "No",
@@ -1475,18 +1695,18 @@
       {
         "label": "No",
         "pct": 100.0,
-        "best_bid": 0.999,
+        "best_bid": 1.0,
         "best_ask": null,
-        "bid_depth": 8636.539999999999,
-        "ask_depth": 0.0
+        "bid_depth": 6845.24573,
+        "ask_depth": 6845.24573
       },
       {
         "label": "Yes",
         "pct": 0.1,
         "best_bid": null,
         "best_ask": 0.001,
-        "bid_depth": 0.0,
-        "ask_depth": 8636.539999999999
+        "bid_depth": 6845.24573,
+        "ask_depth": 6845.24573
       }
     ],
     "price_read": "Yes trades at a gamma/midpoint of 0.0005 with a best ask of 0.001 and roughly 8,637 ask depth (no bid), while No sits at 0.9995 with a best bid of 0.999 and matching bid depth (no ask), showing the market prices a sub-$400m gross as extremely unlikely.",
@@ -1587,6 +1807,36 @@
         "mixed": 17
       }
     },
-    "video": "../outputs/summary/report_10_will_the_total_domestic_gross/summary_image.mp4"
+    "video": "../outputs/summary/report_10_will_the_total_domestic_gross/summary_image.mp4",
+    "field": {
+      "legs": 7,
+      "unnamed": 0,
+      "top": [
+        {
+          "name": "900m+",
+          "pct": 58.9
+        },
+        {
+          "name": "800 - 900m",
+          "pct": 41.0
+        },
+        {
+          "name": "700 - 800m",
+          "pct": 1.1
+        },
+        {
+          "name": "<400m",
+          "pct": 0.1
+        },
+        {
+          "name": "400 - 500m",
+          "pct": 0.1
+        },
+        {
+          "name": "500 - 600m",
+          "pct": 0.1
+        }
+      ]
+    }
   }
 ]

@@ -226,31 +226,32 @@ function money(n){n=Number(n)||0;if(n>=1e9)return '$'+(n/1e9).toFixed(1)+'B';if(
 
 // Three demo users, each with a report-backed Markets for you rail.
 const USERS=[
- {id:'cristiano',name:'Cristiano Ronaldo',handle:'@Cristiano',domain:'sports',
-  grad:'linear-gradient(135deg,#0a3d91,#d00027)',ini:'CR',
+ {id:'karthik',name:'Karthik',handle:'@karthiknm',v:true,domain:'sports',
+  grad:'linear-gradient(135deg,#0a3d91,#d00027)',ini:'K',
   tweets:[
-   {n:'Cristiano Ronaldo',h:'@Cristiano',v:true,t:'3h',x:'Hard work, dedication and passion. Ready for the new season. Vamosss! 💪🐐',media:'⚽  Matchday',r:'48K',rt:'92K',l:'1.2M',vw:'34M'},
+   {n:'Karthik',h:'@karthiknm',v:true,t:'3h',x:'Watching the FIFA governance story more closely than the actual football this week.',media:'⚽  Matchday',r:'48K',rt:'92K',l:'1.2M',vw:'34M'},
    {n:'ESPN FC',h:'@ESPNFC',v:true,t:'5h',x:'Cristiano Ronaldo has now scored in 23 consecutive seasons in club football. Unreal longevity.',r:'2.1K',rt:'8.4K',l:'61K',vw:'3.2M'},
    {n:'B/R Football',h:'@brfootball',v:true,t:'8h',x:'The Champions League group stage draw is set. Who\'s your pick to win it all? 🏆',r:'1.8K',rt:'4.2K',l:'38K',vw:'2.1M'},
    {n:'FabrizioRomano',h:'@FabrizioRomano',v:true,t:'11h',x:'Transfer deadline day is coming. Several big moves still expected. Here we go soon… 🚨',r:'3.4K',rt:'11K',l:'140K',vw:'6.8M'}]},
- {id:'ron',name:'Ron Filipkowski',handle:'@RonFilipkowski',domain:'politics',
-  grad:'linear-gradient(135deg,#1d4e89,#7a1fa2)',ini:'RF',
+ {id:'vaibhav',name:'Vaibhav',handle:'@vaibhavjain',v:false,domain:'politics',
+  grad:'linear-gradient(135deg,#1d4e89,#7a1fa2)',ini:'V',
   tweets:[
-   {n:'Ron Filipkowski',h:'@RonFilipkowski',v:true,t:'2h',x:'The latest polling numbers are in and they tell a very different story than the pundits are pushing this week.',r:'1.9K',rt:'5.6K',l:'42K',vw:'1.9M'},
+   {n:'Vaibhav',h:'@vaibhavjain',v:false,t:'2h',x:'The latest polling numbers tell a very different story than the pundits are pushing this week.',r:'1.9K',rt:'5.6K',l:'42K',vw:'1.9M'},
    {n:'MeidasTouch',h:'@MeidasTouch',v:true,t:'4h',x:'BREAKING: New developments in the race that could reshape the entire map heading into 2026.',media:'📰  MeidasTouch Network',r:'2.3K',rt:'9.1K',l:'58K',vw:'2.7M'},
    {n:'The Hill',h:'@thehill',v:true,t:'7h',x:'Prediction markets are increasingly being cited by campaigns as a real-time gauge of momentum.',r:'640',rt:'1.5K',l:'9.2K',vw:'820K'},
    {n:'Aaron Rupar',h:'@atrupar',v:true,t:'9h',x:'Watch this exchange from today\'s press conference. It\'s already going viral.',r:'1.2K',rt:'3.8K',l:'27K',vw:'1.4M'}]},
- {id:'kai',name:'Kai Cenat',handle:'@KaiCenat',domain:'culture',
-  grad:'linear-gradient(135deg,#7c3aed,#ec4899)',ini:'KC',
+ {id:'aryan',name:'Aryan',handle:'@aryanmangal',v:false,domain:'culture',
+  grad:'linear-gradient(135deg,#7c3aed,#ec4899)',ini:'A',
   tweets:[
-   {n:'Kai Cenat',h:'@KaiCenat',v:true,t:'1h',x:'We\'re locked in. Big challenge stream tonight. 🔥',r:'12K',rt:'24K',l:'318K',vw:'8.1M'},
+   {n:'Aryan',h:'@aryanmangal',v:false,t:'1h',x:'The timeline moves faster than anyone can keep up with. Locked in tonight. 🔥',r:'12K',rt:'24K',l:'318K',vw:'8.1M'},
    {n:'Complex Pop Culture',h:'@ComplexPop',v:true,t:'3h',x:'The internet is debating the biggest moments in gaming and film this week.',media:'🎮  Culture watch',r:'1.6K',rt:'5.2K',l:'44K',vw:'1.8M'},
    {n:'DiscussingFilm',h:'@DiscussingFilm',v:true,t:'6h',x:'New box office projections are in. What are you watching this weekend?',r:'980',rt:'3.1K',l:'52K',vw:'2.2M'},
    {n:'Dexerto',h:'@Dexerto',v:true,t:'10h',x:'The timeline never sleeps. The next viral moment is always one post away.',r:'3.2K',rt:'6.8K',l:'96K',vw:'4.1M'}]},
 ];
 
 let MARKETS=[];
-let idx=0;
+let idx=Math.max(0,USERS.findIndex(u=>u.id===localStorage.getItem('persona')));
+if(idx<0)idx=0;
 
 function fmtCount(n){n=Number(n)||0;return n>=1e6?(n/1e6).toFixed(1)+'M':n>=1e3?(n/1e3).toFixed(1)+'K':''+n;}
 function reportSent(m){const r=m.report||{};const p=r.X_leaning_percentages||{};const xi=Number(p.yes)||0;
@@ -296,8 +297,9 @@ function marketRow(m,profile){
 
 function render(){
   const u=USERS[idx];
+  try{localStorage.setItem('persona',u.id);}catch(e){}
   document.getElementById('account').innerHTML=
-    `${av(40,u.grad,u.ini)}<div class="meta"><div class="name">${u.name} ${V}</div>
+    `${av(40,u.grad,u.ini)}<div class="meta"><div class="name">${u.name} ${u.v?V:''}</div>
      <div class="handle">${u.handle}</div></div><div class="dots">${dots}</div>`;
   document.getElementById('composeAv').outerHTML=
     `<div class="avatar" id="composeAv" style="width:40px;height:40px;background:${u.grad}">${u.ini}</div>`;

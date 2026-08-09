@@ -91,6 +91,13 @@
   .kv{display:flex;flex-wrap:wrap;gap:8px 24px;margin-top:12px;font-size:14px}
   .kv div{display:flex;flex-direction:column} .kv .k{font-size:12px;color:var(--muted)}
   .kv .v{font-weight:700}
+  /* competitor field: our question is one leg of a larger Polymarket event */
+  .field{margin-top:14px;padding-top:12px;border-top:1px solid rgba(47,51,54,.6)}
+  .field .ft{font-size:12px;color:var(--muted);text-transform:uppercase;
+    letter-spacing:.03em;margin-bottom:8px}
+  .field .fr{display:flex;justify-content:space-between;gap:12px;padding:5px 0;font-size:14px}
+  .field .fn{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .field .fp{font-weight:700;flex:0 0 auto}
   .read{margin-top:12px;font-size:14px;line-height:1.5;color:#c9cdd1}
   .notes{margin-top:10px;font-size:12px;color:var(--muted)}
   .pill{display:inline-block;margin-top:12px;font-size:13px;color:var(--blue)}
@@ -118,13 +125,16 @@
   .camp .cn{font-weight:800;font-size:15px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
   .camp .cn .tag{font-size:11px;font-weight:700;padding:2px 8px;border-radius:9999px;
     background:var(--panel-hover);color:var(--muted)}
-  .tw{border:1px solid var(--border);border-radius:14px;padding:12px;margin-bottom:10px}
+  .tw{border:1px solid var(--border);border-radius:14px;padding:12px;margin-bottom:10px;
+    overflow:hidden;min-width:0}
   .tw .th{display:flex;align-items:center;gap:6px;font-size:14px;margin-bottom:4px}
   .tw .th .av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#536471,#1d1f23);object-fit:cover;flex:0 0 28px}
   /* keep the old gradient circle when the avatar cannot be loaded */
   .tw .th .av.noimg{visibility:visible;content-visibility:auto}
   .tw .th .hn{font-weight:700} .tw .th .vf{width:15px;height:15px;color:var(--blue)}
-  .tw .ts{font-size:14px;line-height:1.45;color:#e7e9ea}
+  /* posts often end in a long unbroken URL, which has no wrap point of its own */
+  .tw .ts{font-size:14px;line-height:1.45;color:#e7e9ea;overflow-wrap:anywhere;word-break:break-word}
+  .tw .th .hn{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
   .tw .tl{font-size:13px;color:var(--blue);margin-top:6px;display:inline-block}
   /* video */
   .video{margin-top:12px;border:1px solid var(--border);border-radius:16px;overflow:hidden;
@@ -164,7 +174,6 @@
       <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 12c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm9 2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm7 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/></svg><span>More</span></div>
     </div>
     <button class="post-btn">Post</button>
-    <div class="account"><div class="avatar" style="width:40px;height:40px;background:linear-gradient(135deg,#0a3d91,#d00027)">CR</div><div class="meta"><div class="name">Cristiano Ronaldo</div><div class="handle">@Cristiano</div></div><div class="dots">···</div></div>
   </nav>
   <div class="wrap">
   <div class="top">
@@ -281,6 +290,12 @@ fetch('markets.json').then(r=>r.json()).then(markets=>{
         <div><span class="k">24h Volume</span><span class="v">${money(m.volume_24hr)}</span></div>
         <div><span class="k">Liquidity</span><span class="v">${money(m.liquidity)}</span></div>
       </div>
+      ${(m.field&&m.field.top&&m.field.top.length>1)?`
+      <div class="field">
+        <div class="ft">Full field · ${m.field.legs} outcomes${m.field.unnamed?` <span class="muted">(${m.field.unnamed} unnamed on Polymarket)</span>`:''}</div>
+        ${m.field.top.map(f=>`<div class="fr"><span class="fn">${esc(f.name)}</span>
+          <span class="fp">${f.pct}%</span></div>`).join('')}
+      </div>`:''}
       ${m.price_read?`<div class="read">${m.price_read}</div>`:''}
       ${m.resolution_summary?`<div class="read"><b>Resolution:</b> ${m.resolution_summary}</div>`:''}
       ${(m.notes&&m.notes.length)?`<div class="notes">⚠︎ ${m.notes.join(' · ')}</div>`:''}
