@@ -70,7 +70,9 @@
     background:var(--panel-hover);color:var(--muted)}
   .tw{border:1px solid var(--border);border-radius:14px;padding:12px;margin-bottom:10px}
   .tw .th{display:flex;align-items:center;gap:6px;font-size:14px;margin-bottom:4px}
-  .tw .th .av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#536471,#1d1f23)}
+  .tw .th .av{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#536471,#1d1f23);object-fit:cover;flex:0 0 28px}
+  /* keep the old gradient circle when the avatar cannot be loaded */
+  .tw .th .av.noimg{visibility:visible;content-visibility:auto}
   .tw .th .hn{font-weight:700} .tw .th .vf{width:15px;height:15px;color:var(--blue)}
   .tw .ts{font-size:14px;line-height:1.45;color:#e7e9ea}
   .tw .tl{font-size:13px;color:var(--blue);margin-top:6px;display:inline-block}
@@ -118,11 +120,16 @@ function barChart(plot){
       <div class="track"><div class="fill ${cls(d.label)}" style="width:${(d.value/max*100).toFixed(0)}%"></div></div>
       <div class="bv">${d.value}${plot.unit==='percent'?'%':''}</div></div>`).join('')+`</div>`;
 }
+// Real post text is untrusted input; render it as text, not markup.
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,ch=>(
+  {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
+
 function camp(c){
   const tws=['tweet1','tweet2','tweet3'].filter(k=>c[k]).map(k=>{const t=c[k];
-    return `<div class="tw"><div class="th"><div class="av"></div>
+    const h=String(t.handle||'').replace(/^@/,'');
+    return `<div class="tw"><div class="th"><img class="av" src="https://unavatar.io/x/${encodeURIComponent(h)}" alt="" loading="lazy" onerror="this.classList.add('noimg')">
       <span class="hn">${t.handle}</span>${vf}</div>
-      <div class="ts">${t.summary}</div><a class="tl" href="${t.url}" target="_blank">View on X</a></div>`;}).join('');
+      <div class="ts">${esc(t.text||t.summary)}</div><a class="tl" href="${t.url}" target="_blank">View on X</a></div>`;}).join('');
   return `<div class="camp"><div class="cn">${c.name} <span class="tag">camp</span></div>${tws}</div>`;
 }
 
