@@ -8,6 +8,7 @@ One repo, one `.env`:
 |------|------|-----|
 | **User scraper** | `user_based_scraper/` | `python -m user_based_scraper.user` · `./user_based_scraper/ask.sh` |
 | **Interest classifier** | `user_interest_classifier/` | `python -m user_interest_classifier.classify` · `./user_interest_classifier/ask.sh` |
+| **Summary video** | `summary/` | `python -m summary.imagine_brief --input camps.json` · see `summary/README.md` |
 | **Grok / xAI demos** | `api_usage_demo/grok/` | `python -m api_usage_demo.grok.client` · `./api_usage_demo/grok/ask.sh` |
 | **X / Twitter demos** | `api_usage_demo/twitter/` | `python -m api_usage_demo.twitter.client` · `./api_usage_demo/twitter/ask.sh` |
 | **X search extractor** | `x_search/` | `python -m x_search.extract` · `./x_search/ask.sh` |
@@ -37,7 +38,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 chmod +x user_based_scraper/ask.sh user_interest_classifier/ask.sh \
   api_usage_demo/grok/ask.sh api_usage_demo/twitter/ask.sh \
-  x_search/ask.sh
+  summary/ask.sh
 ```
 
 The `user_based_scraper` and `user_interest_classifier` (and their supporting modules) are the core on this prod branch.
