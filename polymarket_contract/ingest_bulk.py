@@ -21,6 +21,7 @@ from polymarket_contract import (
 )
 import db
 import embeddings
+from embeddings import embed_text_for  # single source of truth, shared with polymarket_contract.py
 
 
 def top_event_slugs(n: int) -> list[str]:
@@ -33,11 +34,6 @@ def top_event_slugs(n: int) -> list[str]:
         print(f"FATAL: could not list top events: {err}")
         return []
     return [e["slug"] for e in data if e.get("slug")]
-
-
-def embed_text_for(doc) -> str:
-    parts = [doc.title or "", doc.summary or "", doc.resolution_summary or ""]
-    return " — ".join(p for p in parts if p)
 
 
 def run_bulk(n: int = 100, use_grok: bool = True, sleep_between: float = 0.15) -> dict:

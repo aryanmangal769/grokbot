@@ -596,5 +596,7 @@ if __name__ == "__main__":
             print(f"\nSaved JSON -> {save_json_arg}")
         if save_db:
             from db import save_contract
-            result = save_contract(doc)
+            from embeddings import embed, embed_text_for
+            vec = embed(embed_text_for(doc))
+            result = save_contract(doc, embedding=vec)
             print(f"\nDB save: {result}")

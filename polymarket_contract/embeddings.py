@@ -34,3 +34,11 @@ def embed_batch(texts: list[str], batch_size: int = 32) -> list[list[float]]:
 
 
 DIM = 384  # all-MiniLM-L6-v2 output dimension — must match db.py's vector(384) column
+
+
+def embed_text_for(doc) -> str:
+    """The single source of truth for what text a ContractDocument gets
+    embedded from — used by both ingest_bulk.py and the single-contract
+    CLI's --save-db path, so nothing gets saved without a real embedding."""
+    parts = [doc.title or "", doc.summary or "", doc.resolution_summary or ""]
+    return " — ".join(p for p in parts if p)
