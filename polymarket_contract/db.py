@@ -40,13 +40,19 @@ CREATE TABLE IF NOT EXISTS polymarket_contracts (
     volume          DOUBLE PRECISION,
     volume_24hr     DOUBLE PRECISION,
     liquidity       DOUBLE PRECISION,
+    open_interest   DOUBLE PRECISION,
     active          BOOLEAN,
     closed          BOOLEAN,
-    data            JSONB NOT NULL,        -- full ContractDocument (outcomes, notes, etc)
+    data            JSONB NOT NULL,        -- full ContractDocument: outcomes[] (all, with live
+                                            -- percentages), notes[], volume_1wk/1mo,
+                                            -- competitive_score, market created_at, comment_count
     embedding       vector({EMBED_DIM}),   -- local sentence-transformer vector
     created_at      TIMESTAMPTZ NOT NULL DEFAULT now(),
     updated_at      TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+-- ADD COLUMN IF NOT EXISTS so this also migrates a table created before
+-- open_interest existed, without dropping/recreating anything.
+ALTER TABLE polymarket_contracts ADD COLUMN IF NOT EXISTS open_interest DOUBLE PRECISION;
 CREATE INDEX IF NOT EXISTS idx_polymarket_contracts_condition_id ON polymarket_contracts (condition_id);
 CREATE INDEX IF NOT EXISTS idx_polymarket_contracts_embedding
     ON polymarket_contracts USING hnsw (embedding vector_cosine_ops);
@@ -94,8 +100,8 @@ def save_contract(doc, embedding: list[float] | None = None) -> dict:
                 """
                 INSERT INTO polymarket_contracts
                     (title, url, condition_id, fetched_at, summary, volume,
-                     volume_24hr, liquidity, active, closed, data, embedding, updated_at)
-                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s, now())
+                     volume_24hr, liquidity, open_interest, active, closed, data, embedding, updated_at)
+                VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s, now())
                 ON CONFLICT (title) DO UPDATE SET
                     url = EXCLUDED.url,
                     condition_id = EXCLUDED.condition_id,
@@ -104,6 +110,7 @@ def save_contract(doc, embedding: list[float] | None = None) -> dict:
                     volume = EXCLUDED.volume,
                     volume_24hr = EXCLUDED.volume_24hr,
                     liquidity = EXCLUDED.liquidity,
+                    open_interest = EXCLUDED.open_interest,
                     active = EXCLUDED.active,
                     closed = EXCLUDED.closed,
                     data = EXCLUDED.data,
@@ -111,7 +118,7 @@ def save_contract(doc, embedding: list[float] | None = None) -> dict:
                     updated_at = now();
                 """,
                 (doc.title, doc.url, doc.condition_id, doc.fetched_at, doc.summary,
-                 doc.volume, doc.volume_24hr, doc.liquidity, doc.active, doc.closed,
+                 doc.volume, doc.volume_24hr, doc.liquidity, doc.open_interest, doc.active, doc.closed,
                  doc.model_dump_json(), _vec_literal(embedding)),
             )
         conn.close()
@@ -171,7 +178,7 @@ def list_contracts(limit: int = 50) -> list[dict]:
         conn = _connect()
         with conn, conn.cursor() as cur:
             cur.execute(
-                "SELECT title, url, summary, volume_24hr, updated_at "
+                "SELECT title, url, summary, volume_24hr, liquidity, open_interest, updated_at "
                 "FROM polymarket_contracts ORDER BY updated_at DESC LIMIT %s", (limit,))
             cols = [d[0] for d in cur.description]
             rows = [dict(zip(cols, r)) for r in cur.fetchall()]

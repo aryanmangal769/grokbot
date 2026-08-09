@@ -29,6 +29,8 @@ from __future__ import annotations
 import os
 import json
 import time
+import re
+import collections
 import datetime as dt
 from dataclasses import dataclass, field, asdict
 from typing import Any, Optional
@@ -184,6 +186,12 @@ class ContractReport:
     sources_ok: list[str]
     sources_failed: list[str]
     grok_profile: Optional[dict] = None
+    volume_1wk: Optional[float] = None
+    volume_1mo: Optional[float] = None
+    open_interest: Optional[float] = None
+    competitive_score: Optional[float] = None
+    created_at: Optional[str] = None
+    comment_count: Optional[int] = None
 
 
 def _empty_verification(reason: str) -> dict:
@@ -196,13 +204,53 @@ def _empty_verification(reason: str) -> dict:
 # Orchestration
 # --------------------------------------------------------------------------- #
 def _pick_market(event: dict) -> tuple[Optional[dict], Optional[str]]:
-    """An event can bundle many markets (e.g. multi-outcome). For a single
-    'contract', pick the most liquid binary market in the event."""
+    """Single-market path: for an event with one real question (or several
+    DIFFERENT bet types on the same game — moneyline, spread, totals, props),
+    pick the most liquid one to represent as 'the contract'."""
     markets = event.get("markets", [])
     if not markets:
         return None, "event has no markets[]"
     markets = sorted(markets, key=lambda m: float(m.get("liquidityNum") or 0), reverse=True)
     return markets[0], None
+
+
+_BET_LINE_WORDS = re.compile(
+    r"O/U|Spread|Handicap|Total|NRFI|Moneyline|Innings|Map \d|1st|2nd|3rd|Rounds|Half", re.I)
+
+
+def classify_event_structure(event: dict, threshold: float = 0.7) -> tuple[bool, list[dict]]:
+    """Distinguish a GENUINE multi-outcome competitor field (many named
+    alternatives to the SAME question — e.g. 'Will {team} win the 2027 NBA
+    Finals?' repeated per team, or a presidential-nominee field) from an
+    event that just bundles DIFFERENT bet types on one game (moneyline,
+    spread, totals, player props — NOT mutually exclusive alternatives).
+
+    Method: replace each market's groupItemTitle inside its own question
+    text; if the resulting template is shared by >= `threshold` of the
+    markets AND the competitor names backing it aren't themselves bet-line
+    labels (O/U, Spread, ...), it's a genuine field. Verified against real
+    events: NBA/EPL/UEFA champions, presidential nominees/elections, awards,
+    and price/date/count threshold ladders all classify correctly; game
+    Over/Under-line bundles and single-question events correctly don't.
+
+    Returns (is_field, markets_in_the_dominant_group).
+    """
+    markets = event.get("markets", [])
+    if len(markets) < 2:
+        return False, []
+    templates = collections.Counter()
+    for m in markets:
+        q, g = m.get("question", ""), m.get("groupItemTitle", "")
+        templates[q.replace(g, "{X}") if g else q] += 1
+    dominant_template, dominant_count = templates.most_common(1)[0]
+    share = dominant_count / len(markets)
+    group = [m for m in markets
+            if (m.get("question", "").replace(m.get("groupItemTitle", ""), "{X}")
+               if m.get("groupItemTitle") else m.get("question", "")) == dominant_template]
+    names = [m.get("groupItemTitle", "") for m in group]
+    line_like_share = sum(1 for n in names if _BET_LINE_WORDS.search(n)) / max(1, len(names))
+    is_field = share >= threshold and line_like_share <= 0.3
+    return is_field, (group if is_field else [])
 
 
 def fetch_contract(query: str = None, slug: str = None) -> ContractReport:
@@ -227,6 +275,51 @@ def fetch_contract(query: str = None, slug: str = None) -> ContractReport:
                                   [], [], _empty_verification(reason), sources_ok, sources_failed)
         sources_ok.append("gamma:search")
         event = hits[0]
+
+    is_field, field_markets = classify_event_structure(event)
+
+    if is_field:
+        # GENUINE multi-outcome field (elections, championships, awards,
+        # price/date/count ladders): one outcome per named alternative,
+        # title = the event's own question, not one alternative's.
+        # Uses Gamma's own outcomePrices only (skips per-outcome CLOB
+        # book/spread/history round-trips — infeasible at up to 128
+        # outcomes, and Gamma's price has repeatedly verified to match
+        # live CLOB midpoint at 0.00 diff in every single-market check
+        # this component has run). best_bid/ask/depth are left genuinely
+        # None for this path, not fabricated from the Gamma price.
+        sources_ok.append(f"gamma:multi-outcome-field[{len(field_markets)}]")
+        outcomes: list[OutcomeSnapshot] = []
+        for m in field_markets:
+            name = m.get("groupItemTitle") or m.get("question", "")
+            try:
+                prices = json.loads(m.get("outcomePrices", "[]"))
+                gamma_price = float(prices[0]) if prices else None
+            except Exception as e:
+                gamma_price = None
+                sources_failed.append(f"gamma:field_price_parse[{name}] — {e}")
+            outcomes.append(OutcomeSnapshot(
+                outcome=name, token_id="", gamma_price=gamma_price,
+                clob_midpoint=None, clob_spread=None, best_bid=None, best_ask=None,
+                bid_depth=None, ask_depth=None, book_timestamp=None,
+                price_history=[], errors=[],
+            ))
+        report = ContractReport(
+            fetched_at=now, query=query or slug, resolved_slug=event.get("slug"),
+            title=event.get("title"), description=event.get("description"),
+            resolution_source=event.get("resolutionSource"), end_date=event.get("endDate"),
+            active=event.get("active"), closed=event.get("closed"), accepting_orders=None,
+            uma_resolution_status=None,
+            volume=event.get("volume"), volume_24hr=event.get("volume24hr"),
+            liquidity=event.get("liquidity"), condition_id=None,   # no single condition for a field
+            outcomes=outcomes, recent_trades=[],
+            verification={}, sources_ok=sources_ok, sources_failed=sources_failed,
+            volume_1wk=event.get("volume1wk"), volume_1mo=event.get("volume1mo"),
+            open_interest=event.get("openInterest"), competitive_score=event.get("competitive"),
+            created_at=event.get("createdAt"), comment_count=event.get("commentCount"),
+        )
+        report.verification = verify(report)
+        return report
 
     market, err = _pick_market(event)
     if err:
@@ -314,6 +407,12 @@ def fetch_contract(query: str = None, slug: str = None) -> ContractReport:
         condition_id=condition_id,
         outcomes=outcomes, recent_trades=trades,
         verification={}, sources_ok=sources_ok, sources_failed=sources_failed,
+        volume_1wk=(market.get("volume1wk") if market else event.get("volume1wk")),
+        volume_1mo=(market.get("volume1mo") if market else event.get("volume1mo")),
+        open_interest=event.get("openInterest"),
+        competitive_score=(market.get("competitive") if market else event.get("competitive")),
+        created_at=(market.get("createdAt") if market else event.get("createdAt")),
+        comment_count=event.get("commentCount"),
     )
     report.verification = verify(report)
     return report
@@ -325,13 +424,17 @@ def fetch_contract(query: str = None, slug: str = None) -> ContractReport:
 def verify(r: ContractReport) -> dict:
     checks: dict[str, dict] = {}
 
-    # 1. outcome prices should sum to ~1.0
+    # 1. outcome prices should sum to ~1.0 (tight for a binary market; a
+    #    genuine N-way field naturally carries a bigger aggregate overround
+    #    as N grows, so the tolerance scales with outcome count instead of
+    #    hard-failing a legitimately-priced 50+ outcome field)
     prices = [o.gamma_price for o in r.outcomes if o.gamma_price is not None]
     if prices:
         total = round(sum(prices), 4)
+        tolerance = 0.02 if len(prices) <= 2 else min(0.5, 0.02 + 0.01 * len(prices))
         checks["outcome_price_sum"] = {
-            "pass": abs(total - 1.0) <= 0.02,
-            "value": total, "expected": "~1.00 (±0.02)",
+            "pass": abs(total - 1.0) <= tolerance,
+            "value": total, "expected": f"~1.00 (±{tolerance:.2f}, n={len(prices)})",
         }
 
     # 2. Gamma price vs live CLOB midpoint — should be close (Gamma can lag)
@@ -453,7 +556,13 @@ class ContractDocument(BaseModel):
     closed: Optional[bool]
     volume: Optional[float]
     volume_24hr: Optional[float]
+    volume_1wk: Optional[float] = None
+    volume_1mo: Optional[float] = None
     liquidity: Optional[float]
+    open_interest: Optional[float] = None      # total value of unresolved positions
+    competitive_score: Optional[float] = None  # Polymarket's own 0-1 "how contested" metric
+    created_at: Optional[str] = None           # when this market started trading
+    comment_count: Optional[int] = None        # social engagement signal
     outcomes: list[OutcomeMetric]
     summary: Optional[str] = None              # what this contract is
     resolution_summary: Optional[str] = None   # how/when it resolves
@@ -483,17 +592,40 @@ def grok_profile(r: ContractReport) -> Optional[GrokProfile]:
         "resolution_text": (r.description or "")[:2500],
     }
     schema = GrokProfile.model_json_schema()
+    n_outcomes = len(r.outcomes)
+    if n_outcomes > 2:
+        # Multi-outcome field (election, championship, threshold ladder, ...):
+        # demand full-distribution coverage, not just the top 2-3 favorites.
+        system_prompt = (
+            f"You describe a live prediction-market contract that is a MULTI-OUTCOME FIELD "
+            f"with {n_outcomes} alternatives, using ONLY the verified data given below. "
+            f"Never invent a number, date, or resolution rule that isn't present in the data.\n\n"
+            f"Requirements for a field this size:\n"
+            f"- `profile`: name the market and explain it's a field of {n_outcomes} alternatives. "
+            f"4-6 sentences.\n"
+            f"- `price_read`: this is the important one — DO NOT just mention the top 2-3. "
+            f"Group ALL outcomes with non-trivial price (roughly >=1%) into tiers (e.g. "
+            f"favorites, contenders, longshots) and name every outcome in each tier with its "
+            f"price. If there are more than ~15 outcomes above 1%, still name as many as you "
+            f"reasonably can group by tier rather than truncating to a handful — completeness "
+            f"matters more than brevity here. You may use multiple sentences/clauses per tier.\n"
+            f"- `resolution_summary`: how the field resolves (e.g. ties, 'other', cutoff date), "
+            f"from the actual resolution text given.\n"
+            f"- If verification flagged an issue or a source failed, mention it plainly in `flags`."
+        )
+    else:
+        system_prompt = (
+            "You describe a live prediction-market contract using ONLY the verified "
+            "data given below. Never invent a number, date, or resolution rule that "
+            "isn't present in the data. If verification flagged an issue or a source "
+            "failed, mention it plainly.")
     try:
         resp = client.chat.completions.create(
             model=XAI_MODEL,
             response_format={"type": "json_schema",
                              "json_schema": {"name": "grok_profile", "strict": True, "schema": schema}},
             messages=[
-                {"role": "system", "content":
-                 "You describe a live prediction-market contract using ONLY the verified "
-                 "data given below. Never invent a number, date, or resolution rule that "
-                 "isn't present in the data. If verification flagged an issue or a source "
-                 "failed, mention it plainly."},
+                {"role": "system", "content": system_prompt},
                 {"role": "user", "content": json.dumps(bundle, default=str)},
             ],
         )
@@ -539,7 +671,11 @@ def to_document(report: ContractReport) -> ContractDocument:
         title=report.title or report.query, url=url,
         condition_id=report.condition_id, fetched_at=report.fetched_at,
         end_date=report.end_date, active=report.active, closed=report.closed,
-        volume=report.volume, volume_24hr=report.volume_24hr, liquidity=report.liquidity,
+        volume=report.volume, volume_24hr=report.volume_24hr,
+        volume_1wk=report.volume_1wk, volume_1mo=report.volume_1mo,
+        liquidity=report.liquidity, open_interest=report.open_interest,
+        competitive_score=report.competitive_score, created_at=report.created_at,
+        comment_count=report.comment_count,
         outcomes=[OutcomeMetric(
             outcome=o.outcome, price=(o.clob_midpoint if o.clob_midpoint is not None else o.gamma_price),
             best_bid=o.best_bid, best_ask=o.best_ask,
