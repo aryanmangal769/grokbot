@@ -8,7 +8,8 @@
   :root{
     --bg:#000; --panel:#16181c; --panel-hover:#1d1f23; --border:#2f3336;
     --text:#e7e9ea; --muted:#71767b; --blue:#1d9bf0; --blue-h:#1a8cd8;
-    --green:#00ba7c; --pink:#f91880;
+    --green:#00ba7c; --pink:#f91880; --hover:rgba(231,233,234,.03);
+    --hover2:rgba(231,233,234,.1);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{background:var(--bg);color:var(--text);
@@ -16,8 +17,55 @@
     -webkit-font-smoothing:antialiased}
   a{color:inherit;text-decoration:none}
   svg{fill:currentColor}
-  .wrap{max-width:600px;margin:0 auto;border-left:1px solid var(--border);
-    border-right:1px solid var(--border);min-height:100vh}
+  /* same three-column geometry as index.html: 275 + 600 + 350 in a 1290 shell */
+  .app{display:flex;justify-content:center;max-width:1290px;margin:0 auto}
+  .wrap{width:600px;flex:0 0 600px;min-height:100vh;
+    border-left:1px solid var(--border);border-right:1px solid var(--border)}
+  .right{width:350px;flex:0 0 350px;padding:0 0 40px 28px;height:100vh;position:sticky;top:0;
+    overflow-y:auto} .right::-webkit-scrollbar{display:none}
+  @media(max-width:1100px){.right{display:none}}
+
+  /* LEFT NAV — copied from index.html so the market view keeps the same chrome */
+  .left{width:275px;flex:0 0 275px;height:100vh;position:sticky;top:0;
+    display:flex;flex-direction:column;padding:0 12px;align-items:flex-start}
+  .logo{padding:12px;margin:4px 0;border-radius:50%;display:inline-flex;cursor:pointer}
+  .logo:hover{background:var(--hover2)} .logo svg{width:28px;height:28px}
+  .nav{display:flex;flex-direction:column;gap:2px;width:100%}
+  .nav-item{display:flex;align-items:center;gap:20px;padding:12px;border-radius:9999px;
+    font-size:20px;cursor:pointer;width:fit-content;position:relative}
+  .nav-item svg{width:26px;height:26px} .nav-item:hover{background:var(--hover2)}
+  .nav-item.active{font-weight:700}
+  .nav-item .badge{position:absolute;left:26px;top:6px;background:var(--blue);color:#fff;
+    font-size:11px;font-weight:700;border-radius:9999px;padding:0 5px;min-width:18px;text-align:center}
+  .post-btn{background:var(--blue);color:#fff;border:none;font-size:17px;font-weight:700;
+    width:90%;padding:16px;border-radius:9999px;margin-top:16px;cursor:pointer}
+  .post-btn:hover{background:var(--blue-h)}
+  .account{margin-top:auto;margin-bottom:12px;display:flex;align-items:center;gap:12px;
+    padding:11px;border-radius:9999px;cursor:pointer;width:100%}
+  .account:hover{background:var(--hover2)}
+  .account .avatar{width:40px;height:40px;font-size:15px}
+  .account .meta{line-height:1.3;overflow:hidden;flex:1}
+  .account .meta .name{font-weight:700;font-size:15px}
+  .account .meta .handle{color:var(--muted);font-size:15px}
+  .account .dots{color:var(--text)}
+  .avatar{border-radius:50%;flex:0 0 auto;display:flex;align-items:center;
+    justify-content:center;font-weight:800;color:#fff;overflow:hidden}
+  .search{position:sticky;top:0;background:var(--bg);padding:8px 0;z-index:5}
+  .search .field{background:var(--panel);border:1px solid transparent;border-radius:9999px;
+    display:flex;align-items:center;gap:12px;padding:11px 16px}
+  .search .field:focus-within{background:transparent;border-color:var(--blue)}
+  .search svg{width:20px;height:20px;color:var(--muted)}
+  .search input{background:transparent;border:none;outline:none;color:var(--text);font-size:15px;width:100%}
+  .card{background:var(--panel);border-radius:16px;margin-top:16px;overflow:hidden}
+  .card h2{font-size:20px;font-weight:800;padding:12px 16px}
+  .premium p{font-size:13px;padding:0 16px 4px;line-height:1.4}
+  .premium .d{font-weight:800;font-size:20px;padding:0 16px 8px}
+  .premium button{margin:8px 16px 16px;background:var(--blue);color:#fff;border:none;
+    font-weight:700;padding:8px 16px;border-radius:9999px;cursor:pointer;font-size:15px}
+  .footer{font-size:13px;color:var(--muted);padding:16px;line-height:1.7}
+  .footer a{margin-right:8px} .footer a:hover{text-decoration:underline}
+
+  .mock-note{font-size:11px;color:var(--muted);padding:10px 16px;border-top:1px solid rgba(47,51,54,.5)}
   .top{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:22px;
     padding:12px 16px;backdrop-filter:blur(12px);background:rgba(0,0,0,.65);
     border-bottom:1px solid var(--border)}
@@ -56,8 +104,10 @@
   /* charts */
   .chart{margin:14px 0}
   .chart .ct{font-size:13px;color:var(--muted);margin-bottom:8px}
-  .bar{display:flex;align-items:center;gap:10px;margin:6px 0;font-size:13px}
-  .bar .bl{width:120px;flex:0 0 120px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .bar{display:flex;align-items:center;gap:10px;margin:8px 0;font-size:13px}
+  /* camp names run long, so the label wraps instead of being clipped */
+  .bar .bl{width:190px;flex:0 0 190px;color:var(--text);white-space:normal;
+    line-height:1.3;word-break:break-word}
   .bar .track{flex:1;height:16px;background:#2f3336;border-radius:6px;overflow:hidden}
   .bar .fill{height:100%;border-radius:6px;background:var(--blue)}
   .bar .fill.yes{background:var(--green)} .bar .fill.no{background:var(--pink)}
@@ -80,6 +130,11 @@
   .video{margin-top:12px;border:1px solid var(--border);border-radius:16px;overflow:hidden;
     aspect-ratio:16/9;background:linear-gradient(135deg,#111,#1d1f23);display:flex;
     flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--muted)}
+  .sidevid{padding:12px}
+  .sidevid h2{font-size:17px;font-weight:800;margin-bottom:8px}
+  .sidevid video.video{margin-top:0;max-height:420px}
+  /* real clips are portrait; contain keeps them whole inside the same frame */
+  video.video{width:100%;height:auto;aspect-ratio:auto;max-height:70vh;object-fit:contain;background:#000}
   .video .play{width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.12);
     display:flex;align-items:center;justify-content:center}
   .video .play svg{width:28px;height:28px;color:#fff}
@@ -94,7 +149,24 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="app">
+  <nav class="left">
+    <a class="logo"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+    <div class="nav">
+      <a class="nav-item active" href="index.html"><svg viewBox="0 0 24 24"><path d="M21.591 7.146L12.52 1.157c-.316-.21-.724-.21-1.04 0l-9.071 5.99c-.26.173-.409.456-.409.757v13.183c0 .502.418.913.929.913H9.14c.51 0 .929-.41.929-.913v-7.075h3.909v7.075c0 .502.417.913.928.913h6.165c.511 0 .929-.41.929-.913V7.904c0-.301-.158-.584-.408-.758z"/></svg><span>Home</span></a>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M10.25 3.75c-3.59 0-6.5 2.91-6.5 6.5s2.91 6.5 6.5 6.5c1.795 0 3.419-.726 4.596-1.904 1.178-1.177 1.904-2.801 1.904-4.596 0-3.59-2.91-6.5-6.5-6.5zm-8.5 6.5c0-4.694 3.806-8.5 8.5-8.5s8.5 3.806 8.5 8.5c0 1.986-.682 3.815-1.824 5.262l4.781 4.781-1.414 1.414-4.781-4.781c-1.447 1.142-3.276 1.824-5.262 1.824-4.694 0-8.5-3.806-8.5-8.5z"/></svg><span>Explore</span></div>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M19.993 9.042C19.48 5.017 16.054 2 11.996 2s-7.49 3.021-7.999 7.051L2.866 18H7.1c.463 2.282 2.481 4 4.9 4s4.437-1.718 4.9-4h4.236zM12 20c-1.312 0-2.412-.897-2.732-2.111h5.463c-.32 1.214-1.42 2.111-2.731 2.111zm-6.895-4l.867-6.836C6.35 6.041 8.98 4 11.996 4s5.645 2.041 6.024 5.164L18.887 16z"/></svg><span>Notifications</span><span class="badge">3</span></div>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M1.998 5.5c0-1.381 1.119-2.5 2.5-2.5h15c1.381 0 2.5 1.119 2.5 2.5v13c0 1.381-1.119 2.5-2.5 2.5h-15c-1.381 0-2.5-1.119-2.5-2.5zm2.5-.5c-.276 0-.5.224-.5.5v2.764l8 3.638 8-3.636V5.5c0-.276-.224-.5-.5-.5zm15.5 5.463l-8 3.636-8-3.638V18.5c0 .276.224.5.5.5h15c.276 0 .5-.224.5-.5z"/></svg><span>Messages</span></div>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M13.833 20.615l7.933-14.24c.288-.517.09-1.17-.442-1.46-.532-.288-1.2-.098-1.502.42L13.5 16.15V4c0-.552-.447-1-1-1s-1 .448-1 1v12.15L5.678 5.335c-.302-.518-.97-.708-1.502-.42-.532.29-.73.943-.442 1.46l7.933 14.24c.316.567 1.05.783 1.617.483.204-.108.375-.28.483-.483z"/></svg><span>Grok</span></div>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M7.501 19.917L7.471 21H.472l.029-1.027c.184-6.618 3.736-8.977 7-8.977.963 0 1.95.212 2.87.672-.444.478-.851 1.03-1.207 1.665-.529-.203-1.087-.337-1.663-.337-2.11 0-4.578 1.31-4.968 6zM24 9c0 2.208-1.792 4-4 4s-4-1.792-4-4 1.792-4 4-4 4 1.792 4 4zm-2 0c0-1.104-.896-2-2-2s-2 .896-2 2 .896 2 2 2 2-.896 2-2zM8.5 6.5C8.5 4.292 6.708 2.5 4.5 2.5S.5 4.292.5 6.5s1.792 4 4 4 4-1.792 4-4zm-2 0c0 1.104-.896 2-2 2s-2-.896-2-2 .896-2 2-2 2 .896 2 2zm11.999 13.417L18.529 21H23.5l-.029-1.027c-.184-6.618-3.736-8.977-7-8.977-.259 0-.518.017-.775.05 3.298.635 6.198 3.244 6.803 8.871z"/></svg><span>Communities</span></div>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg><span>Premium</span></div>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M5.651 19h12.698c-.337-1.8-1.023-3.21-1.945-4.19C15.318 13.65 13.838 13 12 13s-3.317.65-4.404 1.81c-.922.98-1.608 2.39-1.945 4.19zm.486-5.56C7.627 11.85 9.648 11 12 11s4.373.85 5.863 2.44c1.477 1.58 2.366 3.8 2.632 6.46l.11 1.1H3.395l.11-1.1c.266-2.66 1.155-4.88 2.632-6.46zM12 4c-1.105 0-2 .9-2 2s.895 2 2 2 2-.9 2-2-.895-2-2-2zM8 6c0-2.21 1.791-4 4-4s4 1.79 4 4-1.791 4-4 4-4-1.79-4-4z"/></svg><span>Profile</span></div>
+      <div class="nav-item"><svg viewBox="0 0 24 24"><path d="M3 12c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm9 2c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm7 0c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/></svg><span>More</span></div>
+    </div>
+    <button class="post-btn">Post</button>
+    <div class="account"><div class="avatar" style="width:40px;height:40px;background:linear-gradient(135deg,#0a3d91,#d00027)">CR</div><div class="meta"><div class="name">Cristiano Ronaldo</div><div class="handle">@Cristiano</div></div><div class="dots">···</div></div>
+  </nav>
+  <div class="wrap">
   <div class="top">
     <div class="back" onclick="history.length>1?history.back():location.href='index.html'">
       <svg viewBox="0 0 24 24"><path d="M7.414 13l5.043 5.04-1.414 1.42L3.586 12l7.457-7.46 1.414 1.42L7.414 11H21v2z"/></svg>
@@ -102,6 +174,24 @@
     <h1>Market</h1>
   </div>
   <div id="content"><div class="sec muted">Loading…</div></div>
+  </div>
+  <aside class="right">
+    <div class="search"><div class="field">
+      <svg viewBox="0 0 24 24"><path d="M10.25 3.75c-3.59 0-6.5 2.91-6.5 6.5s2.91 6.5 6.5 6.5c1.795 0 3.419-.726 4.596-1.904 1.178-1.177 1.904-2.801 1.904-4.596 0-3.59-2.91-6.5-6.5-6.5zm-8.5 6.5c0-4.694 3.806-8.5 8.5-8.5s8.5 3.806 8.5 8.5c0 1.986-.682 3.815-1.824 5.262l4.781 4.781-1.414 1.414-4.781-4.781c-1.447 1.142-3.276 1.824-5.262 1.824-4.694 0-8.5-3.806-8.5-8.5z"/></svg>
+      <input placeholder="Search"></div>
+    </div>
+    <div id="sideVideo"></div>
+    <div class="card premium">
+      <h2>Subscribe to Premium</h2>
+      <p>Subscribe to unlock new features and if eligible, receive a share of revenue.</p>
+      <button>Subscribe</button>
+    </div>
+    <div class="footer">
+      <a href="#">Terms of Service</a><a href="#">Privacy Policy</a><a href="#">Cookie Policy</a>
+      <a href="#">Accessibility</a><a href="#">Ads info</a><a href="#">More ···</a>
+      <div style="margin-top:4px">© 2026 X Corp.</div>
+    </div>
+  </aside>
 </div>
 
 <script>
@@ -124,12 +214,23 @@ function barChart(plot){
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,ch=>(
   {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
 
+// Some posts run to several hundred words. Show the opening and let "View on X"
+// carry the rest, rather than burying the camp in one long wall of text.
+const TWEET_MAX=280;
+function clip(s){
+  s=String(s==null?'':s).trim();
+  if(s.length<=TWEET_MAX) return {text:s,cut:false};
+  let end=s.lastIndexOf(' ',TWEET_MAX);
+  if(end<TWEET_MAX*0.6) end=TWEET_MAX;      // no space to break on, hard cut
+  return {text:s.slice(0,end).replace(/[\s,.;:—-]+$/,'')+'…',cut:true};
+}
+
 function camp(c){
   const tws=['tweet1','tweet2','tweet3'].filter(k=>c[k]).map(k=>{const t=c[k];
     const h=String(t.handle||'').replace(/^@/,'');
     return `<div class="tw"><div class="th"><img class="av" src="https://unavatar.io/x/${encodeURIComponent(h)}" alt="" loading="lazy" onerror="this.classList.add('noimg')">
       <span class="hn">${t.handle}</span>${vf}</div>
-      <div class="ts">${esc(t.text||t.summary)}</div><a class="tl" href="${t.url}" target="_blank">View on X</a></div>`;}).join('');
+      <div class="ts">${esc(clip(t.text||t.summary).text)}</div><a class="tl" href="${t.url}" target="_blank">${clip(t.text||t.summary).cut?'Show more on X':'View on X'}</a></div>`;}).join('');
   return `<div class="camp"><div class="cn">${c.name} <span class="tag">camp</span></div>${tws}</div>`;
 }
 
@@ -151,6 +252,14 @@ fetch('markets.json').then(r=>r.json()).then(markets=>{
           <div class="sub">from ${(rep.num_tweets/1000).toFixed(1)}K posts</div></div>
         <div class="ho"><div class="l">Resolves</div><div class="v" style="font-size:18px">${fdate(m.end_date)}</div></div>
       </div>
+    </div>
+
+    <!-- buy -->
+    <div class="buybar">
+      <button class="buy" id="buy">
+        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        Buy with X money
+      </button>
     </div>
 
     <!-- graphs from this market's topic opinion report -->
@@ -195,22 +304,13 @@ fetch('markets.json').then(r=>r.json()).then(markets=>{
       ${camp(rep.top_tweets.camp2)}
     </div>
 
-    <!-- video -->
-    <div class="sec">
-      <div class="h2">News summary for you</div>
-      <div class="video"><div class="play">
-        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-        <div class="small">AI news recap · coming soon</div></div>
-    </div>
 
-    <!-- buy -->
-    <div class="buybar">
-      <button class="buy" id="buy">
-        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        Buy with X money
-      </button>
-      <div class="disc">Prototype — no real funds are moved.</div>
-    </div>`;
+`;
+
+  document.getElementById('sideVideo').innerHTML = m.video
+    ? `<div class="card sidevid"><h2>News summary for you</h2>
+       <video class="video" controls preload="metadata" playsinline src="${m.video}"></video></div>`
+    : '';
 
   document.getElementById('buy').addEventListener('click',function(){
     this.classList.add('done');

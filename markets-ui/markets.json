@@ -120,7 +120,8 @@
         "yes": 5,
         "mixed": 20
       }
-    }
+    },
+    "video": "../outputs/summary/report_02_will_brooklyn_nets_win_the_202/summary_image.mp4"
   },
   {
     "id": "0x8acf7dd78e0d46dd1dcd81037dae30dbdb8a51c0943541d79d32b01daf228a2b",
@@ -250,7 +251,8 @@
         "yes": 0,
         "mixed": 8
       }
-    }
+    },
+    "video": "../outputs/summary/report_03_will_mohammed_bin_salman_atten/summary_image.mp4"
   },
   {
     "id": "0xf6f3ab86ba22d9d362e2429701722f15115e4a10a3d790c18f88df2ddff7f4ed",
@@ -383,7 +385,8 @@
         "yes": 15,
         "mixed": 7
       }
-    }
+    },
+    "video": "../outputs/summary/report_06_will_mohamed_salah_win_the_202/summary_image.mp4"
   },
   {
     "id": "0x60613b262912ce2e3138ec5610a31a2f932b6300843c094053cb33aaff9f2238",
@@ -517,7 +520,8 @@
         "yes": 5,
         "mixed": 10
       }
-    }
+    },
+    "video": "../outputs/summary/report_07_will_kai_and_speed_beat_the_mi/summary_image.mp4"
   },
   {
     "id": "0xd961e85c58d27699749eaa069e629519e2f4af701a7c2a02a486dca77e101fdc",
@@ -650,7 +654,8 @@
         "yes": 27,
         "mixed": 15
       }
-    }
+    },
+    "video": "../outputs/summary/report_08_will_manchester_city_win_the_2/summary_image.mp4"
   },
   {
     "id": "0x60c2c085ee8c16bc8f2419739a94971d4c9d00f637ead10fc0f540afa1be64e8",
@@ -787,7 +792,8 @@
         "yes": 4,
         "mixed": 12
       }
-    }
+    },
+    "video": "../outputs/summary/report_01_strait_of_hormuz_traffic_retur/summary_image.mp4"
   },
   {
     "id": "0x6bd56627aa21311850825edb27e53434a0e17a4f782be0086bc07f71eee00d0d",
@@ -920,7 +926,8 @@
         "yes": 42,
         "mixed": 10
       }
-    }
+    },
+    "video": "../outputs/summary/report_04_putin_out_as_president_of_russ/summary_image.mp4"
   },
   {
     "id": "0x377e7fe65cf198a7fc4fdae3f2136b74729279267858daaf96718b23bc2a5607",
@@ -1057,7 +1064,8 @@
         "yes": 55,
         "mixed": 8
       }
-    }
+    },
+    "video": "../outputs/summary/report_09_iran_leadership_change_by_dece/summary_image.mp4"
   },
   {
     "id": "0x513bf1706e9cbf61b7cc56f12803b1b72a522bae3c5157e7b356abdf36e2e72d",
@@ -1195,7 +1203,8 @@
         "yes": 10,
         "mixed": 28
       }
-    }
+    },
+    "video": "../outputs/summary/report_11_will_count_binface_win_the_cla/summary_image.mp4"
   },
   {
     "id": "0x5db999fad322cea2914535aae5517060c3f80ad6d8c0231cde2124a434d16846",
@@ -1332,7 +1341,8 @@
         "yes": 18,
         "mixed": 30
       }
-    }
+    },
+    "video": "../outputs/summary/report_12_will_the_u_s_invade_iran_befor/summary_image.mp4"
   },
   {
     "id": "0x6d3fe00d69ee048011f6ea7d2b5f49a103c013286bd463a8fbc9fe0775392ad7",
@@ -1442,7 +1452,8 @@
         "yes": 0,
         "mixed": 100
       }
-    }
+    },
+    "video": "../outputs/summary/report_05_will_elon_musk_post_40_tweets/summary_image.mp4"
   },
   {
     "id": "0xebdc2da839f2e79706137d22c671e1c3b0bd0f511e4ba9ceb3704a5336a91c7f",
@@ -1575,6 +1586,7 @@
         "yes": 2,
         "mixed": 17
       }
-    }
+    },
+    "video": "../outputs/summary/report_10_will_the_total_domestic_gross/summary_image.mp4"
   }
 ]
