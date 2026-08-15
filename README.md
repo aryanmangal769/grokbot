@@ -4,7 +4,7 @@
 
 ### Demo — Markets UI
 
-<video src="docs/markets-ui-demo.mp4" controls width="720" playsinline>
+<video src="https://github.com/aryanmangal769/grokbot/releases/download/demo-assets/markets-ui-demo.mp4" controls width="720" playsinline>
   <a href="docs/markets-ui-demo.mp4">Watch the Markets UI demo (mp4)</a>
 </video>
 
