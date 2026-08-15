@@ -1,8 +1,14 @@
 # grokbot
 
-Polymarket × X opinion intelligence: scrape public X activity, classify user interests with Grok, harvest topic discussion, synthesize camp-level reports, then surface them in an X-style markets UI with auto-generated explainer videos.
+**grokbot** turns live Polymarket questions and public X (Twitter) conversation into something you can actually browse: it scrapes timelines, labels user interests with Grok, harvests topic threads, synthesizes two-sided camp reports (leaning, volume, top posts), then ships that into an X-style Markets UI plus short explainer videos (Grok Imagine + ffmpeg). This repo is the end-to-end pipeline and the product surface for that loop.
 
-**Demo** (Markets UI walkthrough): [`docs/markets-ui-demo.mp4`](docs/markets-ui-demo.mp4) · Pipeline map: [`docs/pipeline-flow.html`](docs/pipeline-flow.html)
+### Demo — Markets UI
+
+<video src="docs/markets-ui-demo.mp4" controls width="720" playsinline>
+  <a href="docs/markets-ui-demo.mp4">Watch the Markets UI demo (mp4)</a>
+</video>
+
+Pipeline map: [`docs/pipeline-flow.html`](docs/pipeline-flow.html)
 
 ```
 X user activity ──► Interest agent ──┐
