@@ -1,6 +1,14 @@
-# grokbot (prod)
+# grokbot
 
-Core production features: requirements + venv setup, user-based scraper, and user interest classifier.
+Polymarket × X opinion intelligence: scrape public X activity, classify user interests with Grok, harvest topic discussion, synthesize camp-level reports, then surface them in an X-style markets UI with auto-generated explainer videos.
+
+**Demo** (Markets UI walkthrough): [`docs/markets-ui-demo.mp4`](docs/markets-ui-demo.mp4) · Pipeline map: [`docs/pipeline-flow.html`](docs/pipeline-flow.html)
+
+```
+X user activity ──► Interest agent ──┐
+Polymarket odds ─────────────────────┼──► Report agent (Grok) ──► Markets UI
+X topic harvest + opinion threads ───┘              └──► Explainer video
+```
 
 One repo, one `.env`:
 
@@ -8,31 +16,32 @@ One repo, one `.env`:
 |------|------|-----|
 | **User scraper** | `user_based_scraper/` | `python -m user_based_scraper.user` · `./user_based_scraper/ask.sh` |
 | **Interest classifier** | `user_interest_classifier/` | `python -m user_interest_classifier.classify` · `./user_interest_classifier/ask.sh` |
-| **Summary video** | `summary/` | `python -m summary.imagine_brief --input camps.json` · see `summary/README.md` |
-| **Grok / xAI demos** | `api_usage_demo/grok/` | `python -m api_usage_demo.grok.client` · `./api_usage_demo/grok/ask.sh` |
-| **X / Twitter demos** | `api_usage_demo/twitter/` | `python -m api_usage_demo.twitter.client` · `./api_usage_demo/twitter/ask.sh` |
-| **X search extractor** | `x_search/` | `python -m x_search.extract` · `./x_search/ask.sh` |
-| **Polymarket X report** | `polymarket_x_report.py` | `python polymarket_x_report.py input.json` |
+| **X topic harvest** | `x_search_public/` | topic search → posts + volume |
+| **Polymarket contract** | `polymarket_contract/` | live odds / liquidity (Gamma · CLOB · Data API) |
+| **Report agent** | `polymarket_x_report.py` | `python polymarket_x_report.py input.json` |
+| **Explainer video** | `summary/` | `python -m summary.imagine_brief --input camps.json` |
+| **Markets UI** | `markets-ui/` | serve folder → `index.html` / `event.html` |
+| **Grok / X demos** | `api_usage_demo/` | `./api_usage_demo/grok/ask.sh` · `./api_usage_demo/twitter/ask.sh` |
 
 ```
 grokbot/
-├── .env
-├── common/
-├── api_usage_demo/           # small API how-to clients (used by scraper/classifier)
-│   ├── grok/
-│   └── twitter/
-├── x_search/                 # topic → X dataset (xAI x_search)
-├── user_based_scraper/       # public user timeline export
-├── user_interest_classifier/ # scrape → Grok interest labels
-├── data/                     # harvested datasets
-└── docs/
+├── markets-ui/               # X-style feed + event pages (odds, camps, video)
+├── docs/                     # pipeline overview + UI demo clip
+├── user_based_scraper/       # public timeline export
+├── user_interest_classifier/ # timeline → Grok personas / interests
+├── x_search_public/          # topic harvest + opinion threads
+├── polymarket_contract/      # verified market data
+├── polymarket_x_report.py    # hub: camps, leaning, tweet synthesis → DB/UI/video
+├── summary/                  # Grok Imagine + ffmpeg explainer mp4
+├── api_usage_demo/           # grok/ + twitter/ clients
+└── common/                   # shared env helpers
 ```
 
 ## Setup (venv + requirements)
 
 ```bash
 cp .env.example .env
-# fill XAI_API_KEY + X_* credentials
+# fill XAI_API_KEY + X_* credentials (+ DATABASE_URL for batch reports)
 
 python3 -m venv .venv
 source .venv/bin/activate
@@ -42,7 +51,14 @@ chmod +x user_based_scraper/ask.sh user_interest_classifier/ask.sh \
   summary/ask.sh
 ```
 
-The `user_based_scraper` and `user_interest_classifier` (and their supporting modules) are the core on this prod branch.
+## Markets UI
+
+Static dashboard: persona-filtered home feed and event pages with odds, camp posts, charts, and explainer video.
+
+```bash
+# from repo root so ../outputs/... video paths resolve
+python3 -m http.server 8011
+open http://localhost:8011/markets-ui/index.html
 ```
 
 ## API usage demos
@@ -55,48 +71,39 @@ python -m api_usage_demo.twitter.client user elonmusk
 ./api_usage_demo/twitter/ask.sh me
 ```
 
-## X search extractor
+## X topic harvest
 
-Topic → high-recall X post dataset via xAI `x_search` + optional X API hydration. See [`x_search/README.md`](x_search/README.md).
-
-```bash
-python -m x_search.extract "brazil presidential elections" --outdir data/brazil-elections
-./x_search/ask.sh "world cup" --window 24 --slices 6
-```
+Topic → high-recall X post dataset (search + optional hydration). See `x_search_public/`.
 
 ## Polymarket X report
 
-Send a pre-fetched discussion JSON (with `topic`, `global`, and `posts`) to Grok
-and write a compact, machine-readable report. It uses `grok-4.5` and requires
-`XAI_API_KEY` in `.env`.
+Send discussion JSON (`topic`, `global`, `posts`) to Grok and write a compact report. Uses `grok-4.5`; needs `XAI_API_KEY`.
 
 ```bash
 python polymarket_x_report.py input.json --output report.json
-# or: python polymarket_x_report.py - < input.json > report.json
 ```
 
-The report contains the exact topic, a tweet/reply synthesis, the top three
-source posts for each of two camps, `X_leaning` (`yes`, `no`, or `mixed`), and
-the supplied total topic tweet volume (`num_tweets`), rather than the number of
-sampled posts. The script refuses malformed input or an
-invalid model response rather than silently emitting an unreliable report.
+Output: topic, tweet/reply synthesis, top three posts per camp, `X_leaning` (`yes` / `no` / `mixed`), and topic volume (`num_tweets`). Malformed input or bad model responses are refused rather than inventing a report.
 
 ### PostgreSQL / Supabase batch mode
 
-With `DATABASE_URL` set, analyze each unprocessed row in
-`public.topic_opinions` and upsert its report into
-`public.topic_opinion_reports`:
+With `DATABASE_URL`, analyze unprocessed `public.topic_opinions` rows and upsert into `public.topic_opinion_reports`:
 
 ```bash
 export DATABASE_URL='postgresql://...'
 python polymarket_x_report.py --from-db
 ```
 
-The source collection must include `num_tweets` (either at its top level or
-under `totals`). This is the total topic volume—not the count of sampled posts
-or threads—and the batch job skips nothing by silently substituting a sample
-count. Use `--force` to regenerate existing reports and `--limit N` for a
-bounded batch.
+Use `--force` to regenerate and `--limit N` for a bounded batch.
+
+## Explainer video
+
+Camp JSON → Grok monologue → tweet cards → Grok Imagine host clips → ffmpeg PiP (`summary_imagine.mp4`). See [`summary/README.md`](summary/README.md).
+
+```bash
+python -m summary.imagine_brief --input path/to/camps.json -o outputs/summary/run
+./summary/ask.sh --input path/to/camps.json
+```
 
 ## User-based scraper
 
@@ -109,7 +116,7 @@ python -m user_based_scraper.user elonmusk --max-pages 3 -o outputs/elon.json
 
 ## User interest classifier
 
-Scrapes the public timeline, then asks Grok (xAI API) to label interests. Saves to `outputs/<user>_interests.json` by default.
+Scrapes the public timeline, then asks Grok to label interests. Default output: `outputs/<user>_interests.json`.
 
 ```bash
 python -m user_interest_classifier.classify elonmusk --max-pages 2

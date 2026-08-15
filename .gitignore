@@ -19,6 +19,7 @@ build/
 *.webp
 *.mp4
 *.webm
+!docs/markets-ui-demo.mp4
 outputs/
 
 # OS / editor
