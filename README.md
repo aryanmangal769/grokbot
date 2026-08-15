@@ -4,11 +4,9 @@
 
 ### Demo — Markets UI
 
-<video src="https://github.com/aryanmangal769/grokbot/releases/download/demo-assets/markets-ui-demo.mp4" controls width="720" playsinline>
-  <a href="docs/markets-ui-demo.mp4">Watch the Markets UI demo (mp4)</a>
-</video>
+![Markets UI 15s demo](docs/markets-ui-demo.gif)
 
-Pipeline map: [`docs/pipeline-flow.html`](docs/pipeline-flow.html)
+[Full quality mp4](docs/markets-ui-demo.mp4)
 
 ```
 X user activity ──► Interest agent ──┐
